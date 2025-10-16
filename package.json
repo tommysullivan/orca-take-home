@@ -1,0 +1,35 @@
+{
+  "name": "ocra",
+  "version": "1.0.0",
+  "description": "OCRA TypeScript application with PostgreSQL and PostGIS",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "db:migrate": "tsx src/migrations/migrate.ts",
+    "db:migrate:down": "tsx src/migrations/migrate-down.ts",
+    "db:seed": "tsx src/migrations/seed.ts",
+    "db:setup": "npm run db:migrate && npm run db:seed && npm run db:generate-types",
+    "db:create-migration": "tsx src/migrations/create-migration.ts",
+    "db:generate-types": "kysely-codegen --url $DATABASE_URL --out-file src/types/database-generated.ts",
+    "test:connection": "tsx src/test-connection.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": ["typescript", "postgresql", "postgis", "kysely"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0",
+    "kysely-codegen": "^0.11.0"
+  },
+  "dependencies": {
+    "kysely": "^0.27.0",
+    "pg": "^8.11.0",
+    "@types/pg": "^8.10.0",
+    "dotenv": "^16.3.0"
+  }
+}
