@@ -9,7 +9,8 @@
       "extensions": [
         "ms-vscode.vscode-typescript-next",
         "esbenp.prettier-vscode",
-        "ms-vscode.vscode-json"
+        "ms-vscode.vscode-json",
+        "ckolkman.vscode-postgres"
       ],
       "settings": {
         "typescript.preferences.quoteStyle": "single",
