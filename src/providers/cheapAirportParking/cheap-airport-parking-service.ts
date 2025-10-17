@@ -1,4 +1,8 @@
-import { ParkingLocation, ParkingProvider, ApiSearchParams } from "./providers";
+import {
+  ParkingLocation,
+  ParkingProvider,
+  ApiSearchParams,
+} from "../providers";
 
 export interface CheapAirportParkingLocation {
   lot_id: string;

@@ -105,7 +105,7 @@ class LocationService {
   ): Promise<number | null> {
     const result = await dbTypesafe
       .selectFrom("locations as l1")
-      .innerJoin("locations as l2", sql`true`)
+      .innerJoin("locations as l2", (join) => join.onTrue())
       .select(
         sql<number>`ST_Distance(l1.location::geography, l2.location::geography)`.as(
           "distance"
@@ -167,10 +167,11 @@ async function main(): Promise<void> {
   } finally {
     // Close the database connection
     await dbTypesafe.destroy();
+    process.exit(0);
   }
 }
 
 // Run the demo if this file is executed directly
-if (require.main === module) {
-  main();
+if (import.meta.url === `file://${process.argv[1]}`) {
+  await main();
 }

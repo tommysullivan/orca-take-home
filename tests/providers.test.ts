@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { parkWhizService } from "../src/providers/parkwhiz-service";
-import { spotHeroService } from "../src/providers/spothero-service";
-import { cheapAirportParkingService } from "../src/providers/cheap-airport-parking-service";
+import { parkWhizService } from "../src/providers/parkwhiz/parkwhiz-service";
+import { spotHeroService } from "../src/providers/spotHero/spothero-service";
+import { cheapAirportParkingService } from "../src/providers/cheapAirportParking/cheap-airport-parking-service";
 import { ParkingProvider } from "../src/providers/providers";
 
 describe("Parking Provider Services", () => {

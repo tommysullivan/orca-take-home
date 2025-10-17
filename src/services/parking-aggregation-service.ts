@@ -1,15 +1,15 @@
 import { Kysely } from "kysely";
 import { DBTypesafe, dbTypesafe } from "../db/dbTypesafe";
 import { DB } from "../db/types/database-generated";
-import { cheapAirportParkingService } from "../providers/cheap-airport-parking-service";
-import { parkWhizService } from "../providers/parkwhiz-service";
+import { cheapAirportParkingService } from "../providers/cheapAirportParking/cheap-airport-parking-service";
+import { parkWhizService } from "../providers/parkwhiz/parkwhiz-service";
 import {
   ApiSearchParams,
   MatchedLocation,
   ParkingLocation,
   ParkingProvider,
 } from "../providers/providers";
-import { spotHeroService } from "../providers/spothero-service";
+import { spotHeroService } from "../providers/spotHero/spothero-service";
 import { locationMatchingService } from "../services/location-matching-service";
 
 interface SearchResults {
