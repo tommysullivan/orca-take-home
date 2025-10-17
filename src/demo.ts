@@ -43,7 +43,9 @@ async function main() {
       locationMatchingService
     );
 
-    console.log("✅ Service initialized with real ParkWhiz + SpotHero providers!");
+    console.log(
+      "✅ Service initialized with real ParkWhiz + SpotHero providers!"
+    );
 
     // Test airports and date ranges - using dates that match real ParkWhiz purchase_options availability
     // Real API returns purchase_options with start_time/end_time around current date (Oct 16-17, 2025)

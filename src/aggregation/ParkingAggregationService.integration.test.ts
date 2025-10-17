@@ -136,22 +136,26 @@ describe("ParkingAggregationService - Real Tests", () => {
       console.log(`- CAP (MOCK): ${capCount} locations`);
 
       expect(results.summary.providers_count).toBe(3);
-      
+
       // Real SpotHero should return actual ORD data (~34 locations as of Oct 2025)
       expect(spotheroCount).toBeGreaterThan(20);
-      
+
       // Verify some SpotHero locations have expected characteristics
       const spotheroLocations = results.locations.filter(
         (l) => l.provider === ParkingProviderType.SPOTHERO
       );
-      
+
       // Check that we have variety in location types
-      const withShuttle = spotheroLocations.filter((l) => l.shuttle_service).length;
+      const withShuttle = spotheroLocations.filter(
+        (l) => l.shuttle_service
+      ).length;
       const withValet = spotheroLocations.filter((l) => l.valet_service).length;
       const covered = spotheroLocations.filter((l) => l.covered_parking).length;
-      
-      console.log(`SpotHero amenities: ${withShuttle} with shuttle, ${withValet} with valet, ${covered} covered`);
-      
+
+      console.log(
+        `SpotHero amenities: ${withShuttle} with shuttle, ${withValet} with valet, ${covered} covered`
+      );
+
       expect(withShuttle).toBeGreaterThan(10); // Most ORD locations have shuttle
       expect(results.locations.length).toBeGreaterThan(20);
     });

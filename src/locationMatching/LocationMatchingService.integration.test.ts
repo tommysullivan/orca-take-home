@@ -98,7 +98,9 @@ describe("LocationMatchingService - Integration Tests", () => {
       console.log(`\nTop ${topMatches.length} matches:`);
       topMatches.forEach((match, idx) => {
         console.log(
-          `${idx + 1}. ${match.canonical_name} (${match.confidence_score.toFixed(2)} confidence)`
+          `${idx + 1}. ${
+            match.canonical_name
+          } (${match.confidence_score.toFixed(2)} confidence)`
         );
         console.log(
           `   Providers: ${match.locations.map((l) => l.provider).join(", ")}`
@@ -139,7 +141,9 @@ describe("LocationMatchingService - Integration Tests", () => {
         console.log(`\nTop matches for ORD:`);
         matches.slice(0, 3).forEach((match, idx) => {
           console.log(
-            `${idx + 1}. ${match.canonical_name} (${match.confidence_score.toFixed(2)} confidence)`
+            `${idx + 1}. ${
+              match.canonical_name
+            } (${match.confidence_score.toFixed(2)} confidence)`
           );
           console.log(
             `   Providers: ${match.locations.map((l) => l.provider).join(", ")}`
@@ -172,7 +176,9 @@ describe("LocationMatchingService - Integration Tests", () => {
       const allLocations = allProviderResults.flat();
       const matches = service.findMatches(allLocations);
 
-      console.log(`Report test: Found ${matches.length} matches from ${allLocations.length} locations`);
+      console.log(
+        `Report test: Found ${matches.length} matches from ${allLocations.length} locations`
+      );
 
       if (matches.length > 0) {
         const report = service.generateMatchingReport(matches);
@@ -203,7 +209,9 @@ describe("LocationMatchingService - Integration Tests", () => {
       expect(Array.isArray(matches)).toBe(true);
       expect(matches.length).toBeGreaterThanOrEqual(0);
 
-      console.log(`BUR test: ${results.length} locations, ${matches.length} matches`);
+      console.log(
+        `BUR test: ${results.length} locations, ${matches.length} matches`
+      );
     });
   });
 });

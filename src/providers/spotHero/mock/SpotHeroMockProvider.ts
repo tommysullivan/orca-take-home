@@ -6,7 +6,7 @@ import { normalizeLocation } from "../normalizeLocation";
 
 /**
  * SpotHero Mock Provider
- * 
+ *
  * Uses the same data format and normalization logic as the real SpotHero provider,
  * but returns pre-defined mock data instead of making API calls.
  */
@@ -26,7 +26,9 @@ export class SpotHeroMockProvider implements ParkingProvider {
     const filteredLocations = this.mockData.filter((location) => {
       const city = location.facility.common.addresses[0]?.city;
       if (params.airport_code === "ORD") {
-        return city === "Chicago" || city === "Rosemont" || city === "Franklin Park";
+        return (
+          city === "Chicago" || city === "Rosemont" || city === "Franklin Park"
+        );
       }
       if (params.airport_code === "LAX") {
         return city === "Los Angeles" || city === "El Segundo";
@@ -34,9 +36,7 @@ export class SpotHeroMockProvider implements ParkingProvider {
       return false;
     });
 
-    return filteredLocations.map((location) =>
-      normalizeLocation(location)
-    );
+    return filteredLocations.map((location) => normalizeLocation(location));
   }
 }
 

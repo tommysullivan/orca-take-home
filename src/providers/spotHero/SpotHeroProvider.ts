@@ -33,7 +33,7 @@ export class SpotHeroProvider implements ParkingProvider {
 
     try {
       const rawResults = await this.fetchLocations(params);
-      
+
       // Normalize all results to our common format
       const normalizedLocations = rawResults.map(normalizeLocation);
 

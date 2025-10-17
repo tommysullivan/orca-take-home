@@ -39,18 +39,26 @@ async function captureSpotHeroData() {
         // Show summary stats
         console.log("📊 Summary Statistics:");
         console.log(
-          `   Price range: $${Math.min(...locations.map((l) => l.pricing.daily_rate)).toFixed(2)} - $${Math.max(...locations.map((l) => l.pricing.daily_rate)).toFixed(2)}/day`
+          `   Price range: $${Math.min(
+            ...locations.map((l) => l.pricing.daily_rate)
+          ).toFixed(2)} - $${Math.max(
+            ...locations.map((l) => l.pricing.daily_rate)
+          ).toFixed(2)}/day`
         );
         const distances = locations
           .map((l) => l.distance_to_airport_miles)
           .filter((d): d is number => d !== undefined);
         if (distances.length > 0) {
           console.log(
-            `   Distance range: ${Math.min(...distances).toFixed(2)} - ${Math.max(...distances).toFixed(2)} miles`
+            `   Distance range: ${Math.min(...distances).toFixed(
+              2
+            )} - ${Math.max(...distances).toFixed(2)} miles`
           );
         }
         console.log(
-          `   With shuttle: ${locations.filter((l) => l.shuttle_service).length}`
+          `   With shuttle: ${
+            locations.filter((l) => l.shuttle_service).length
+          }`
         );
         console.log(
           `   With valet: ${locations.filter((l) => l.valet_service).length}`
@@ -84,7 +92,9 @@ async function captureSpotHeroData() {
           __dirname,
           "..",
           "outputs",
-          `${airport}_spothero_real_data_${new Date().toISOString().split("T")[0]}.json`
+          `${airport}_spothero_real_data_${
+            new Date().toISOString().split("T")[0]
+          }.json`
         );
         fs.writeFileSync(
           outputPath,

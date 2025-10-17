@@ -8,15 +8,16 @@ import { SpotHeroResult } from "./SpotHeroTypes";
 export function normalizeLocation(result: SpotHeroResult): ParkingLocation {
   const facility = result.facility.common;
   const primaryRate = result.rates[0]; // Use the first rate (typically the best available)
-  
+
   // Find the primary address (usually the one with 'search' or 'physical' type)
-  const primaryAddress = facility.addresses.find(
-    (addr) => addr.types.includes("search") || addr.types.includes("physical")
-  ) || facility.addresses[0];
+  const primaryAddress =
+    facility.addresses.find(
+      (addr) => addr.types.includes("search") || addr.types.includes("physical")
+    ) || facility.addresses[0];
 
   // Extract amenities from the rate's airport info
   const amenityTypes = primaryRate.airport?.amenities.map((a) => a.type) || [];
-  
+
   // Calculate daily rate from the quote
   // SpotHero returns prices in cents
   const totalPrice = primaryRate.quote.total_price.value / 100; // Convert cents to dollars
@@ -57,7 +58,8 @@ export function normalizeLocation(result: SpotHeroResult): ParkingLocation {
     available_until: orderItem.ends,
     shuttle_service: amenityTypes.includes("shuttle"),
     valet_service: amenityTypes.includes("valet"),
-    covered_parking: amenityTypes.includes("covered") || facility.facility_type === "garage",
+    covered_parking:
+      amenityTypes.includes("covered") || facility.facility_type === "garage",
     provider_data: {
       slug: facility.slug,
       operator_display_name: facility.operator_display_name,

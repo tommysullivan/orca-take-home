@@ -32,8 +32,8 @@ describe("SpotHero Service", () => {
       );
 
       // Find a location with amenities to test
-      const locationWithAmenities = locations.find((loc) => 
-        loc.amenities && loc.amenities.length > 0
+      const locationWithAmenities = locations.find(
+        (loc) => loc.amenities && loc.amenities.length > 0
       );
 
       expect(locationWithAmenities).toBeDefined();

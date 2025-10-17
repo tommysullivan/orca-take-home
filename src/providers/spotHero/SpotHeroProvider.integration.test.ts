@@ -122,8 +122,14 @@ describe("SpotHeroProvider Integration Tests", () => {
       console.log("\nSample LAX Location:");
       console.log(`  Name: ${firstLocation.name}`);
       console.log(`  Address: ${firstLocation.address.full_address}`);
-      console.log(`  Daily Rate: $${firstLocation.pricing.daily_rate.toFixed(2)}`);
-      console.log(`  Distance: ${firstLocation.distance_to_airport_miles?.toFixed(2)} miles`);
+      console.log(
+        `  Daily Rate: $${firstLocation.pricing.daily_rate.toFixed(2)}`
+      );
+      console.log(
+        `  Distance: ${firstLocation.distance_to_airport_miles?.toFixed(
+          2
+        )} miles`
+      );
       console.log(`  Shuttle: ${firstLocation.shuttle_service ? "Yes" : "No"}`);
       console.log(`  Valet: ${firstLocation.valet_service ? "Yes" : "No"}`);
     }, 30000);
@@ -136,7 +142,9 @@ describe("SpotHeroProvider Integration Tests", () => {
         end_time: "2025-11-02T08:00:00",
       };
 
-      const shortStayLocations = await provider.searchLocations(shortStayParams);
+      const shortStayLocations = await provider.searchLocations(
+        shortStayParams
+      );
       expect(shortStayLocations.length).toBeGreaterThan(0);
 
       // Test with a longer stay (7 days)
@@ -149,14 +157,18 @@ describe("SpotHeroProvider Integration Tests", () => {
       const longStayLocations = await provider.searchLocations(longStayParams);
       expect(longStayLocations.length).toBeGreaterThan(0);
 
-      console.log(`\n✅ Short stay (1 day): ${shortStayLocations.length} locations`);
-      console.log(`✅ Long stay (7 days): ${longStayLocations.length} locations`);
+      console.log(
+        `\n✅ Short stay (1 day): ${shortStayLocations.length} locations`
+      );
+      console.log(
+        `✅ Long stay (7 days): ${longStayLocations.length} locations`
+      );
 
       // Pricing should be different for different durations
       // (SpotHero API returns different quotes based on duration)
       const shortPrice = shortStayLocations[0]?.pricing.daily_rate;
       const longPrice = longStayLocations[0]?.pricing.daily_rate;
-      
+
       if (shortPrice && longPrice) {
         console.log(`\nPricing comparison for same facility (if available):`);
         console.log(`  1-day stay: $${shortPrice.toFixed(2)}/day`);
@@ -226,7 +238,9 @@ describe("SpotHeroProvider Integration Tests", () => {
         expect(availEnd > availStart).toBe(true);
       });
 
-      console.log(`\n✅ All ${locations.length} locations have valid availability dates`);
+      console.log(
+        `\n✅ All ${locations.length} locations have valid availability dates`
+      );
     }, 30000);
   });
 });
