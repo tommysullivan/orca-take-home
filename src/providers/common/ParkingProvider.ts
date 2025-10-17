@@ -1,5 +1,6 @@
-export enum ParkingProvider {
-  PARKWHIZ = "parkwhiz",
-  SPOTHERO = "spothero",
-  CHEAP_AIRPORT_PARKING = "cheap_airport_parking",
+import { ApiSearchParams } from "./ApiSearchParams";
+import { ParkingLocation } from "./ParkingLocation";
+
+export interface ParkingProvider {
+  searchLocations(params: ApiSearchParams): Promise<ParkingLocation[]>;
 }

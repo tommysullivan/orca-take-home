@@ -1,6 +1,6 @@
 import { ParkingLocation } from "../../common/ParkingLocation";
 import { ApiSearchParams } from "../../common/ApiSearchParams";
-import { ParkingProvider } from "../../common/ParkingProvider";
+import { ParkingProviderType } from "../../common/ParkingProviderType";
 import { spotHeroMockData } from "./spotHeroMockData";
 import { SpotHeroMockLocation } from "./SpotHeroMockLocation";
 
@@ -12,7 +12,7 @@ import { SpotHeroMockLocation } from "./SpotHeroMockLocation";
  * - Requires date/time parameters for pricing
  * - Returns structured location data with amenities
  */
-export class SpotHeroMockService {
+export class SpotHeroMockProvider {
   private readonly mockData = spotHeroMockData;
 
   async searchLocations(params: ApiSearchParams): Promise<ParkingLocation[]> {
@@ -46,7 +46,7 @@ export class SpotHeroMockService {
   ): ParkingLocation {
     return {
       provider_id: location.id.toString(),
-      provider: ParkingProvider.SPOTHERO,
+      provider: ParkingProviderType.SPOTHERO,
       name: location.name,
       address: {
         street: location.street_address,
@@ -96,4 +96,4 @@ export class SpotHeroMockService {
   }
 }
 
-export const spotHeroMockService = new SpotHeroMockService();
+export const spotHeroMockProvider = new SpotHeroMockProvider();

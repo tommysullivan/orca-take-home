@@ -1,5 +1,5 @@
 import { ParkingLocation } from "../common/ParkingLocation";
-import { ParkingProvider } from "../common/ParkingProvider";
+import { ParkingProviderType } from "../common/ParkingProviderType";
 import { ParkWhizLocation } from "./ParkWhizLocation";
 
 /**
@@ -75,7 +75,7 @@ export function normalizeLocation(
 
   return {
     provider_id: rawLocation.location_id,
-    provider: ParkingProvider.PARKWHIZ,
+    provider: ParkingProviderType.PARKWHIZ,
     name: locationData.name || "Unknown Location",
     address: {
       street: locationData.address1 || "",

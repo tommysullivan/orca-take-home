@@ -2,14 +2,14 @@ import { describe, test, expect } from "vitest";
 import { writeFileSync } from "fs";
 import { join } from "path";
 import { ParkWhizLocation } from "./ParkWhizLocation";
-import { parkWhizService } from "./ParkWhizService";
+import { parkWhizProvider } from "./ParkWhizProvider";
 
 describe("ParkWhiz Real API End-to-End", () => {
   test("should execute full authentication and location retrieval workflow for ORD", async () => {
     console.log("🚀 Starting end-to-end ParkWhiz API test for ORD...");
 
     // Execute the full workflow: get token -> autocomplete -> scrape HTML -> extract locations
-    const locations = await parkWhizService.getLocationsForAirport("ORD");
+    const locations = await parkWhizProvider.getLocationsForAirport("ORD");
 
     // Validate we got real results
     expect(locations).toBeDefined();
@@ -84,7 +84,7 @@ describe("ParkWhiz Real API End-to-End", () => {
   test("should execute full workflow for LAX airport", async () => {
     console.log("🚀 Starting end-to-end ParkWhiz API test for LAX...");
 
-    const locations = await parkWhizService.getLocationsForAirport("LAX");
+    const locations = await parkWhizProvider.getLocationsForAirport("LAX");
 
     expect(locations).toBeDefined();
     expect(Array.isArray(locations)).toBe(true);

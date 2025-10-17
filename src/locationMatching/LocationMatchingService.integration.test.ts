@@ -1,27 +1,24 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { ParkingProviderService } from "../../providers/common/ParkingProviderService";
-import { ParkingProvider } from "../../providers/common/ParkingProvider";
-import { createLocationMatchingService } from "./createLocationMatchingService";
+import { ParkingProvider } from "../providers/common/ParkingProvider";
+import { ParkingProviderType } from "../providers/common/ParkingProviderType";
 import { LocationMatchingService } from "./LocationMatchingService";
+import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/CheapAirportParkingMockProvider";
+import { parkWhizProvider } from "../providers/parkwhiz/ParkWhizProvider";
+import { spotHeroMockProvider } from "../providers/spotHero/mock/SpotHeroMockProvider";
 
-// Import real and mock services
-import { cheapAirportParkingMockService } from "../../providers/cheapAirportParking/CheapAirportParkingMockService";
-import { parkWhizService } from "../../providers/parkwhiz/ParkWhizService";
-import { spotHeroMockService } from "../../providers/spotHero/mock/SpotHeroMockService";
-
-describe("LocationMatchingService - Real Tests", () => {
+describe("LocationMatchingService - Integration Tests", () => {
   let service: LocationMatchingService;
-  let providers: Record<ParkingProvider, ParkingProviderService>;
+  let providers: Record<ParkingProviderType, ParkingProvider>;
 
   beforeEach(() => {
-    // Use real ParkWhiz service + mock services for the others
     providers = {
-      [ParkingProvider.PARKWHIZ]: parkWhizService,
-      [ParkingProvider.SPOTHERO]: spotHeroMockService, // Still mock for now
-      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingMockService, // Still mock for now
+      [ParkingProviderType.PARKWHIZ]: parkWhizProvider,
+      [ParkingProviderType.SPOTHERO]: spotHeroMockProvider,
+      [ParkingProviderType.CHEAP_AIRPORT_PARKING]:
+        cheapAirportParkingMockProvider,
     };
 
-    service = createLocationMatchingService({
+    service = new LocationMatchingService({
       minimum_name_similarity: 0.4,
       strong_name_similarity: 0.8,
       minimum_address_similarity: 0.75,
@@ -42,19 +39,18 @@ describe("LocationMatchingService - Real Tests", () => {
 
   describe("findMatches - Real Integration", () => {
     it("should match locations with real ParkWhiz and mock providers", async () => {
-      // Get data from all providers (real ParkWhiz + mock others)
       const allProviderResults = await Promise.all([
-        providers[ParkingProvider.PARKWHIZ].searchLocations({
+        providers[ParkingProviderType.PARKWHIZ].searchLocations({
           airport_code: "LAX",
           start_time: "2024-12-20T10:00:00",
           end_time: "2024-12-20T18:00:00",
         }),
-        providers[ParkingProvider.SPOTHERO].searchLocations({
+        providers[ParkingProviderType.SPOTHERO].searchLocations({
           airport_code: "LAX",
           start_time: "2024-12-20T10:00:00",
           end_time: "2024-12-20T18:00:00",
         }),
-        providers[ParkingProvider.CHEAP_AIRPORT_PARKING].searchLocations({
+        providers[ParkingProviderType.CHEAP_AIRPORT_PARKING].searchLocations({
           airport_code: "LAX",
           start_time: "2024-12-20T10:00:00",
           end_time: "2024-12-20T18:00:00",
@@ -96,7 +92,7 @@ describe("LocationMatchingService - Real Tests", () => {
 
     it("should handle mixed real and mock data gracefully", async () => {
       const parkwhizResults = await providers[
-        ParkingProvider.PARKWHIZ
+        ParkingProviderType.PARKWHIZ
       ].searchLocations({
         airport_code: "ORD",
         start_time: "2024-12-20T10:00:00",
@@ -104,7 +100,7 @@ describe("LocationMatchingService - Real Tests", () => {
       });
 
       const spotheroResults = await providers[
-        ParkingProvider.SPOTHERO
+        ParkingProviderType.SPOTHERO
       ].searchLocations({
         airport_code: "ORD",
         start_time: "2024-12-20T10:00:00",
@@ -120,13 +116,10 @@ describe("LocationMatchingService - Real Tests", () => {
         `ORD test: ${parkwhizResults.length} real ParkWhiz + ${spotheroResults.length} mock SpotHero = ${matches.length} matches`
       );
 
-      // Should handle the combination gracefully
       if (matches.length > 0) {
         matches.forEach((match) => {
           expect(match.locations.length).toBeGreaterThan(1);
           expect(match.confidence_score).toBeGreaterThan(0);
-
-          // Should contain locations from different providers
           const providers = new Set(match.locations.map((loc) => loc.provider));
           expect(providers.size).toBeGreaterThan(1);
         });
@@ -134,14 +127,13 @@ describe("LocationMatchingService - Real Tests", () => {
     });
 
     it("should generate matching reports with real data", async () => {
-      // Use LAX which typically has more data
       const allProviderResults = await Promise.all([
-        providers[ParkingProvider.PARKWHIZ].searchLocations({
+        providers[ParkingProviderType.PARKWHIZ].searchLocations({
           airport_code: "LAX",
           start_time: "2024-12-20T10:00:00",
           end_time: "2024-12-20T18:00:00",
         }),
-        providers[ParkingProvider.SPOTHERO].searchLocations({
+        providers[ParkingProviderType.SPOTHERO].searchLocations({
           airport_code: "LAX",
           start_time: "2024-12-20T10:00:00",
           end_time: "2024-12-20T18:00:00",
@@ -167,16 +159,14 @@ describe("LocationMatchingService - Real Tests", () => {
     });
 
     it("should handle empty results gracefully", async () => {
-      // Test with a real but uncommon airport that might return fewer results
-      const results = await providers[ParkingProvider.PARKWHIZ].searchLocations(
-        {
-          airport_code: "BUR", // Burbank airport - smaller, may have fewer results
-          start_time: "2024-12-20T10:00:00",
-          end_time: "2024-12-20T18:00:00",
-        }
-      );
+      const results = await providers[
+        ParkingProviderType.PARKWHIZ
+      ].searchLocations({
+        airport_code: "BUR", // Burbank airport - smaller, may have fewer results
+        start_time: "2024-12-20T10:00:00",
+        end_time: "2024-12-20T18:00:00",
+      });
 
-      // Should not crash, regardless of number of results
       const matches = service.findMatches(results);
       expect(Array.isArray(matches)).toBe(true);
       expect(matches.length).toBeGreaterThanOrEqual(0);

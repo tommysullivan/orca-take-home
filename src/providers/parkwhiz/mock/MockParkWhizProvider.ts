@@ -1,10 +1,9 @@
-import { ParkingProviderService } from "../../common/ParkingProviderService";
-import { ParkingLocation } from "../../common/ParkingLocation";
 import { ApiSearchParams } from "../../common/ApiSearchParams";
+import { ParkingLocation } from "../../common/ParkingLocation";
 import { ParkingProvider } from "../../common/ParkingProvider";
+import { filterLocationsByDateRange } from "../../common/filterLocationsByDateRange";
 import { ParkWhizLocation } from "../ParkWhizLocation";
 import { normalizeLocation } from "../normalizeLocation";
-import { filterLocationsByDateRange } from "../../common/filterLocationsByDateRange";
 
 /**
  * Mock ParkWhiz Service Implementation
@@ -12,7 +11,7 @@ import { filterLocationsByDateRange } from "../../common/filterLocationsByDateRa
  * This implementation provides realistic mock data for testing and development.
  * Uses the same data structure as the real API but with static mock data.
  */
-export class MockParkWhizService implements ParkingProviderService {
+export class MockParkWhizProvider implements ParkingProvider {
   private readonly mockData: ParkWhizLocation[] = [
     // Chicago ORD Airport Data (based on real API structure)
     {
@@ -350,4 +349,4 @@ export class MockParkWhizService implements ParkingProviderService {
   }
 }
 
-export const mockParkWhizService = new MockParkWhizService();
+export const mockParkWhizProvider = new MockParkWhizProvider();

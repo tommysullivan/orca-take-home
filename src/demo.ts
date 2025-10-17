@@ -3,13 +3,13 @@
 import * as fs from "fs";
 import * as path from "path";
 import { dbTypesafe } from "./db/dbTypesafe";
-import { cheapAirportParkingMockService } from "./providers/cheapAirportParking/CheapAirportParkingMockService";
+import { cheapAirportParkingMockProvider } from "./providers/cheapAirportParking/CheapAirportParkingMockProvider";
 import { ApiSearchParams } from "./providers/common/ApiSearchParams";
-import { ParkingProvider } from "./providers/common/ParkingProvider";
-import { parkWhizService } from "./providers/parkwhiz/ParkWhizService";
-import { spotHeroMockService } from "./providers/spotHero/mock/SpotHeroMockService";
-import { ParkingAggregationService } from "./services/aggregation/ParkingAggregationService";
-import { locationMatchingService } from "./services/locationMatching/LocationMatchingService";
+import { ParkingProviderType } from "./providers/common/ParkingProviderType";
+import { parkWhizProvider } from "./providers/parkwhiz/ParkWhizProvider";
+import { spotHeroMockProvider } from "./providers/spotHero/mock/SpotHeroMockProvider";
+import { ParkingAggregationService } from "./aggregation/ParkingAggregationService";
+import { locationMatchingService } from "./locationMatching/LocationMatchingService";
 
 /**
  * Parking Location Quote Matching - Main Demo
@@ -31,9 +31,10 @@ async function main() {
     console.log("🔧 Initializing services with REAL ParkWhiz...");
 
     const providers = {
-      [ParkingProvider.PARKWHIZ]: parkWhizService,
-      [ParkingProvider.SPOTHERO]: spotHeroMockService, // Mock for now
-      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingMockService, // Mock for now
+      [ParkingProviderType.PARKWHIZ]: parkWhizProvider,
+      [ParkingProviderType.SPOTHERO]: spotHeroMockProvider, // Mock for now
+      [ParkingProviderType.CHEAP_AIRPORT_PARKING]:
+        cheapAirportParkingMockProvider, // Mock for now
     };
 
     const service = new ParkingAggregationService(

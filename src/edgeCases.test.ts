@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { ParkingLocation } from './providers/common/ParkingLocation';
-import { ParkingProvider } from './providers/common/ParkingProvider';
-import { LocationMatchingService } from './services/locationMatching/LocationMatchingService';
+import { ParkingLocation } from "./providers/common/ParkingLocation";
+import { ParkingProviderType } from "./providers/common/ParkingProviderType";
+import { LocationMatchingService } from "./locationMatching/LocationMatchingService";
 
 /**
  * Edge Case Tests: Devil's Advocate Scenarios
@@ -15,7 +15,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
       const locations: ParkingLocation[] = [
         {
           provider_id: "pw_001",
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           name: "LAX Official Economy Lot",
           address: {
             street: "1 World Way",
@@ -36,7 +36,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "sh_001",
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           name: "Official Economy Lot LAX", // Airport code at end
           address: {
             street: "1 World Way",
@@ -57,7 +57,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "cap_001",
-          provider: ParkingProvider.CHEAP_AIRPORT_PARKING,
+          provider: ParkingProviderType.CHEAP_AIRPORT_PARKING,
           name: "Economy LAX Airport Parking", // Airport code in middle
           address: {
             street: "1 World Way",
@@ -91,7 +91,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
       const locations: ParkingLocation[] = [
         {
           provider_id: "pw_brand1",
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           name: "Marriott LAX Hotel Parking",
           address: {
             street: "5855 W Century Blvd",
@@ -112,7 +112,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "sh_brand2",
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           name: "Hilton LAX Hotel Parking", // Different hotel brand, same area
           address: {
             street: "5711 W Century Blvd",
@@ -146,7 +146,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
       const locations: ParkingLocation[] = [
         {
           provider_id: "pw_abbr1",
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           name: "Airport Center Parking",
           address: {
             street: "123 North Century Boulevard",
@@ -167,7 +167,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "sh_abbr2",
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           name: "Airport Center Parking",
           address: {
             street: "123 N Century Blvd", // Heavy abbreviation
@@ -202,7 +202,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
       const locations: ParkingLocation[] = [
         {
           provider_id: "pw_drift1",
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           name: "Terminal 1 Parking Structure",
           address: {
             street: "1 World Way",
@@ -223,7 +223,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "sh_drift2",
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           name: "Terminal 1 Parking Structure",
           address: {
             street: "1 World Way",
@@ -258,7 +258,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
       const locations: ParkingLocation[] = [
         {
           provider_id: "pw_price1",
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           name: "Economy Lot A",
           address: {
             street: "1234 Airport Way",
@@ -279,7 +279,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "sh_price2",
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           name: "Economy Lot A",
           address: {
             street: "1234 Airport Way",
@@ -353,7 +353,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
       const locations: ParkingLocation[] = [
         {
           provider_id: "pw_no_coords",
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           name: "Mystery Parking Lot",
           address: {
             street: "999 Unknown St",
@@ -374,7 +374,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "sh_no_coords",
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           name: "Mystery Parking Lot",
           address: {
             street: "999 Unknown Street",
@@ -407,7 +407,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
       const locations: ParkingLocation[] = [
         {
           provider_id: "pw_partial",
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           name: "Partial Data Lot",
           address: {
             street: "123 Main St",
@@ -428,7 +428,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "sh_partial",
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           name: "Partial Data Lot",
           address: {
             street: "123 Main Street",
@@ -462,7 +462,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
       const locations: ParkingLocation[] = [
         {
           provider_id: "pw_lot_a",
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           name: "Terminal Parking Lot A",
           address: {
             street: "100 Airport Blvd",
@@ -483,7 +483,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "sh_lot_b",
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           name: "Terminal Parking Lot B", // Different lot
           address: {
             street: "200 Airport Blvd",
@@ -517,7 +517,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
       const locations: ParkingLocation[] = [
         {
           provider_id: "pw_convention1",
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           name: "ParkWhiz - LAX Central Terminal Deck",
           address: {
             street: "1 World Way",
@@ -538,7 +538,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "sh_convention2",
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           name: "SpotHero Exclusive: Central Terminal Parking Deck LAX",
           address: {
             street: "1 World Way",
@@ -559,7 +559,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "cap_convention3",
-          provider: ParkingProvider.CHEAP_AIRPORT_PARKING,
+          provider: ParkingProviderType.CHEAP_AIRPORT_PARKING,
           name: "Central Terminal Deck - Discount Rate",
           address: {
             street: "1 World Way",
@@ -594,7 +594,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
       const locations: ParkingLocation[] = [
         {
           provider_id: "pw_surge",
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           name: "Holiday Inn Express LAX",
           address: {
             street: "9901 La Cienega Blvd",
@@ -615,7 +615,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "sh_surge",
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           name: "Holiday Inn Express LAX",
           address: {
             street: "9901 La Cienega Blvd",
@@ -694,7 +694,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         // Group 1: Official LAX parking at 1 World Way - should match
         {
           provider_id: "pw_lax_001",
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           name: "LAX Official Economy Parking",
           address: {
             street: "1 World Way",
@@ -715,7 +715,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "201",
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           name: "LAX Economy Parking Lot C",
           address: {
             street: "1 World Way",
@@ -738,7 +738,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         // Group 2: QuikPark at 9000 Airport Blvd - should match
         {
           provider_id: "pw_lax_002",
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           name: "QuikPark LAX",
           address: {
             street: "9000 Airport Blvd.",
@@ -759,7 +759,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "202",
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           name: "QuikPark LAX Premium",
           address: {
             street: "9000 Airport Blvd",
@@ -780,7 +780,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         },
         {
           provider_id: "cap_lax_002",
-          provider: ParkingProvider.CHEAP_AIRPORT_PARKING,
+          provider: ParkingProviderType.CHEAP_AIRPORT_PARKING,
           name: "QuikPark Budget LAX",
           address: {
             street: "9000 Airport Blvd",
@@ -803,7 +803,7 @@ describe("LocationMatchingService - Edge Cases & Devil's Advocate", () => {
         // Should NOT match with above groups - different address
         {
           provider_id: "cap_lax_001",
-          provider: ParkingProvider.CHEAP_AIRPORT_PARKING,
+          provider: ParkingProviderType.CHEAP_AIRPORT_PARKING,
           name: "LAX Economy Super Saver",
           address: {
             street: "8888 Airport Blvd",

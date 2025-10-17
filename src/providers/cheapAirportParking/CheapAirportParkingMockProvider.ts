@@ -1,6 +1,6 @@
 import { ParkingLocation } from "../common/ParkingLocation";
 import { ApiSearchParams } from "../common/ApiSearchParams";
-import { ParkingProvider } from "../common/ParkingProvider";
+import { ParkingProviderType } from "../common/ParkingProviderType";
 import { CheapAirportParkingLocation } from "./CheapAirportParkingLocation";
 import { mockData } from "./mockData";
 
@@ -10,7 +10,7 @@ import { mockData } from "./mockData";
  * Known for budget-friendly airport parking options
  * Typically focuses on off-site lots with shuttle service
  */
-export class CheapAirportParkingMockService {
+export class CheapAirportParkingMockProvider {
   private readonly baseUrl = "https://api.cheapairportparking.com/v2";
   private readonly mockData = mockData;
 
@@ -38,7 +38,7 @@ export class CheapAirportParkingMockService {
   ): ParkingLocation {
     return {
       provider_id: location.lot_id,
-      provider: ParkingProvider.CHEAP_AIRPORT_PARKING,
+      provider: ParkingProviderType.CHEAP_AIRPORT_PARKING,
       name: location.lot_name,
       address: {
         street: location.address.street,
@@ -88,5 +88,5 @@ export class CheapAirportParkingMockService {
   }
 }
 
-export const cheapAirportParkingMockService =
-  new CheapAirportParkingMockService();
+export const cheapAirportParkingMockProvider =
+  new CheapAirportParkingMockProvider();

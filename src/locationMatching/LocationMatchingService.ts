@@ -1,6 +1,6 @@
-import { Coordinates } from "../../providers/common/Coordinates";
-import { MatchedLocation } from "../../providers/common/MatchedLocation";
-import { ParkingLocation } from "../../providers/common/ParkingLocation";
+import { Coordinates } from "../providers/common/Coordinates";
+import { MatchedLocation } from "../providers/common/MatchedLocation";
+import { ParkingLocation } from "../providers/common/ParkingLocation";
 import { DEFAULT_MATCH_CRITERIA } from "./DEFAULT_MATCH_CRITERIA";
 import { MatchCriteria } from "./MatchCriteria";
 
@@ -18,9 +18,6 @@ export class LocationMatchingService {
     this.criteria = criteria;
   }
 
-  /**
-   * Find matches across all providers for locations
-   */
   findMatches(locations: ParkingLocation[]): MatchedLocation[] {
     const matches: MatchedLocation[] = [];
     const processed = new Set<string>();
@@ -32,7 +29,6 @@ export class LocationMatchingService {
         continue;
       }
 
-      // Find all potential matches for this location
       const candidateMatches = this.findCandidateMatches(
         location,
         locations,
@@ -46,7 +42,6 @@ export class LocationMatchingService {
         ]);
         matches.push(match);
 
-        // Mark all matched locations as processed
         [location, ...candidateMatches].forEach((loc) => {
           processed.add(`${loc.provider}:${loc.provider_id}`);
         });
@@ -70,7 +65,6 @@ export class LocationMatchingService {
     for (const location of allLocations) {
       const locationKey = `${location.provider}:${location.provider_id}`;
 
-      // Skip same provider, same location, or already processed locations
       if (
         location.provider === targetLocation.provider ||
         location.provider_id === targetLocation.provider_id ||
@@ -80,9 +74,8 @@ export class LocationMatchingService {
       }
 
       const matchResult = this.calculateMatchScore(targetLocation, location);
-
-      if (matchResult.score >= 0.5) {
-        // Minimum threshold for consideration
+      const minimumThresholdForConsideration = 0.5;
+      if (matchResult.score >= minimumThresholdForConsideration) {
         candidates.push({
           location,
           score: matchResult.score,
@@ -91,7 +84,6 @@ export class LocationMatchingService {
       }
     }
 
-    // Return only the best matches (score >= 0.65)
     return candidates
       .filter((c) => c.score >= this.criteria.minimum_match_confidence)
       .map((c) => c.location);
@@ -104,7 +96,6 @@ export class LocationMatchingService {
     const reasons: string[] = [];
     let totalScore = 0;
 
-    // Check for obvious different location indicators first
     if (this.areObviouslyDifferentLocations(loc1, loc2)) {
       return {
         score: 0,
@@ -125,7 +116,6 @@ export class LocationMatchingService {
           loc1.coordinates,
           loc2.coordinates
         );
-        // If addresses don't match well AND locations aren't very close, reject
         if (distanceMeters > this.criteria.same_location_distance_meters) {
           return {
             score: 0,
@@ -139,7 +129,6 @@ export class LocationMatchingService {
           };
         }
       } else {
-        // No coordinates to verify proximity, so require good address match
         if (addressSimilarity < this.criteria.minimum_address_similarity) {
           return {
             score: 0,
@@ -162,7 +151,6 @@ export class LocationMatchingService {
         }" vs "${loc2.address.full_address}")`
       );
 
-      // MAJOR bonus for exact/near-exact address matches
       if (addressSimilarity >= this.criteria.strong_address_similarity) {
         totalScore += this.criteria.same_address_bonus;
         reasons.push(
@@ -203,7 +191,6 @@ export class LocationMatchingService {
           `Geographic proximity: ${distanceMeters.toFixed(0)}m apart`
         );
 
-        // Bonus for same location
         if (distanceMeters <= this.criteria.same_location_distance_meters) {
           totalScore += 0.1;
           reasons.push(
@@ -229,7 +216,6 @@ export class LocationMatchingService {
           })`
         );
       } else {
-        // Price matching enabled but failed - reject match
         return {
           score: 0,
           reasons: [
@@ -243,7 +229,6 @@ export class LocationMatchingService {
       }
     }
 
-    // Require minimum confidence threshold
     if (totalScore < this.criteria.minimum_match_confidence) {
       return {
         score: 0,
@@ -270,7 +255,6 @@ export class LocationMatchingService {
     const name1 = loc1.name.toLowerCase();
     const name2 = loc2.name.toLowerCase();
 
-    // Check for different lot/terminal designations (A vs B, 1 vs 2, etc.)
     const lotPatterns = [
       /\blot\s+([a-z]|\d+)\b/i,
       /\bterminal\s+([a-z]|\d+)\b/i,
@@ -284,11 +268,10 @@ export class LocationMatchingService {
       const match2 = name2.match(pattern);
 
       if (match1 && match2 && match1[1] !== match2[1]) {
-        return true; // Different lot/terminal/building designations
+        return true;
       }
     }
 
-    // Check for completely different brand names (hotel chains, etc.)
     const brandPatterns = [
       /\b(marriott|hilton|hyatt|sheraton|westin|doubletree|embassy|holiday\s+inn|best\s+western|courtyard|fairfield|residence\s+inn)\b/i,
     ];
@@ -298,7 +281,7 @@ export class LocationMatchingService {
       const brand2 = name2.match(pattern)?.[1];
 
       if (brand1 && brand2 && brand1 !== brand2) {
-        return true; // Different hotel brands
+        return true;
       }
     }
 
@@ -306,7 +289,6 @@ export class LocationMatchingService {
   }
 
   private calculateStringSimilarity(str1: string, str2: string): number {
-    // Implements Levenshtein distance for string similarity
     const matrix: number[][] = [];
 
     for (let i = 0; i <= str2.length; i++) {
@@ -338,20 +320,24 @@ export class LocationMatchingService {
   }
 
   private calculateAddressSimilarity(addr1: any, addr2: any): number {
-    // Compare street addresses with normalization
     const street1 = this.normalizeAddress(addr1.street);
     const street2 = this.normalizeAddress(addr2.street);
 
     const streetSimilarity = this.calculateStringSimilarity(street1, street2);
 
-    // Exact match on city/state gives bonus
     const cityMatch =
       addr1.city.toLowerCase() === addr2.city.toLowerCase() ? 1 : 0;
     const stateMatch =
       addr1.state.toLowerCase() === addr2.state.toLowerCase() ? 1 : 0;
 
-    // Weight: street 60%, city 30%, state 10%
-    return streetSimilarity * 0.6 + cityMatch * 0.3 + stateMatch * 0.1;
+    const streetWeight = 0.6;
+    const cityWeight = 0.3;
+    const stateWeight = 0.1;
+    return (
+      streetSimilarity * streetWeight +
+      cityMatch * cityWeight +
+      stateMatch * stateWeight
+    );
   }
 
   private normalizeName(name: string): string {
@@ -375,8 +361,7 @@ export class LocationMatchingService {
   }
 
   private calculateDistance(coord1: Coordinates, coord2: Coordinates): number {
-    // Haversine formula for calculating distance between two points
-    const R = 6371000; // Earth's radius in meters
+    const earthsRadiusInMeters = 6371000; // Earth's radius in meters
     const dLat = this.degreesToRadians(coord2.latitude - coord1.latitude);
     const dLon = this.degreesToRadians(coord2.longitude - coord1.longitude);
 
@@ -388,7 +373,7 @@ export class LocationMatchingService {
         Math.sin(dLon / 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; // Returns distance in meters
+    return earthsRadiusInMeters * c;
   }
 
   private degreesToRadians(degrees: number): number {
@@ -396,14 +381,12 @@ export class LocationMatchingService {
   }
 
   private createMatchedLocation(locations: ParkingLocation[]): MatchedLocation {
-    // Use the location with the most complete data as canonical
     const canonicalLocation = locations.reduce((best, current) => {
       const currentScore = this.calculateCompletenessScore(current);
       const bestScore = this.calculateCompletenessScore(best);
       return currentScore > bestScore ? current : best;
     });
 
-    // Calculate average coordinates if available
     const locationsWithCoords = locations.filter((loc) => loc.coordinates);
     const avgCoordinates =
       locationsWithCoords.length > 0
@@ -421,7 +404,6 @@ export class LocationMatchingService {
           }
         : undefined;
 
-    // Calculate confidence using named criteria
     const baseScore = this.criteria.base_confidence_score;
     const providerBonus =
       (locations.length - 1) * this.criteria.provider_count_bonus;
@@ -465,9 +447,6 @@ export class LocationMatchingService {
     return score;
   }
 
-  /**
-   * Generate a detailed matching report
-   */
   generateMatchingReport(matches: MatchedLocation[]): string {
     const allLocations = matches.flatMap((match) => match.locations);
     const providerCounts = allLocations.reduce((acc, loc) => {
@@ -532,7 +511,6 @@ export class LocationMatchingService {
         );
       }
 
-      // Add geographic analysis
       const distances = this.calculateDistancesInMatch(match.locations);
       if (distances.length > 0) {
         const maxDistance = Math.max(...distances);

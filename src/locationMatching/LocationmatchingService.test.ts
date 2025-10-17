@@ -1,28 +1,25 @@
-import { describe, expect, it, beforeEach } from "vitest";
-import { createLocationMatchingService } from "./createLocationMatchingService";
+import { beforeEach, describe, expect, it } from "vitest";
+import { ParkingLocation } from "../providers/common/ParkingLocation";
+import { ParkingProvider } from "../providers/common/ParkingProvider";
+import { ParkingProviderType } from "../providers/common/ParkingProviderType";
 import { LocationMatchingService } from "./LocationMatchingService";
-import { ParkingProviderService } from "../../providers/common/ParkingProviderService";
-import { ParkingLocation } from "../../providers/common/ParkingLocation";
-import { ParkingProvider } from "../../providers/common/ParkingProvider";
-
-// Import mock services
-import { mockParkWhizService } from "../../providers/parkwhiz/mock/MockParkWhizService";
-import { cheapAirportParkingMockService } from "../../providers/cheapAirportParking/CheapAirportParkingMockService";
-import { spotHeroMockService } from "../../providers/spotHero/mock/SpotHeroMockService";
+import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/CheapAirportParkingMockProvider";
+import { mockParkWhizProvider } from "../providers/parkwhiz/mock/MockParkWhizProvider";
+import { spotHeroMockProvider } from "../providers/spotHero/mock/SpotHeroMockProvider";
 
 describe("LocationMatchingService - Mock Tests", () => {
   let service: LocationMatchingService;
-  let mockProviders: Record<ParkingProvider, ParkingProviderService>;
+  let mockProviders: Record<ParkingProviderType, ParkingProvider>;
 
   beforeEach(() => {
-    // Use mock providers directly
     mockProviders = {
-      [ParkingProvider.PARKWHIZ]: mockParkWhizService,
-      [ParkingProvider.SPOTHERO]: spotHeroMockService,
-      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingMockService,
+      [ParkingProviderType.PARKWHIZ]: mockParkWhizProvider,
+      [ParkingProviderType.SPOTHERO]: spotHeroMockProvider,
+      [ParkingProviderType.CHEAP_AIRPORT_PARKING]:
+        cheapAirportParkingMockProvider,
     };
 
-    service = createLocationMatchingService({
+    service = new LocationMatchingService({
       minimum_name_similarity: 0.4,
       strong_name_similarity: 0.8,
       minimum_address_similarity: 0.75,
@@ -43,9 +40,8 @@ describe("LocationMatchingService - Mock Tests", () => {
 
   describe("findMatches", () => {
     it("should match locations with similar names", async () => {
-      // Get mock data from providers
       const parkwhizResults = await mockProviders[
-        ParkingProvider.PARKWHIZ
+        ParkingProviderType.PARKWHIZ
       ].searchLocations({
         airport_code: "LAX",
         start_time: "2024-12-20T10:00:00",
@@ -53,7 +49,7 @@ describe("LocationMatchingService - Mock Tests", () => {
       });
 
       const spotheroResults = await mockProviders[
-        ParkingProvider.SPOTHERO
+        ParkingProviderType.SPOTHERO
       ].searchLocations({
         airport_code: "LAX",
         start_time: "2024-12-20T10:00:00",
@@ -66,7 +62,6 @@ describe("LocationMatchingService - Mock Tests", () => {
       expect(Array.isArray(matches)).toBe(true);
       expect(matches.length).toBeGreaterThanOrEqual(0);
 
-      // Verify match structure
       matches.forEach((match) => {
         expect(match).toHaveProperty("id");
         expect(match).toHaveProperty("canonical_name");
@@ -85,7 +80,7 @@ describe("LocationMatchingService - Mock Tests", () => {
     it("should not match locations that are too different", async () => {
       const locations: ParkingLocation[] = [
         {
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           provider_id: "pw_different_1",
           name: "Airport Terminal Parking",
           address: {
@@ -106,7 +101,7 @@ describe("LocationMatchingService - Mock Tests", () => {
           provider_data: {},
         },
         {
-          provider: ParkingProvider.SPOTHERO,
+          provider: ParkingProviderType.SPOTHERO,
           provider_id: "sh_different_1",
           name: "Downtown Business Center",
           address: {
@@ -130,7 +125,6 @@ describe("LocationMatchingService - Mock Tests", () => {
 
       const matches = service.findMatches(locations);
 
-      // These very different locations should not match
       expect(matches.length).toBe(0);
     });
 
@@ -141,7 +135,7 @@ describe("LocationMatchingService - Mock Tests", () => {
 
     it("should handle single location", async () => {
       const parkwhizResults = await mockProviders[
-        ParkingProvider.PARKWHIZ
+        ParkingProviderType.PARKWHIZ
       ].searchLocations({
         airport_code: "LAX",
         start_time: "2024-12-20T10:00:00",
@@ -150,26 +144,27 @@ describe("LocationMatchingService - Mock Tests", () => {
 
       if (parkwhizResults.length > 0) {
         const matches = service.findMatches([parkwhizResults[0]]);
-        expect(matches).toEqual([]); // Single location can't match with itself
+        expect(matches).toEqual([]);
       }
     });
   });
 
   describe("performance with mock data", () => {
     it("should handle large datasets efficiently", async () => {
-      // Get data from all mock providers
       const allProviderResults = await Promise.all([
-        mockProviders[ParkingProvider.PARKWHIZ].searchLocations({
+        mockProviders[ParkingProviderType.PARKWHIZ].searchLocations({
           airport_code: "LAX",
           start_time: "2024-12-20T10:00:00",
           end_time: "2024-12-20T18:00:00",
         }),
-        mockProviders[ParkingProvider.SPOTHERO].searchLocations({
+        mockProviders[ParkingProviderType.SPOTHERO].searchLocations({
           airport_code: "LAX",
           start_time: "2024-12-20T10:00:00",
           end_time: "2024-12-20T18:00:00",
         }),
-        mockProviders[ParkingProvider.CHEAP_AIRPORT_PARKING].searchLocations({
+        mockProviders[
+          ParkingProviderType.CHEAP_AIRPORT_PARKING
+        ].searchLocations({
           airport_code: "LAX",
           start_time: "2024-12-20T10:00:00",
           end_time: "2024-12-20T18:00:00",
@@ -198,7 +193,7 @@ describe("LocationMatchingService - Mock Tests", () => {
     it("should handle locations with missing coordinate data", () => {
       const locations: ParkingLocation[] = [
         {
-          provider: ParkingProvider.PARKWHIZ,
+          provider: ParkingProviderType.PARKWHIZ,
           provider_id: "pw_no_coords",
           name: "Test Location",
           address: {
@@ -208,7 +203,7 @@ describe("LocationMatchingService - Mock Tests", () => {
             zip: "12345",
             full_address: "123 Test St, Test City, CA",
           },
-          coordinates: { latitude: 0, longitude: 0 }, // Invalid coordinates
+          coordinates: { latitude: 0, longitude: 0 },
           distance_to_airport_miles: 1.0,
           pricing: { daily_rate: 20, currency: "USD" },
           amenities: [],
@@ -220,7 +215,6 @@ describe("LocationMatchingService - Mock Tests", () => {
         },
       ];
 
-      // Should not crash with invalid coordinates
       expect(() => {
         const matches = service.findMatches(locations);
         expect(Array.isArray(matches)).toBe(true);

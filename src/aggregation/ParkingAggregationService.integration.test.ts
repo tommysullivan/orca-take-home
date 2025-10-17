@@ -1,26 +1,27 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { dbTypesafe } from "../../db/dbTypesafe";
-import { ParkingProviderService } from "../../providers/common/ParkingProviderService";
-import { ParkingProvider } from "../../providers/common/ParkingProvider";
+import { dbTypesafe } from "../db/dbTypesafe";
+import { ParkingProvider } from "../providers/common/ParkingProvider";
+import { ParkingProviderType } from "../providers/common/ParkingProviderType";
 import { LocationMatchingService } from "../locationMatching/LocationMatchingService";
 import { ParkingAggregationService } from "./ParkingAggregationService";
 
 // Import the real and mock services
-import { cheapAirportParkingMockService } from "../../providers/cheapAirportParking/CheapAirportParkingMockService";
-import { parkWhizService } from "../../providers/parkwhiz/ParkWhizService";
-import { spotHeroMockService } from "../../providers/spotHero/mock/SpotHeroMockService";
+import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/CheapAirportParkingMockProvider";
+import { parkWhizProvider } from "../providers/parkwhiz/ParkWhizProvider";
+import { spotHeroMockProvider } from "../providers/spotHero/mock/SpotHeroMockProvider";
 
 describe("ParkingAggregationService - Real Tests", () => {
   let service: ParkingAggregationService;
-  let providers: Record<ParkingProvider, ParkingProviderService>;
+  let providers: Record<ParkingProviderType, ParkingProvider>;
   let locationMatchingService: LocationMatchingService;
 
   beforeEach(() => {
     // Use real ParkWhiz service + mock services for the others (until they're implemented)
     providers = {
-      [ParkingProvider.PARKWHIZ]: parkWhizService,
-      [ParkingProvider.SPOTHERO]: spotHeroMockService, // Still mock for now
-      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingMockService, // Still mock for now
+      [ParkingProviderType.PARKWHIZ]: parkWhizProvider,
+      [ParkingProviderType.SPOTHERO]: spotHeroMockProvider, // Still mock for now
+      [ParkingProviderType.CHEAP_AIRPORT_PARKING]:
+        cheapAirportParkingMockProvider, // Still mock for now
     };
 
     locationMatchingService = new LocationMatchingService();
@@ -57,13 +58,13 @@ describe("ParkingAggregationService - Real Tests", () => {
 
       // Should have locations from all providers (real ParkWhiz + mock others)
       const parkwhizLocations = results.locations.filter(
-        (loc) => loc.provider === ParkingProvider.PARKWHIZ
+        (loc) => loc.provider === ParkingProviderType.PARKWHIZ
       );
       const spotheroLocations = results.locations.filter(
-        (loc) => loc.provider === ParkingProvider.SPOTHERO
+        (loc) => loc.provider === ParkingProviderType.SPOTHERO
       );
       const capLocations = results.locations.filter(
-        (loc) => loc.provider === ParkingProvider.CHEAP_AIRPORT_PARKING
+        (loc) => loc.provider === ParkingProviderType.CHEAP_AIRPORT_PARKING
       );
 
       // Real ParkWhiz should return actual data or handle gracefully
@@ -92,7 +93,7 @@ describe("ParkingAggregationService - Real Tests", () => {
 
       // Mock providers should return empty for invalid codes
       const nonParkwhizLocations = results.locations.filter(
-        (loc) => loc.provider !== ParkingProvider.PARKWHIZ
+        (loc) => loc.provider !== ParkingProviderType.PARKWHIZ
       );
       expect(nonParkwhizLocations.length).toBe(0); // Mock providers return empty for invalid codes
     });
@@ -110,21 +111,21 @@ describe("ParkingAggregationService - Real Tests", () => {
       console.log(
         `- ParkWhiz (REAL): ${
           results.locations.filter(
-            (l) => l.provider === ParkingProvider.PARKWHIZ
+            (l) => l.provider === ParkingProviderType.PARKWHIZ
           ).length
         } locations`
       );
       console.log(
         `- SpotHero (MOCK): ${
           results.locations.filter(
-            (l) => l.provider === ParkingProvider.SPOTHERO
+            (l) => l.provider === ParkingProviderType.SPOTHERO
           ).length
         } locations`
       );
       console.log(
         `- CAP (MOCK): ${
           results.locations.filter(
-            (l) => l.provider === ParkingProvider.CHEAP_AIRPORT_PARKING
+            (l) => l.provider === ParkingProviderType.CHEAP_AIRPORT_PARKING
           ).length
         } locations`
       );

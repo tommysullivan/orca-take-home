@@ -1,5 +1,5 @@
 import { filterLocationsByDateRange } from "../common/filterLocationsByDateRange";
-import { ParkingProviderService } from "../common/ParkingProviderService";
+import { ParkingProvider } from "../common/ParkingProvider";
 import { ParkingLocation } from "../common/ParkingLocation";
 import { ApiSearchParams } from "../common/ApiSearchParams";
 import { normalizeLocation } from "./normalizeLocation";
@@ -17,7 +17,7 @@ import { ParkWhizLocation } from "./ParkWhizLocation";
  * 3. Fetch HTML page using the slug
  * 4. Extract location data from window.__INITIAL_STATE__ in the HTML
  */
-export class ParkWhizService implements ParkingProviderService {
+export class ParkWhizProvider implements ParkingProvider {
   private readonly autocompleteBaseUrl =
     "https://api.parkwhiz.com/internal/v1/autocomplete/";
   private readonly websiteBaseUrl = "https://www.parkwhiz.com";
@@ -413,4 +413,4 @@ export class ParkWhizService implements ParkingProviderService {
   }
 }
 
-export const parkWhizService = new ParkWhizService();
+export const parkWhizProvider = new ParkWhizProvider();

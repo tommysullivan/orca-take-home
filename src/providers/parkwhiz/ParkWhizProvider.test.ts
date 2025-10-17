@@ -4,8 +4,8 @@ import { mockAutocompleteResponse } from "./mock/mockAutocompleteResponse";
 import { mockOrdAutocompleteResponse } from "./mock/mockOrdAutocompleteResponse";
 import { mockHtmlWithInitialState } from "./mock/mockHtmlWithInitialState";
 import { mockOrdHtmlWithInitialState } from "./mock/mockOrdHtmlWithInitialState";
-import { ParkingProvider } from "../common/ParkingProvider";
-import { parkWhizService } from "./ParkWhizService";
+import { ParkingProviderType } from "../common/ParkingProviderType";
+import { parkWhizProvider } from "./ParkWhizProvider";
 
 describe("ParkWhiz Real Service with HTTP Mocks", () => {
   let originalFetch: typeof global.fetch;
@@ -38,7 +38,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
     } as Response);
 
     // Access the private method through type assertion
-    const token = await (parkWhizService as any).getBearerToken();
+    const token = await (parkWhizProvider as any).getBearerToken();
 
     expect(token).toBe(mockBearerToken);
     expect(fetch).toHaveBeenCalledWith("https://www.parkwhiz.com/", {
@@ -55,7 +55,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
     } as any);
 
     const venueData = await (
-      parkWhizService as any
+      parkWhizProvider as any
     ).getAirportVenueDataWithAuth("LAX", mockBearerToken);
 
     expect(venueData).toEqual({
@@ -80,7 +80,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
       text: () => Promise.resolve(mockHtmlWithInitialState),
     } as Response);
 
-    const locations = await (parkWhizService as any).extractLocationsFromHtml(
+    const locations = await (parkWhizProvider as any).extractLocationsFromHtml(
       "/lax-airport-parking/"
     );
 
@@ -123,7 +123,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
         text: () => Promise.resolve(mockHtmlWithInitialState),
       } as Response);
 
-    const locations = await parkWhizService.searchLocations({
+    const locations = await parkWhizProvider.searchLocations({
       airport_code: "LAX",
       start_time: "2024-12-20T10:00:00",
       end_time: "2024-12-20T18:00:00",
@@ -134,7 +134,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
     // Check first location normalization
     const firstLocation = locations[0];
     expect(firstLocation).toMatchObject({
-      provider: ParkingProvider.PARKWHIZ,
+      provider: ParkingProviderType.PARKWHIZ,
       provider_id: "12345",
       name: "QuikPark LAX Garage",
       address: expect.objectContaining({
@@ -160,7 +160,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
     // Check second location normalization
     const secondLocation = locations[1];
     expect(secondLocation).toMatchObject({
-      provider: ParkingProvider.PARKWHIZ,
+      provider: ParkingProviderType.PARKWHIZ,
       provider_id: "67890",
       name: "Embassy Suites LAX",
       pricing: {
@@ -192,7 +192,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
         text: () => Promise.resolve(mockOrdHtmlWithInitialState),
       } as Response);
 
-    const locations = await parkWhizService.searchLocations({
+    const locations = await parkWhizProvider.searchLocations({
       airport_code: "ORD",
       start_time: "2024-12-20T10:00:00",
       end_time: "2024-12-20T18:00:00",
@@ -202,7 +202,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
 
     const location = locations[0];
     expect(location).toMatchObject({
-      provider: ParkingProvider.PARKWHIZ,
+      provider: ParkingProviderType.PARKWHIZ,
       provider_id: "ord_001",
       name: "Chicago Airport Parking",
       address: expect.objectContaining({
@@ -230,7 +230,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
     } as Response);
 
     await expect(
-      parkWhizService.searchLocations({
+      parkWhizProvider.searchLocations({
         airport_code: "LAX",
         start_time: "2024-12-20T10:00:00",
         end_time: "2024-12-20T18:00:00",
@@ -253,7 +253,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
         json: () => Promise.resolve(emptyAutocompleteResponse),
       } as Response);
 
-    const locations = await parkWhizService.searchLocations({
+    const locations = await parkWhizProvider.searchLocations({
       airport_code: "INVALID",
       start_time: "2024-12-20T10:00:00",
       end_time: "2024-12-20T18:00:00",
@@ -282,7 +282,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
       } as Response);
 
     await expect(
-      parkWhizService.searchLocations({
+      parkWhizProvider.searchLocations({
         airport_code: "LAX",
         start_time: "2024-12-20T10:00:00",
         end_time: "2024-12-20T18:00:00",
@@ -375,7 +375,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
         text: () => Promise.resolve(htmlWithVariedLocations),
       } as Response);
 
-    const locations = await parkWhizService.searchLocations({
+    const locations = await parkWhizProvider.searchLocations({
       airport_code: "LAX",
       start_time: "2024-12-20T10:00:00",
       end_time: "2024-12-20T18:00:00",

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { spotHeroMockService } from "./SpotHeroMockService";
+import { spotHeroMockProvider } from "./SpotHeroMockProvider";
 import { ParkingLocation } from "../../common/ParkingLocation";
-import { ParkingProvider } from "../../common/ParkingProvider";
+import { ParkingProviderType } from "../../common/ParkingProviderType";
 
 describe("SpotHero Service", () => {
   const testSearchParams = {
@@ -12,7 +12,7 @@ describe("SpotHero Service", () => {
 
   describe("Basic Functionality", () => {
     it("should return locations for valid airport", async () => {
-      const locations = await spotHeroMockService.searchLocations(
+      const locations = await spotHeroMockProvider.searchLocations(
         testSearchParams
       );
 
@@ -21,7 +21,7 @@ describe("SpotHero Service", () => {
       expect(locations.length).toBeGreaterThan(0);
 
       const firstLocation = locations[0];
-      expect(firstLocation.provider).toBe(ParkingProvider.SPOTHERO);
+      expect(firstLocation.provider).toBe(ParkingProviderType.SPOTHERO);
       expect(firstLocation.name).toBeDefined();
       expect(firstLocation.pricing.daily_rate).toBeGreaterThan(0);
     });
@@ -48,12 +48,12 @@ describe("SpotHero Service", () => {
         available: true,
       };
 
-      const normalized = (spotHeroMockService as any).normalizeLocation(
+      const normalized = (spotHeroMockProvider as any).normalizeLocation(
         rawLocation,
         "LAX"
       );
 
-      expect(normalized.provider).toBe(ParkingProvider.SPOTHERO);
+      expect(normalized.provider).toBe(ParkingProviderType.SPOTHERO);
       expect(normalized.valet_service).toBe(true);
       expect(normalized.covered_parking).toBe(false);
       expect(normalized.amenities).toContain("handicap_accessible");
@@ -68,7 +68,7 @@ describe("SpotHero Service", () => {
         airport_code: "INVALID",
       };
 
-      const locations = await spotHeroMockService.searchLocations(
+      const locations = await spotHeroMockProvider.searchLocations(
         invalidParams
       );
 
@@ -85,21 +85,21 @@ describe("SpotHero Service", () => {
 
       // Should not throw errors
       expect(async () => {
-        await spotHeroMockService.searchLocations(invalidParams);
+        await spotHeroMockProvider.searchLocations(invalidParams);
       }).not.toThrow();
     });
   });
 
   describe("Data Validation", () => {
     it("should return consistent data structure", async () => {
-      const locations = await spotHeroMockService.searchLocations(
+      const locations = await spotHeroMockProvider.searchLocations(
         testSearchParams
       );
 
       locations.forEach((location: ParkingLocation) => {
         // Required fields
         expect(location.provider_id).toBeDefined();
-        expect(location.provider).toBe(ParkingProvider.SPOTHERO);
+        expect(location.provider).toBe(ParkingProviderType.SPOTHERO);
         expect(location.name).toBeDefined();
         expect(location.address).toBeDefined();
         expect(location.address.full_address).toBeDefined();
@@ -116,7 +116,7 @@ describe("SpotHero Service", () => {
     });
 
     it("should have reasonable price ranges", async () => {
-      const locations = await spotHeroMockService.searchLocations(
+      const locations = await spotHeroMockProvider.searchLocations(
         testSearchParams
       );
 
@@ -133,7 +133,7 @@ describe("SpotHero Service", () => {
     });
 
     it("should have valid coordinates when provided", async () => {
-      const locations = await spotHeroMockService.searchLocations(
+      const locations = await spotHeroMockProvider.searchLocations(
         testSearchParams
       );
 

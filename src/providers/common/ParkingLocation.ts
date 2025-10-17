@@ -1,11 +1,11 @@
 import { Address } from "./Address";
 import { Coordinates } from "./Coordinates";
-import { ParkingProvider } from "./ParkingProvider";
+import { ParkingProviderType } from "./ParkingProviderType";
 import { Pricing } from "./Pricing";
 
 export interface ParkingLocation {
   provider_id: string;
-  provider: ParkingProvider;
+  provider: ParkingProviderType;
   name: string;
   address: Address;
   coordinates?: Coordinates;

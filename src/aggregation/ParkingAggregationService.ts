@@ -1,9 +1,9 @@
-import { DBTypesafe } from "../../db/dbTypesafe";
-import { ParkingProviderService } from "../../providers/common/ParkingProviderService";
-import { MatchedLocation } from "../../providers/common/MatchedLocation";
-import { ParkingLocation } from "../../providers/common/ParkingLocation";
-import { ApiSearchParams } from "../../providers/common/ApiSearchParams";
-import { ParkingProvider } from "../../providers/common/ParkingProvider";
+import { DBTypesafe } from "../db/dbTypesafe";
+import { ParkingProvider } from "../providers/common/ParkingProvider";
+import { MatchedLocation } from "../providers/common/MatchedLocation";
+import { ParkingLocation } from "../providers/common/ParkingLocation";
+import { ApiSearchParams } from "../providers/common/ApiSearchParams";
+import { ParkingProviderType } from "../providers/common/ParkingProviderType";
 import { LocationMatchingService } from "../locationMatching/LocationMatchingService";
 
 interface SearchResults {
@@ -28,12 +28,12 @@ interface SearchResults {
  */
 export class ParkingAggregationService {
   private db: DBTypesafe;
-  private providers: Record<ParkingProvider, ParkingProviderService>;
+  private providers: Record<ParkingProviderType, ParkingProvider>;
   private locationMatchingService: LocationMatchingService;
 
   constructor(
     db: DBTypesafe,
-    providers: Record<ParkingProvider, ParkingProviderService>,
+    providers: Record<ParkingProviderType, ParkingProvider>,
     locationMatchingService: LocationMatchingService
   ) {
     this.db = db;
@@ -233,9 +233,9 @@ export class ParkingAggregationService {
         `"${match.canonical_address.full_address}"`,
         (match.confidence_score * 100).toFixed(1),
         match.locations.length,
-        prices[ParkingProvider.PARKWHIZ] || "",
-        prices[ParkingProvider.SPOTHERO] || "",
-        prices[ParkingProvider.CHEAP_AIRPORT_PARKING] || "",
+        prices[ParkingProviderType.PARKWHIZ] || "",
+        prices[ParkingProviderType.SPOTHERO] || "",
+        prices[ParkingProviderType.CHEAP_AIRPORT_PARKING] || "",
         minPrice.toFixed(2),
         maxPrice.toFixed(2),
         (maxPrice - minPrice).toFixed(2),
