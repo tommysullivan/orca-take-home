@@ -7,7 +7,7 @@ import { cheapAirportParkingMockProvider } from "./providers/cheapAirportParking
 import { ApiSearchParams } from "./providers/common/ApiSearchParams";
 import { ParkingProviderType } from "./providers/common/ParkingProviderType";
 import { parkWhizProvider } from "./providers/parkwhiz/ParkWhizProvider";
-import { spotHeroMockProvider } from "./providers/spotHero/mock/SpotHeroMockProvider";
+import { spotHeroProvider } from "./providers/spotHero/SpotHeroProvider";
 import { ParkingAggregationService } from "./aggregation/ParkingAggregationService";
 import { locationMatchingService } from "./locationMatching/LocationMatchingService";
 
@@ -22,17 +22,17 @@ import { locationMatchingService } from "./locationMatching/LocationMatchingServ
  */
 
 async function main() {
-  console.log("🅿️  PARKING LOCATION QUOTE MATCHING SYSTEM (REAL PARKWHIZ)");
+  console.log("🅿️  PARKING LOCATION QUOTE MATCHING SYSTEM (REAL APIS)");
   console.log("========================================================");
   console.log("");
 
   try {
-    // Initialize the service with real ParkWhiz + mock others (like real integration tests)
-    console.log("🔧 Initializing services with REAL ParkWhiz...");
+    // Initialize the service with real ParkWhiz + real SpotHero + mock CAP
+    console.log("🔧 Initializing services with REAL ParkWhiz and SpotHero...");
 
     const providers = {
       [ParkingProviderType.PARKWHIZ]: parkWhizProvider,
-      [ParkingProviderType.SPOTHERO]: spotHeroMockProvider, // Mock for now
+      [ParkingProviderType.SPOTHERO]: spotHeroProvider, // Now using real SpotHero!
       [ParkingProviderType.CHEAP_AIRPORT_PARKING]:
         cheapAirportParkingMockProvider, // Mock for now
     };
@@ -43,7 +43,7 @@ async function main() {
       locationMatchingService
     );
 
-    console.log("✅ Service initialized with real ParkWhiz provider!");
+    console.log("✅ Service initialized with real ParkWhiz + SpotHero providers!");
 
     // Test airports and date ranges - using dates that match real ParkWhiz purchase_options availability
     // Real API returns purchase_options with start_time/end_time around current date (Oct 16-17, 2025)

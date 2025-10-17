@@ -4,7 +4,7 @@ import { ParkingProviderType } from "../providers/common/ParkingProviderType";
 import { LocationMatchingService } from "./LocationMatchingService";
 import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/mock/CheapAirportParkingMockProvider";
 import { parkWhizProvider } from "../providers/parkwhiz/ParkWhizProvider";
-import { spotHeroMockProvider } from "../providers/spotHero/mock/SpotHeroMockProvider";
+import { spotHeroProvider } from "../providers/spotHero/SpotHeroProvider";
 
 describe("LocationMatchingService - Integration Tests", () => {
   let service: LocationMatchingService;
@@ -13,7 +13,7 @@ describe("LocationMatchingService - Integration Tests", () => {
   beforeEach(() => {
     providers = {
       [ParkingProviderType.PARKWHIZ]: parkWhizProvider,
-      [ParkingProviderType.SPOTHERO]: spotHeroMockProvider,
+      [ParkingProviderType.SPOTHERO]: spotHeroProvider, // Now using real SpotHero!
       [ParkingProviderType.CHEAP_AIRPORT_PARKING]:
         cheapAirportParkingMockProvider,
     };
@@ -38,22 +38,22 @@ describe("LocationMatchingService - Integration Tests", () => {
   });
 
   describe("findMatches - Real Integration", () => {
-    it("should match locations with real ParkWhiz and mock providers", async () => {
+    it("should match locations with real ParkWhiz and SpotHero providers", async () => {
       const allProviderResults = await Promise.all([
         providers[ParkingProviderType.PARKWHIZ].searchLocations({
           airport_code: "LAX",
-          start_time: "2024-12-20T10:00:00",
-          end_time: "2024-12-20T18:00:00",
+          start_time: "2025-10-20T10:00:00",
+          end_time: "2025-10-22T18:00:00",
         }),
         providers[ParkingProviderType.SPOTHERO].searchLocations({
           airport_code: "LAX",
-          start_time: "2024-12-20T10:00:00",
-          end_time: "2024-12-20T18:00:00",
+          start_time: "2025-10-20T10:00:00",
+          end_time: "2025-10-22T18:00:00",
         }),
         providers[ParkingProviderType.CHEAP_AIRPORT_PARKING].searchLocations({
           airport_code: "LAX",
-          start_time: "2024-12-20T10:00:00",
-          end_time: "2024-12-20T18:00:00",
+          start_time: "2025-10-20T10:00:00",
+          end_time: "2025-10-22T18:00:00",
         }),
       ]);
 
@@ -63,17 +63,21 @@ describe("LocationMatchingService - Integration Tests", () => {
       expect(Array.isArray(matches)).toBe(true);
       expect(matches.length).toBeGreaterThanOrEqual(0);
 
+      // With real SpotHero data, we should get more matches
+      const parkwhizCount = allProviderResults[0].length;
+      const spotheroCount = allProviderResults[1].length;
+      const capCount = allProviderResults[2].length;
+
       console.log(
         `Real test: Found ${matches.length} matches across ${allLocations.length} total locations`
       );
       console.log(`Provider breakdown:`);
-      console.log(
-        `- ParkWhiz (REAL): ${allProviderResults[0].length} locations`
-      );
-      console.log(
-        `- SpotHero (MOCK): ${allProviderResults[1].length} locations`
-      );
-      console.log(`- CAP (MOCK): ${allProviderResults[2].length} locations`);
+      console.log(`- ParkWhiz (REAL): ${parkwhizCount} locations`);
+      console.log(`- SpotHero (REAL): ${spotheroCount} locations`);
+      console.log(`- CAP (MOCK): ${capCount} locations`);
+
+      // Real SpotHero should return substantial data
+      expect(spotheroCount).toBeGreaterThan(40);
 
       // Verify match structure
       matches.forEach((match) => {
@@ -88,23 +92,35 @@ describe("LocationMatchingService - Integration Tests", () => {
         expect(match.confidence_score).toBeGreaterThanOrEqual(0);
         expect(match.confidence_score).toBeLessThanOrEqual(1);
       });
+
+      // Log top matches for verification
+      const topMatches = matches.slice(0, 3);
+      console.log(`\nTop ${topMatches.length} matches:`);
+      topMatches.forEach((match, idx) => {
+        console.log(
+          `${idx + 1}. ${match.canonical_name} (${match.confidence_score.toFixed(2)} confidence)`
+        );
+        console.log(
+          `   Providers: ${match.locations.map((l) => l.provider).join(", ")}`
+        );
+      });
     });
 
-    it("should handle mixed real and mock data gracefully", async () => {
+    it("should handle mixed real data gracefully", async () => {
       const parkwhizResults = await providers[
         ParkingProviderType.PARKWHIZ
       ].searchLocations({
         airport_code: "ORD",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: "2025-10-20T10:00:00",
+        end_time: "2025-10-22T18:00:00",
       });
 
       const spotheroResults = await providers[
         ParkingProviderType.SPOTHERO
       ].searchLocations({
         airport_code: "ORD",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: "2025-10-20T10:00:00",
+        end_time: "2025-10-22T18:00:00",
       });
 
       const allLocations = [...parkwhizResults, ...spotheroResults];
@@ -113,10 +129,23 @@ describe("LocationMatchingService - Integration Tests", () => {
       expect(Array.isArray(matches)).toBe(true);
 
       console.log(
-        `ORD test: ${parkwhizResults.length} real ParkWhiz + ${spotheroResults.length} mock SpotHero = ${matches.length} matches`
+        `ORD test: ${parkwhizResults.length} real ParkWhiz + ${spotheroResults.length} real SpotHero = ${matches.length} matches`
       );
 
+      // Real SpotHero should return ~34 locations for ORD
+      expect(spotheroResults.length).toBeGreaterThan(20);
+
       if (matches.length > 0) {
+        console.log(`\nTop matches for ORD:`);
+        matches.slice(0, 3).forEach((match, idx) => {
+          console.log(
+            `${idx + 1}. ${match.canonical_name} (${match.confidence_score.toFixed(2)} confidence)`
+          );
+          console.log(
+            `   Providers: ${match.locations.map((l) => l.provider).join(", ")}`
+          );
+        });
+
         matches.forEach((match) => {
           expect(match.locations.length).toBeGreaterThan(1);
           expect(match.confidence_score).toBeGreaterThan(0);
@@ -130,18 +159,20 @@ describe("LocationMatchingService - Integration Tests", () => {
       const allProviderResults = await Promise.all([
         providers[ParkingProviderType.PARKWHIZ].searchLocations({
           airport_code: "LAX",
-          start_time: "2024-12-20T10:00:00",
-          end_time: "2024-12-20T18:00:00",
+          start_time: "2025-10-20T10:00:00",
+          end_time: "2025-10-22T18:00:00",
         }),
         providers[ParkingProviderType.SPOTHERO].searchLocations({
           airport_code: "LAX",
-          start_time: "2024-12-20T10:00:00",
-          end_time: "2024-12-20T18:00:00",
+          start_time: "2025-10-20T10:00:00",
+          end_time: "2025-10-22T18:00:00",
         }),
       ]);
 
       const allLocations = allProviderResults.flat();
       const matches = service.findMatches(allLocations);
+
+      console.log(`Report test: Found ${matches.length} matches from ${allLocations.length} locations`);
 
       if (matches.length > 0) {
         const report = service.generateMatchingReport(matches);
@@ -153,6 +184,7 @@ describe("LocationMatchingService - Integration Tests", () => {
 
         console.log("Generated matching report successfully");
         console.log(`Report length: ${report.length} characters`);
+        console.log(`First 300 chars:\n${report.substring(0, 300)}...`);
       } else {
         console.log("No matches found for report generation test");
       }
@@ -163,13 +195,15 @@ describe("LocationMatchingService - Integration Tests", () => {
         ParkingProviderType.PARKWHIZ
       ].searchLocations({
         airport_code: "BUR", // Burbank airport - smaller, may have fewer results
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: "2025-10-20T10:00:00",
+        end_time: "2025-10-22T18:00:00",
       });
 
       const matches = service.findMatches(results);
       expect(Array.isArray(matches)).toBe(true);
       expect(matches.length).toBeGreaterThanOrEqual(0);
+
+      console.log(`BUR test: ${results.length} locations, ${matches.length} matches`);
     });
   });
 });
