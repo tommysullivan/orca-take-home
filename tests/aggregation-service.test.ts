@@ -1,38 +1,33 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { DBTypesafe } from "../src/db/dbTypesafe";
 import { ParkingAggregationService } from "../src/services/parking-aggregation-service";
-import { Database } from "../src/database";
-
-// Mock the database
-vi.mock("../src/database");
 
 describe("ParkingAggregationService", () => {
   let service: ParkingAggregationService;
-  let mockDatabase: any;
+  let mockDb: any;
 
   beforeEach(() => {
-    mockDatabase = {
-      kysely: {
-        selectFrom: vi.fn().mockReturnValue({
-          selectAll: vi.fn().mockReturnValue({
-            where: vi.fn().mockReturnValue({
-              orderBy: vi.fn().mockReturnValue({
-                execute: vi.fn().mockResolvedValue([]),
-              }),
+    mockDb = {
+      selectFrom: vi.fn().mockReturnValue({
+        selectAll: vi.fn().mockReturnValue({
+          where: vi.fn().mockReturnValue({
+            orderBy: vi.fn().mockReturnValue({
+              execute: vi.fn().mockResolvedValue([]),
             }),
           }),
         }),
-        insertInto: vi.fn().mockReturnValue({
-          values: vi.fn().mockReturnValue({
-            onConflict: vi.fn().mockReturnValue({
-              execute: vi.fn().mockResolvedValue({}),
-            }),
+      }),
+      insertInto: vi.fn().mockReturnValue({
+        values: vi.fn().mockReturnValue({
+          onConflict: vi.fn().mockReturnValue({
             execute: vi.fn().mockResolvedValue({}),
           }),
+          execute: vi.fn().mockResolvedValue({}),
         }),
-      },
+      }),
     };
 
-    service = new ParkingAggregationService(mockDatabase);
+    service = new ParkingAggregationService(mockDb as DBTypesafe);
   });
 
   afterEach(() => {
@@ -87,9 +82,7 @@ describe("ParkingAggregationService", () => {
       await service.searchParkingWithMatching(searchParams);
 
       // Verify database insert was called
-      expect(mockDatabase.kysely.insertInto).toHaveBeenCalledWith(
-        "parking_locations"
-      );
+      expect(mockDb.insertInto).toHaveBeenCalledWith("parking_locations");
     });
   });
 
@@ -100,7 +93,7 @@ describe("ParkingAggregationService", () => {
         { id: 2, name: "Test Location 2", airport_code: "LAX" },
       ];
 
-      mockDatabase.kysely
+      mockDb
         .selectFrom()
         .selectAll()
         .where()
@@ -112,9 +105,7 @@ describe("ParkingAggregationService", () => {
 
       expect(result.locations).toEqual(mockLocations);
       expect(result.matches).toEqual([]);
-      expect(mockDatabase.kysely.selectFrom).toHaveBeenCalledWith(
-        "parking_locations"
-      );
+      expect(mockDb.selectFrom).toHaveBeenCalledWith("parking_locations");
     });
   });
 
@@ -210,7 +201,7 @@ describe("ParkingAggregationService", () => {
 
   describe("error handling", () => {
     it("should handle database errors gracefully", async () => {
-      mockDatabase.kysely
+      mockDb
         .insertInto()
         .values()
         .onConflict()

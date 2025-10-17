@@ -13,11 +13,13 @@
     "db:seed": "tsx src/db/devtools/seed.ts",
     "db:setup": "npm run db:migrate && npm run db:seed && npm run db:generate-types",
     "db:create-migration": "tsx src/db/devtools/create-migration.ts",
-    "db:generate-types": "kysely-codegen --url $DATABASE_URL --out-file src/types/database-generated.ts",
-    "test:connection": "tsx src/test-connection.ts",
+    "db:generate-types": "kysely-codegen --dialect postgres --url $DATABASE_URL --out-file src/db/types/database-generated.ts",
     "devcontainer:nuke": "npm run docker-compose -- down -v --remove-orphans && docker system prune -f && docker volume rm ocra_devcontainer_postgres_data || docker volume rm --force ocra_devcontainer_postgres_data",
     "type-check": "tsc --noEmit",
-    "docker-compose": "docker-compose -f ./.devcontainer/docker-compose.yml"
+    "docker-compose": "docker-compose -f ./.devcontainer/docker-compose.yml",
+    "demo": "tsx src/demo.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [
     "typescript",
@@ -29,14 +31,15 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.0.0",
+    "kysely-codegen": "^0.11.0",
     "tsx": "^4.0.0",
-    "typescript": "^5.0.0",
-    "kysely-codegen": "^0.11.0"
+    "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@types/pg": "^8.10.0",
+    "dotenv": "^16.3.0",
     "kysely": "^0.27.0",
     "pg": "^8.11.0",
-    "@types/pg": "^8.10.0",
-    "dotenv": "^16.3.0"
+    "vitest": "^3.2.4"
   }
 }

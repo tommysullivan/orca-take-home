@@ -1,5 +1,5 @@
 import { sql } from "kysely";
-import { db } from "./db/database";
+import { dbTypesafe } from "./db/dbTypesafe";
 
 // Domain types for our application
 interface Point {
@@ -33,7 +33,7 @@ function parseGeometryToPoint(geometryString: string): Point {
 class LocationService {
   // Get all locations with their coordinates
   async getAllLocations(): Promise<LocationWithCoordinates[]> {
-    const locations = await db
+    const locations = await dbTypesafe
       .selectFrom("locations")
       .select([
         "id",
@@ -56,7 +56,7 @@ class LocationService {
     longitude: number,
     radiusMeters: number = 1000
   ): Promise<LocationWithCoordinates[]> {
-    const locations = await db
+    const locations = await dbTypesafe
       .selectFrom("locations")
       .select([
         "id",
@@ -89,7 +89,7 @@ class LocationService {
     latitude: number,
     longitude: number
   ): Promise<void> {
-    await db
+    await dbTypesafe
       .insertInto("locations")
       .values({
         name,
@@ -103,7 +103,7 @@ class LocationService {
     id1: number,
     id2: number
   ): Promise<number | null> {
-    const result = await db
+    const result = await dbTypesafe
       .selectFrom("locations as l1")
       .innerJoin("locations as l2", sql`true`)
       .select(
@@ -166,7 +166,7 @@ async function main(): Promise<void> {
     console.error("❌ Error:", error);
   } finally {
     // Close the database connection
-    await db.destroy();
+    await dbTypesafe.destroy();
   }
 }
 

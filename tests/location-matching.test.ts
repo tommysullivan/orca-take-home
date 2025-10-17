@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
+import { ParkingLocation, ParkingProvider } from "../src/providers/providers";
 import { LocationMatchingService } from "../src/services/location-matching-service";
-import { ParkingLocation, ParkingProvider } from "../src/types/providers";
 
 describe("LocationMatchingService", () => {
   const matchingService = new LocationMatchingService();

@@ -1,14 +1,16 @@
-import { Database } from "../db/database";
-import { parkWhizService } from "../providers/parkwhiz-service";
-import { spotHeroService } from "../providers/spothero-service";
+import { Kysely } from "kysely";
+import { DBTypesafe, dbTypesafe } from "../db/dbTypesafe";
+import { DB } from "../db/types/database-generated";
 import { cheapAirportParkingService } from "../providers/cheap-airport-parking-service";
-import { locationMatchingService } from "../services/location-matching-service";
+import { parkWhizService } from "../providers/parkwhiz-service";
 import {
-  ParkingLocation,
-  MatchedLocation,
   ApiSearchParams,
+  MatchedLocation,
+  ParkingLocation,
   ParkingProvider,
 } from "../providers/providers";
+import { spotHeroService } from "../providers/spothero-service";
+import { locationMatchingService } from "../services/location-matching-service";
 
 interface SearchResults {
   locations: ParkingLocation[];
@@ -31,15 +33,15 @@ interface SearchResults {
  * 4. Provides unified search interface
  */
 export class ParkingAggregationService {
-  private database: Database;
+  private db: DBTypesafe;
   private providers = {
     [ParkingProvider.PARKWHIZ]: parkWhizService,
     [ParkingProvider.SPOTHERO]: spotHeroService,
     [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingService,
   };
 
-  constructor(database: Database) {
-    this.database = database;
+  constructor(db: DBTypesafe) {
+    this.db = db;
   }
 
   /**
@@ -113,14 +115,14 @@ export class ParkingAggregationService {
     locations: any[];
     matches: any[];
   }> {
-    const locations = await this.database.kysely
+    const locations = await this.db
       .selectFrom("parking_locations")
       .selectAll()
       .where("airport_code", "=", airportCode)
       .orderBy("created_at", "desc")
       .execute();
 
-    const matches = await this.database.kysely
+    const matches = await this.db
       .selectFrom("location_matches")
       .selectAll()
       .where("airport_code", "=", airportCode)
@@ -160,7 +162,7 @@ export class ParkingAggregationService {
 
     for (const location of locations) {
       try {
-        await this.database.kysely
+        await this.db
           .insertInto("parking_locations")
           .values({
             provider_id: location.provider_id,
@@ -310,6 +312,5 @@ export class ParkingAggregationService {
 }
 
 export async function createParkingAggregationService(): Promise<ParkingAggregationService> {
-  const database = new Database();
-  return new ParkingAggregationService(database);
+  return new ParkingAggregationService(dbTypesafe);
 }

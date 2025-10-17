@@ -1,15 +1,15 @@
 import * as path from "path";
 import { promises as fs } from "fs";
 import { fileURLToPath } from "url";
-import { Migrator, FileMigrationProvider } from "kysely";
-import { db } from "../database";
+import { Migrator, FileMigrationProvider, Kysely } from "kysely";
+import { dialect } from '../dialect';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 async function migrateToLatest(): Promise<void> {
   const migrator = new Migrator({
-    db,
+    db: new Kysely({dialect}),
     provider: new FileMigrationProvider({
       fs,
       path,
@@ -34,7 +34,7 @@ async function migrateToLatest(): Promise<void> {
     process.exit(1);
   }
 
-  await db.destroy();
+  await dbTypesafe.destroy();
 }
 
 migrateToLatest().catch((error) => {
