@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { parkWhizService } from "./parkwhiz/parkwhiz-service";
+import { mockParkWhizService } from "./parkwhiz/mock-parkwhiz-service";
 import { spotHeroService } from "./spotHero/spothero-service";
 import { cheapAirportParkingService } from "./cheapAirportParking/cheap-airport-parking-service";
-import { ParkingProvider } from "./providers";
+import { ParkingProvider, ParkingLocation } from "./providers";
 
 describe("Parking Provider Services", () => {
   const testSearchParams = {
@@ -13,7 +13,9 @@ describe("Parking Provider Services", () => {
 
   describe("ParkWhiz Service", () => {
     it("should return locations for valid airport", async () => {
-      const locations = await parkWhizService.searchLocations(testSearchParams);
+      const locations = await mockParkWhizService.searchLocations(
+        testSearchParams
+      );
 
       expect(locations).toBeDefined();
       expect(Array.isArray(locations)).toBe(true);
@@ -28,11 +30,6 @@ describe("Parking Provider Services", () => {
       expect(firstLocation.airport_code).toBe("LAX");
     });
 
-    it("should test connection successfully", async () => {
-      const isConnected = await parkWhizService.testConnection();
-      expect(isConnected).toBe(true);
-    });
-
     it("should normalize locations correctly", () => {
       const rawLocation = {
         location_id: "test_001",
@@ -44,36 +41,42 @@ describe("Parking Provider Services", () => {
         distance: {
           straight_line: {
             meters: 2414,
-            feet: 7920
-          }
+            feet: 7920,
+          },
         },
-        purchase_options: [{
-          id: "test-purchase-001",
-          start_time: "2025-10-16T22:00:00.000-05:00",
-          end_time: "2025-10-17T22:00:00.000-05:00",
-          min_start: "2025-10-16T22:00:00.000-05:00",
-          max_end: "2025-10-17T22:00:00.000-05:00",
-          base_price: { USD: "25.00" },
-          price: { USD: "25.00" },
-          display: { price: "price" },
-          pricing_segments: [{
-            id: 9999999,
+        purchase_options: [
+          {
+            id: "test-purchase-001",
             start_time: "2025-10-16T22:00:00.000-05:00",
             end_time: "2025-10-17T22:00:00.000-05:00",
-            event: {},
+            min_start: "2025-10-16T22:00:00.000-05:00",
+            max_end: "2025-10-17T22:00:00.000-05:00",
+            base_price: { USD: "25.00" },
+            price: { USD: "25.00" },
+            display: { price: "price" },
+            pricing_segments: [
+              {
+                id: 9999999,
+                start_time: "2025-10-16T22:00:00.000-05:00",
+                end_time: "2025-10-17T22:00:00.000-05:00",
+                event: {},
+                space_availability: { status: "available" },
+                pricing_type: "TransientPricing",
+              },
+            ],
             space_availability: { status: "available" },
-            pricing_type: "TransientPricing"
-          }],
-          space_availability: { status: "available" },
-          validation: {
-            require_license_plate: true,
-            display: { scan_code: "required" },
-            validation_steps: [{
-              instructions: "Test instruction",
-              icon: { path: "/icons/test.svg" }
-            }]
-          }
-        }],
+            validation: {
+              require_license_plate: true,
+              display: { scan_code: "required" },
+              validation_steps: [
+                {
+                  instructions: "Test instruction",
+                  icon: { path: "/icons/test.svg" },
+                },
+              ],
+            },
+          },
+        ],
         _embedded: {
           "pw:location": {
             id: "test_001",
@@ -86,14 +89,24 @@ describe("Parking Provider Services", () => {
             coordinates: [40.7128, -74.006],
             location_type: "lot",
             amenities: [
-              { id: "shuttle", name: "shuttle", display_name: "Shuttle Service", icon_path: "/icons/shuttle.svg" },
-              { id: "covered", name: "covered", display_name: "Covered", icon_path: "/icons/covered.svg" }
-            ]
-          }
-        }
+              {
+                id: "shuttle",
+                name: "shuttle",
+                display_name: "Shuttle Service",
+                icon_path: "/icons/shuttle.svg",
+              },
+              {
+                id: "covered",
+                name: "covered",
+                display_name: "Covered",
+                icon_path: "/icons/covered.svg",
+              },
+            ],
+          },
+        },
       };
 
-      const normalized = (parkWhizService as any).normalizeLocation(
+      const normalized = (mockParkWhizService as any).normalizeLocation(
         rawLocation
       );
 
@@ -119,11 +132,6 @@ describe("Parking Provider Services", () => {
       expect(firstLocation.provider).toBe(ParkingProvider.SPOTHERO);
       expect(firstLocation.name).toBeDefined();
       expect(firstLocation.pricing.daily_rate).toBeGreaterThan(0);
-    });
-
-    it("should test connection successfully", async () => {
-      const isConnected = await spotHeroService.testConnection();
-      expect(isConnected).toBe(true);
     });
 
     it("should handle different amenity formats", () => {
@@ -181,11 +189,6 @@ describe("Parking Provider Services", () => {
       expect(firstLocation.pricing.daily_rate).toBeLessThan(30);
     });
 
-    it("should test connection successfully", async () => {
-      const isConnected = await cheapAirportParkingService.testConnection();
-      expect(isConnected).toBe(true);
-    });
-
     it("should prioritize shuttle service", async () => {
       const locations = await cheapAirportParkingService.searchLocations(
         testSearchParams
@@ -204,7 +207,7 @@ describe("Parking Provider Services", () => {
         airport_code: "INVALID",
       };
 
-      const parkwhizLocations = await parkWhizService.searchLocations(
+      const parkwhizLocations = await mockParkWhizService.searchLocations(
         invalidParams
       );
       const spotheroLocations = await spotHeroService.searchLocations(
@@ -229,7 +232,7 @@ describe("Parking Provider Services", () => {
 
       // Should not throw errors
       expect(async () => {
-        await parkWhizService.searchLocations(invalidParams);
+        await mockParkWhizService.searchLocations(invalidParams);
         await spotHeroService.searchLocations(invalidParams);
         await cheapAirportParkingService.searchLocations(invalidParams);
       }).not.toThrow();
@@ -240,18 +243,17 @@ describe("Parking Provider Services", () => {
     it("should return consistent data structure across providers", async () => {
       const [parkwhizResults, spotheroResults, cheapResults] =
         await Promise.all([
-          parkWhizService.searchLocations(testSearchParams),
+          mockParkWhizService.searchLocations(testSearchParams),
           spotHeroService.searchLocations(testSearchParams),
           cheapAirportParkingService.searchLocations(testSearchParams),
         ]);
-
       const allResults = [
         ...parkwhizResults,
         ...spotheroResults,
         ...cheapResults,
       ];
 
-      allResults.forEach((location) => {
+      allResults.forEach((location: ParkingLocation) => {
         // Required fields
         expect(location.provider_id).toBeDefined();
         expect(location.provider).toBeDefined();
@@ -271,9 +273,11 @@ describe("Parking Provider Services", () => {
     });
 
     it("should have reasonable price ranges", async () => {
-      const locations = await parkWhizService.searchLocations(testSearchParams);
+      const locations = await mockParkWhizService.searchLocations(
+        testSearchParams
+      );
 
-      locations.forEach((location) => {
+      locations.forEach((location: ParkingLocation) => {
         // Reasonable parking prices
         expect(location.pricing.daily_rate).toBeGreaterThan(5);
         expect(location.pricing.daily_rate).toBeLessThan(100);

@@ -2,7 +2,7 @@ import { Kysely } from "kysely";
 import { DBTypesafe, dbTypesafe } from "../db/dbTypesafe";
 import { DB } from "../db/types/database-generated";
 import { cheapAirportParkingService } from "../providers/cheapAirportParking/cheap-airport-parking-service";
-import { parkWhizService } from "../providers/parkwhiz/parkwhiz-service";
+import { mockParkWhizService } from "../providers/parkwhiz/mock-parkwhiz-service";
 import {
   ApiSearchParams,
   MatchedLocation,
@@ -35,7 +35,7 @@ interface SearchResults {
 export class ParkingAggregationService {
   private db: DBTypesafe;
   private providers = {
-    [ParkingProvider.PARKWHIZ]: parkWhizService,
+    [ParkingProvider.PARKWHIZ]: mockParkWhizService,
     [ParkingProvider.SPOTHERO]: spotHeroService,
     [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingService,
   };
@@ -54,9 +54,6 @@ export class ParkingAggregationService {
 
     console.log(`🔍 Starting parking search for ${params.airport_code}`);
     console.log(`📅 Date range: ${params.start_time} to ${params.end_time}`);
-
-    // Test all provider connections
-    await this.testProviderConnections();
 
     // Query all providers in parallel
     const providerPromises = Object.entries(this.providers).map(
@@ -130,28 +127,6 @@ export class ParkingAggregationService {
       .execute();
 
     return { locations, matches };
-  }
-
-  private async testProviderConnections(): Promise<void> {
-    console.log("\n🔗 Testing provider connections...");
-
-    const connectionPromises = Object.entries(this.providers).map(
-      async ([name, service]) => {
-        const isConnected = await service.testConnection();
-        return { name, isConnected };
-      }
-    );
-
-    const results = await Promise.all(connectionPromises);
-    const failedConnections = results.filter((r) => !r.isConnected);
-
-    if (failedConnections.length > 0) {
-      console.warn(
-        `⚠️  Failed connections: ${failedConnections
-          .map((r) => r.name)
-          .join(", ")}`
-      );
-    }
   }
 
   private async storeLocations(

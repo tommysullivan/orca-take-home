@@ -274,25 +274,6 @@ export class CheapAirportParkingService {
 
     return amenityList;
   }
-
-  async getLocationDetails(
-    providerId: string
-  ): Promise<ParkingLocation | null> {
-    const location = this.mockData.find((loc) => loc.lot_id === providerId);
-    return location ? this.normalizeLocation(location) : null;
-  }
-
-  async testConnection(): Promise<boolean> {
-    try {
-      console.log("🔗 Testing Cheap Airport Parking API connection...");
-      await new Promise((resolve) => setTimeout(resolve, 100));
-      console.log("✅ Cheap Airport Parking: Mock service ready");
-      return true;
-    } catch (error) {
-      console.error("❌ Cheap Airport Parking connection failed:", error);
-      return false;
-    }
-  }
 }
 
 export const cheapAirportParkingService = new CheapAirportParkingService();

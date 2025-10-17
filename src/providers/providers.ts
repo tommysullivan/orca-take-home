@@ -61,6 +61,4 @@ export interface MatchedLocation {
 
 export interface ParkingProviderService {
   searchLocations(params: ApiSearchParams): Promise<ParkingLocation[]>;
-  getLocationDetails(providerId: string): Promise<ParkingLocation | null>;
-  testConnection(): Promise<boolean>;
 }

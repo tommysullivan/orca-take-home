@@ -263,27 +263,6 @@ export class SpotHeroService {
 
     return amenityList;
   }
-
-  async getLocationDetails(
-    providerId: string
-  ): Promise<ParkingLocation | null> {
-    const location = this.mockData.find(
-      (loc) => loc.id.toString() === providerId
-    );
-    return location ? this.normalizeLocation(location, "") : null;
-  }
-
-  async testConnection(): Promise<boolean> {
-    try {
-      console.log("🔗 Testing SpotHero API connection...");
-      await new Promise((resolve) => setTimeout(resolve, 150));
-      console.log("✅ SpotHero: Mock service ready");
-      return true;
-    } catch (error) {
-      console.error("❌ SpotHero connection failed:", error);
-      return false;
-    }
-  }
 }
 
 export const spotHeroService = new SpotHeroService();
