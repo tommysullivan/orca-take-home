@@ -10,7 +10,7 @@ export function normalizeLocation(location: ParkWhizRealLocation): ParkingLocati
   const firstPurchaseOption = location.purchase_options[0];
 
   // Extract amenity names for simple array
-  const amenityNames = locationData.amenities.map((amenity) => amenity.name);
+  const amenityNames = (locationData.amenities || []).map((amenity) => amenity.name);
 
   // Determine service features based on amenities
   const shuttleService = amenityNames.includes("shuttle");
@@ -38,8 +38,8 @@ export function normalizeLocation(location: ParkWhizRealLocation): ParkingLocati
         `${locationData.address1}, ${locationData.city}, ${locationData.state} ${locationData.postal_code}`.trim(),
     },
     coordinates: {
-      latitude: locationData.coordinates[0],
-      longitude: locationData.coordinates[1],
+      latitude: locationData.coordinates?.[0] || 0,
+      longitude: locationData.coordinates?.[1] || 0,
     },
     distance_to_airport_miles: Math.round(distanceMiles * 10) / 10, // Round to 1 decimal
     pricing: {

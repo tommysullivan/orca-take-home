@@ -35,8 +35,20 @@ export class RealParkWhizService implements ParkingProviderService {
       dates: `${params.start_time} to ${params.end_time}`,
     });
 
-    const locations = await this.getLocationsForAirport(params.airport_code);
-    return locations.map((location) => normalizeLocation(location));
+    const rawLocations = await this.getLocationsForAirport(params.airport_code);
+
+    const locations = rawLocations.map((locationData: any) => {
+      try {
+        return normalizeLocation(locationData);
+      } catch (error) {
+        console.error('❌ Failed to normalize ParkWhiz location:', error);
+        // Return null for failed normalizations, filter them out later
+        return null;
+      }
+    }).filter(Boolean) as ParkingLocation[];
+
+    console.log(`✅ parkwhiz: Found ${locations.length} locations`);
+    return locations;
   }
 
   /**

@@ -52,7 +52,6 @@ export interface MatchedLocation {
   canonical_name: string;
   canonical_address: Address;
   coordinates?: Coordinates;
-  airport_code?: string;
   locations: ParkingLocation[];
   confidence_score: number;
   match_reasons: string[];

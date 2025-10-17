@@ -1,16 +1,14 @@
 import { Kysely } from "kysely";
 import { DBTypesafe, dbTypesafe } from "../db/dbTypesafe";
 import { DB } from "../db/types/database-generated";
-import { cheapAirportParkingService } from "../providers/cheapAirportParking/cheap-airport-parking-service";
-import { mockParkWhizService } from "../providers/parkwhiz/mock-parkwhiz-service";
 import {
   ApiSearchParams,
   MatchedLocation,
   ParkingLocation,
   ParkingProvider,
+  ParkingProviderService,
 } from "../providers/providers";
-import { spotHeroService } from "../providers/spotHero/spothero-service";
-import { locationMatchingService } from "../services/location-matching-service";
+import { LocationMatchingService } from "../services/location-matching-service";
 
 interface SearchResults {
   locations: ParkingLocation[];
@@ -34,14 +32,17 @@ interface SearchResults {
  */
 export class ParkingAggregationService {
   private db: DBTypesafe;
-  private providers = {
-    [ParkingProvider.PARKWHIZ]: mockParkWhizService,
-    [ParkingProvider.SPOTHERO]: spotHeroService,
-    [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingService,
-  };
+  private providers: Record<ParkingProvider, ParkingProviderService>;
+  private locationMatchingService: LocationMatchingService;
 
-  constructor(db: DBTypesafe) {
+  constructor(
+    db: DBTypesafe,
+    providers: Record<ParkingProvider, ParkingProviderService>,
+    locationMatchingService: LocationMatchingService
+  ) {
     this.db = db;
+    this.providers = providers;
+    this.locationMatchingService = locationMatchingService;
   }
 
   /**
@@ -82,7 +83,7 @@ export class ParkingAggregationService {
 
     // Find matches across providers
     console.log("\n🔗 Finding location matches...");
-    const matches = locationMatchingService.findMatches(allLocations);
+    const matches = this.locationMatchingService.findMatches(allLocations);
     console.log(`✅ Found ${matches.length} potential matches`);
 
     const endTime = Date.now();
@@ -150,7 +151,7 @@ export class ParkingAggregationService {
             address_full: location.address.full_address,
             latitude: location.coordinates?.latitude,
             longitude: location.coordinates?.longitude,
-            airport_code: location.airport_code,
+            airport_code: searchParams.airport_code,
             distance_to_airport_miles: location.distance_to_airport_miles,
             daily_rate: location.pricing.daily_rate,
             hourly_rate: location.pricing.hourly_rate,
@@ -233,7 +234,7 @@ export class ParkingAggregationService {
     csv_export: string;
   }> {
     const matching_report =
-      locationMatchingService.generateMatchingReport(matches);
+      this.locationMatchingService.generateMatchingReport(matches);
 
     // Generate CSV for easy analysis
     const csvHeaders = [
@@ -287,5 +288,17 @@ export class ParkingAggregationService {
 }
 
 export async function createParkingAggregationService(): Promise<ParkingAggregationService> {
-  return new ParkingAggregationService(dbTypesafe);
+  // Import default provider services and location matching service
+  const { cheapAirportParkingService } = await import("../providers/cheapAirportParking/cheap-airport-parking-service");
+  const { mockParkWhizService } = await import("../providers/parkwhiz/mock-parkwhiz-service");
+  const { spotHeroService } = await import("../providers/spotHero/spothero-service");
+  const { locationMatchingService } = await import("../services/location-matching-service");
+  
+  const providers = {
+    [ParkingProvider.PARKWHIZ]: mockParkWhizService,
+    [ParkingProvider.SPOTHERO]: spotHeroService,
+    [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingService,
+  };
+
+  return new ParkingAggregationService(dbTypesafe, providers, locationMatchingService);
 }

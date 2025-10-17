@@ -504,7 +504,6 @@ export class LocationMatchingService {
       canonical_name: canonicalLocation.name,
       canonical_address: canonicalLocation.address,
       coordinates: avgCoordinates,
-      airport_code: canonicalLocation.airport_code,
       locations,
       confidence_score: confidence,
       match_reasons: matchReasons,
@@ -660,4 +659,10 @@ export class LocationMatchingService {
   }
 }
 
+// Create a default instance for backward compatibility
 export const locationMatchingService = new LocationMatchingService();
+
+// Export factory function for custom configurations
+export function createLocationMatchingService(criteria?: MatchCriteria): LocationMatchingService {
+  return new LocationMatchingService(criteria);
+}
