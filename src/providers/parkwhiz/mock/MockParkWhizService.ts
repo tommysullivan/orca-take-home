@@ -1,12 +1,10 @@
-import {
-  ParkingLocation,
-  ParkingProvider,
-  ApiSearchParams,
-  ParkingProviderService,
-} from "../providers";
-import { ParkWhizRealLocation } from "./parkwhiz-types";
-import { normalizeLocation } from "./parkwhiz-utils";
-import { filterLocationsByDateRange } from "../location-filter";
+import { ParkingProviderService } from "../../common/ParkingProviderService";
+import { ParkingLocation } from "../../common/ParkingLocation";
+import { ApiSearchParams } from "../../common/ApiSearchParams";
+import { ParkingProvider } from "../../common/ParkingProvider";
+import { ParkWhizLocation } from "../ParkWhizLocation";
+import { normalizeLocation } from "../normalizeLocation";
+import { filterLocationsByDateRange } from "../../common/filterLocationsByDateRange";
 
 /**
  * Mock ParkWhiz Service Implementation
@@ -15,7 +13,7 @@ import { filterLocationsByDateRange } from "../location-filter";
  * Uses the same data structure as the real API but with static mock data.
  */
 export class MockParkWhizService implements ParkingProviderService {
-  private readonly mockData: ParkWhizRealLocation[] = [
+  private readonly mockData: ParkWhizLocation[] = [
     // Chicago ORD Airport Data (based on real API structure)
     {
       location_id: "15012",
@@ -72,7 +70,7 @@ export class MockParkWhizService implements ParkingProviderService {
             },
             {
               name: "Security",
-              key: "security", 
+              key: "security",
               description: "Security",
               enabled: true,
               visible: true,

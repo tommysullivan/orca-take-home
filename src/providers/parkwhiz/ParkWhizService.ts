@@ -1,16 +1,11 @@
-import {
-  ParkingLocation,
-  ParkingProvider,
-  ApiSearchParams,
-  ParkingProviderService,
-} from "../providers";
-import {
-  ParkWhizAutocompleteResponse,
-  ParkWhizRealLocation,
-  ParkWhizInitialState,
-} from "./parkwhiz-types";
-import { normalizeLocation } from "./parkwhiz-utils";
-import { filterLocationsByDateRange } from "../location-filter";
+import { filterLocationsByDateRange } from "../common/filterLocationsByDateRange";
+import { ParkingProviderService } from "../common/ParkingProviderService";
+import { ParkingLocation } from "../common/ParkingLocation";
+import { ApiSearchParams } from "../common/ApiSearchParams";
+import { normalizeLocation } from "./normalizeLocation";
+import { ParkWhizAutocompleteResponse } from "./ParkWhizAutocompleteResponse";
+import { ParkWhizInitialState } from "./ParkWhizInitialState";
+import { ParkWhizLocation } from "./ParkWhizLocation";
 
 /**
  * Real ParkWhiz Service Implementation
@@ -22,7 +17,7 @@ import { filterLocationsByDateRange } from "../location-filter";
  * 3. Fetch HTML page using the slug
  * 4. Extract location data from window.__INITIAL_STATE__ in the HTML
  */
-export class RealParkWhizService implements ParkingProviderService {
+export class ParkWhizService implements ParkingProviderService {
   private readonly autocompleteBaseUrl =
     "https://api.parkwhiz.com/internal/v1/autocomplete/";
   private readonly websiteBaseUrl = "https://www.parkwhiz.com";
@@ -57,7 +52,7 @@ export class RealParkWhizService implements ParkingProviderService {
    */
   async getLocationsForAirport(
     airportCode: string
-  ): Promise<ParkWhizRealLocation[]> {
+  ): Promise<ParkWhizLocation[]> {
     console.log(`🌐 ParkWhiz Real: Getting locations for ${airportCode}...`);
 
     try {
@@ -294,7 +289,7 @@ export class RealParkWhizService implements ParkingProviderService {
    */
   private async extractLocationsFromHtml(
     slug: string
-  ): Promise<ParkWhizRealLocation[]> {
+  ): Promise<ParkWhizLocation[]> {
     const url = `${this.websiteBaseUrl}${slug}`;
     console.log(`🌐 Fetching HTML page: ${url}`);
 
@@ -418,4 +413,4 @@ export class RealParkWhizService implements ParkingProviderService {
   }
 }
 
-export const realParkWhizService = new RealParkWhizService();
+export const parkWhizService = new ParkWhizService();

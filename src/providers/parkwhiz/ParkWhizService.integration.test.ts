@@ -1,15 +1,15 @@
 import { describe, test, expect } from "vitest";
 import { writeFileSync } from "fs";
 import { join } from "path";
-import { realParkWhizService } from "./real-parkwhiz-service";
-import { ParkWhizRealLocation } from "./parkwhiz-types";
+import { ParkWhizLocation } from "./ParkWhizLocation";
+import { parkWhizService } from "./ParkWhizService";
 
 describe("ParkWhiz Real API End-to-End", () => {
   test("should execute full authentication and location retrieval workflow for ORD", async () => {
     console.log("🚀 Starting end-to-end ParkWhiz API test for ORD...");
 
     // Execute the full workflow: get token -> autocomplete -> scrape HTML -> extract locations
-    const locations = await realParkWhizService.getLocationsForAirport("ORD");
+    const locations = await parkWhizService.getLocationsForAirport("ORD");
 
     // Validate we got real results
     expect(locations).toBeDefined();
@@ -42,7 +42,7 @@ describe("ParkWhiz Real API End-to-End", () => {
     console.log("\n📍 Detailed ORD location data:");
     locations
       .slice(0, 5)
-      .forEach((location: ParkWhizRealLocation, index: number) => {
+      .forEach((location: ParkWhizLocation, index: number) => {
         const locationData = location._embedded["pw:location"] as any;
         console.log(`\n${index + 1}. ${locationData.name}`);
         console.log(`   ID: ${location.location_id}`);
@@ -84,7 +84,7 @@ describe("ParkWhiz Real API End-to-End", () => {
   test("should execute full workflow for LAX airport", async () => {
     console.log("🚀 Starting end-to-end ParkWhiz API test for LAX...");
 
-    const locations = await realParkWhizService.getLocationsForAirport("LAX");
+    const locations = await parkWhizService.getLocationsForAirport("LAX");
 
     expect(locations).toBeDefined();
     expect(Array.isArray(locations)).toBe(true);
@@ -104,7 +104,7 @@ describe("ParkWhiz Real API End-to-End", () => {
     console.log("\n📍 Detailed LAX location data:");
     locations
       .slice(0, 5)
-      .forEach((location: ParkWhizRealLocation, index: number) => {
+      .forEach((location: ParkWhizLocation, index: number) => {
         const locationData = location._embedded["pw:location"] as any;
         console.log(`\n${index + 1}. ${locationData.name}`);
         console.log(`   ID: ${location.location_id}`);

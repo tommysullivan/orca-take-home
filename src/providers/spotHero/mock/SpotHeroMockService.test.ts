@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { spotHeroService } from "./spothero-service";
-import { ParkingProvider, ParkingLocation } from "../providers";
+import { spotHeroMockService } from "./SpotHeroMockService";
+import { ParkingLocation } from "../../common/ParkingLocation";
+import { ParkingProvider } from "../../common/ParkingProvider";
 
 describe("SpotHero Service", () => {
   const testSearchParams = {
@@ -11,7 +12,9 @@ describe("SpotHero Service", () => {
 
   describe("Basic Functionality", () => {
     it("should return locations for valid airport", async () => {
-      const locations = await spotHeroService.searchLocations(testSearchParams);
+      const locations = await spotHeroMockService.searchLocations(
+        testSearchParams
+      );
 
       expect(locations).toBeDefined();
       expect(Array.isArray(locations)).toBe(true);
@@ -45,7 +48,7 @@ describe("SpotHero Service", () => {
         available: true,
       };
 
-      const normalized = (spotHeroService as any).normalizeLocation(
+      const normalized = (spotHeroMockService as any).normalizeLocation(
         rawLocation,
         "LAX"
       );
@@ -65,7 +68,9 @@ describe("SpotHero Service", () => {
         airport_code: "INVALID",
       };
 
-      const locations = await spotHeroService.searchLocations(invalidParams);
+      const locations = await spotHeroMockService.searchLocations(
+        invalidParams
+      );
 
       // Should return empty array, not throw errors
       expect(locations).toEqual([]);
@@ -80,14 +85,16 @@ describe("SpotHero Service", () => {
 
       // Should not throw errors
       expect(async () => {
-        await spotHeroService.searchLocations(invalidParams);
+        await spotHeroMockService.searchLocations(invalidParams);
       }).not.toThrow();
     });
   });
 
   describe("Data Validation", () => {
     it("should return consistent data structure", async () => {
-      const locations = await spotHeroService.searchLocations(testSearchParams);
+      const locations = await spotHeroMockService.searchLocations(
+        testSearchParams
+      );
 
       locations.forEach((location: ParkingLocation) => {
         // Required fields
@@ -109,7 +116,9 @@ describe("SpotHero Service", () => {
     });
 
     it("should have reasonable price ranges", async () => {
-      const locations = await spotHeroService.searchLocations(testSearchParams);
+      const locations = await spotHeroMockService.searchLocations(
+        testSearchParams
+      );
 
       locations.forEach((location: ParkingLocation) => {
         // Reasonable parking prices
@@ -124,7 +133,9 @@ describe("SpotHero Service", () => {
     });
 
     it("should have valid coordinates when provided", async () => {
-      const locations = await spotHeroService.searchLocations(testSearchParams);
+      const locations = await spotHeroMockService.searchLocations(
+        testSearchParams
+      );
 
       locations.forEach((location) => {
         if (location.coordinates) {

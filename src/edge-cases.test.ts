@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { LocationMatchingService } from "../src/services/locationMatching/location-matching-service";
-import { ParkingLocation, ParkingProvider } from "../src/providers/providers";
+import { ParkingLocation } from './providers/common/ParkingLocation';
+import { ParkingProvider } from './providers/common/ParkingProvider';
+import { LocationMatchingService } from './services/locationMatching/LocationMatchingService';
 
 /**
  * Edge Case Tests: Devil's Advocate Scenarios

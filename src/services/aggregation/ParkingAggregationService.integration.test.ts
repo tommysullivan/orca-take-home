@@ -1,16 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { dbTypesafe } from "../../db/dbTypesafe";
-import { ParkingAggregationService } from "./parking-aggregation-service";
-import { LocationMatchingService } from "../locationMatching/location-matching-service";
-import {
-  ParkingProvider,
-  ParkingProviderService,
-} from "../../providers/providers";
+import { ParkingProviderService } from "../../providers/common/ParkingProviderService";
+import { ParkingProvider } from "../../providers/common/ParkingProvider";
+import { LocationMatchingService } from "../locationMatching/LocationMatchingService";
+import { ParkingAggregationService } from "./ParkingAggregationService";
 
 // Import the real and mock services
-import { realParkWhizService } from "../../providers/parkwhiz/real-parkwhiz-service";
-import { spotHeroService } from "../../providers/spotHero/spothero-service";
-import { cheapAirportParkingService } from "../../providers/cheapAirportParking/cheap-airport-parking-service";
+import { cheapAirportParkingMockService } from "../../providers/cheapAirportParking/CheapAirportParkingMockService";
+import { parkWhizService } from "../../providers/parkwhiz/ParkWhizService";
+import { spotHeroMockService } from "../../providers/spotHero/mock/SpotHeroMockService";
 
 describe("ParkingAggregationService - Real Tests", () => {
   let service: ParkingAggregationService;
@@ -20,9 +18,9 @@ describe("ParkingAggregationService - Real Tests", () => {
   beforeEach(() => {
     // Use real ParkWhiz service + mock services for the others (until they're implemented)
     providers = {
-      [ParkingProvider.PARKWHIZ]: realParkWhizService,
-      [ParkingProvider.SPOTHERO]: spotHeroService, // Still mock for now
-      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingService, // Still mock for now
+      [ParkingProvider.PARKWHIZ]: parkWhizService,
+      [ParkingProvider.SPOTHERO]: spotHeroMockService, // Still mock for now
+      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingMockService, // Still mock for now
     };
 
     locationMatchingService = new LocationMatchingService();

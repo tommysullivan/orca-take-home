@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { cheapAirportParkingService } from "./cheap-airport-parking-service";
-import { ParkingProvider, ParkingLocation } from "../providers";
+import { cheapAirportParkingMockService } from "./CheapAirportParkingMockService";
+import { ParkingLocation } from "../common/ParkingLocation";
+import { ParkingProvider } from "../common/ParkingProvider";
 
 describe("Cheap Airport Parking Service", () => {
   const testSearchParams = {
@@ -11,7 +12,7 @@ describe("Cheap Airport Parking Service", () => {
 
   describe("Basic Functionality", () => {
     it("should return locations for valid airport", async () => {
-      const locations = await cheapAirportParkingService.searchLocations(
+      const locations = await cheapAirportParkingMockService.searchLocations(
         testSearchParams
       );
 
@@ -30,7 +31,7 @@ describe("Cheap Airport Parking Service", () => {
     });
 
     it("should prioritize shuttle service", async () => {
-      const locations = await cheapAirportParkingService.searchLocations(
+      const locations = await cheapAirportParkingMockService.searchLocations(
         testSearchParams
       );
 
@@ -47,7 +48,7 @@ describe("Cheap Airport Parking Service", () => {
         airport_code: "INVALID",
       };
 
-      const locations = await cheapAirportParkingService.searchLocations(
+      const locations = await cheapAirportParkingMockService.searchLocations(
         invalidParams
       );
 
@@ -64,14 +65,14 @@ describe("Cheap Airport Parking Service", () => {
 
       // Should not throw errors
       expect(async () => {
-        await cheapAirportParkingService.searchLocations(invalidParams);
+        await cheapAirportParkingMockService.searchLocations(invalidParams);
       }).not.toThrow();
     });
   });
 
   describe("Data Validation", () => {
     it("should return consistent data structure", async () => {
-      const locations = await cheapAirportParkingService.searchLocations(
+      const locations = await cheapAirportParkingMockService.searchLocations(
         testSearchParams
       );
 
@@ -95,7 +96,7 @@ describe("Cheap Airport Parking Service", () => {
     });
 
     it("should have reasonable budget-friendly price ranges", async () => {
-      const locations = await cheapAirportParkingService.searchLocations(
+      const locations = await cheapAirportParkingMockService.searchLocations(
         testSearchParams
       );
 
@@ -112,7 +113,7 @@ describe("Cheap Airport Parking Service", () => {
     });
 
     it("should have valid coordinates when provided", async () => {
-      const locations = await cheapAirportParkingService.searchLocations(
+      const locations = await cheapAirportParkingMockService.searchLocations(
         testSearchParams
       );
 
@@ -128,7 +129,7 @@ describe("Cheap Airport Parking Service", () => {
     });
 
     it("should focus on budget-friendly options", async () => {
-      const locations = await cheapAirportParkingService.searchLocations(
+      const locations = await cheapAirportParkingMockService.searchLocations(
         testSearchParams
       );
 

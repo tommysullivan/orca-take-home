@@ -1,15 +1,17 @@
-import { ParkingLocation, ParkingProvider } from "../providers";
-import { ParkWhizRealLocation } from "./parkwhiz-types";
+import { ParkingLocation } from "../common/ParkingLocation";
+import { ParkingProvider } from "../common/ParkingProvider";
+import { ParkWhizLocation } from "./ParkWhizLocation";
 
 /**
  * Normalize a ParkWhiz location to the common ParkingLocation format
  * Extracts data from the REAL ParkWhiz API format and includes availability dates
  */
+
 export function normalizeLocation(
-  rawLocation: ParkWhizRealLocation
+  rawLocation: ParkWhizLocation
 ): ParkingLocation {
   const locationData = rawLocation._embedded["pw:location"];
-  
+
   // Extract coordinates from entrances array (real format)
   const entrance = locationData.entrances?.[0];
   const coordinates = entrance?.coordinates
@@ -22,11 +24,11 @@ export function normalizeLocation(
   // Extract amenities from purchase_options (real format)
   const amenitiesSet = new Set<string>();
   const purchaseOption = rawLocation.purchase_options?.[0];
-  
+
   // Get earliest start and latest end from all purchase options for availability dates
   let earliestStart: string | undefined;
   let latestEnd: string | undefined;
-  
+
   if (rawLocation.purchase_options && rawLocation.purchase_options.length > 0) {
     rawLocation.purchase_options.forEach((option) => {
       if (option.start_time) {
@@ -39,7 +41,7 @@ export function normalizeLocation(
           latestEnd = option.end_time;
         }
       }
-      
+
       // Extract amenities from this purchase option
       if (option.amenities) {
         option.amenities.forEach((amenity) => {
@@ -80,7 +82,8 @@ export function normalizeLocation(
       city: locationData.city || "",
       state: locationData.state || "",
       zip: locationData.postal_code || "",
-      full_address: `${locationData.address1}, ${locationData.city}, ${locationData.state} ${locationData.postal_code}`.trim(),
+      full_address:
+        `${locationData.address1}, ${locationData.city}, ${locationData.state} ${locationData.postal_code}`.trim(),
     },
     coordinates,
     distance_to_airport_miles: distanceMiles,

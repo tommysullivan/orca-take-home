@@ -1,31 +1,4 @@
-/**
- * Shared types for ParkWhiz API responses and data structures
- */
-
-export interface ParkWhizAutocompleteResponse {
-  autocomplete: Array<{
-    id: string;
-    result_type: string;
-    full_name: string;
-    short_name: string;
-    coordinates: [number, number];
-    slug?: string;
-    slugs?: {
-      parkwhiz: string;
-      bestparking?: string;
-    };
-    city: string;
-    state: string;
-    country: string;
-    timezone: string;
-    place_id: string;
-    must_resolve: boolean;
-    score: number;
-  }>;
-  events?: Array<any>;
-}
-
-export interface ParkWhizRealLocation {
+export interface ParkWhizLocation {
   location_id: string;
   type: string;
   start_time: string;
@@ -129,19 +102,4 @@ export interface ParkWhizRealLocation {
       };
     };
   };
-}
-
-export interface ParkWhizInitialState {
-  locations: ParkWhizRealLocation[];
-  venue: {
-    id: number;
-    name: string;
-    address1: string;
-    city: string;
-    state: string;
-    postal_code: string;
-    coordinates: [number, number];
-    timezone: string;
-  };
-  [key: string]: any;
 }

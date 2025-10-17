@@ -1,16 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { dbTypesafe } from "../../db/dbTypesafe";
-import { ParkingAggregationService } from "./parking-aggregation-service";
-import { LocationMatchingService } from "../locationMatching/location-matching-service";
-import {
-  ParkingProvider,
-  ParkingProviderService,
-} from "../../providers/providers";
+import { ParkingAggregationService } from "./ParkingAggregationService";
+import { LocationMatchingService } from "../locationMatching/LocationMatchingService";
+import { ParkingProviderService } from "../../providers/common/ParkingProviderService";
+import { ParkingProvider } from "../../providers/common/ParkingProvider";
 
 // Import the mock services
-import { mockParkWhizService } from "../../providers/parkwhiz/mock-parkwhiz-service";
-import { spotHeroService } from "../../providers/spotHero/spothero-service";
-import { cheapAirportParkingService } from "../../providers/cheapAirportParking/cheap-airport-parking-service";
+import { mockParkWhizService } from "../../providers/parkwhiz/mock/MockParkWhizService";
+import { cheapAirportParkingMockService } from "../../providers/cheapAirportParking/CheapAirportParkingMockService";
+import { spotHeroMockService } from "../../providers/spotHero/mock/SpotHeroMockService";
 
 describe("ParkingAggregationService - Mock Tests", () => {
   let service: ParkingAggregationService;
@@ -21,8 +19,8 @@ describe("ParkingAggregationService - Mock Tests", () => {
     // Use mock providers directly - no re-mocking needed
     mockProviders = {
       [ParkingProvider.PARKWHIZ]: mockParkWhizService,
-      [ParkingProvider.SPOTHERO]: spotHeroService,
-      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingService,
+      [ParkingProvider.SPOTHERO]: spotHeroMockService,
+      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingMockService,
     };
 
     locationMatchingService = new LocationMatchingService();

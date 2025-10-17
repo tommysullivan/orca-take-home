@@ -1,66 +1,8 @@
-import {
-  ParkingLocation,
-  MatchedLocation,
-  Coordinates,
-} from "../../providers/providers";
-
-interface MatchCriteria {
-  // Name similarity thresholds
-  minimum_name_similarity: number;
-  strong_name_similarity: number;
-
-  // Address matching thresholds
-  minimum_address_similarity: number;
-  strong_address_similarity: number;
-
-  // Geographic distance limits
-  maximum_distance_meters: number;
-  same_location_distance_meters: number;
-
-  // Price correlation limits
-  maximum_price_difference_ratio: number;
-  consider_price_in_matching: boolean;
-
-  // Confidence scoring weights
-  base_confidence_score: number;
-  provider_count_bonus: number;
-  coordinate_data_bonus: number;
-  complete_address_bonus: number;
-  same_address_bonus: number;
-
-  // Match validation thresholds
-  minimum_match_confidence: number;
-  excellent_match_threshold: number;
-}
-
-const DEFAULT_MATCH_CRITERIA: MatchCriteria = {
-  // Name similarity: 0.0 = completely different, 1.0 = identical
-  minimum_name_similarity: 0.4, // Increased from 0.3 to 0.4
-  strong_name_similarity: 0.8, // Increased from 0.7 to 0.8
-
-  // Address similarity: focus heavily on exact address matches
-  minimum_address_similarity: 0.75, // Increased from 0.5 to 0.75 - much stricter
-  strong_address_similarity: 0.95, // Increased from 0.9 to 0.95
-
-  // Geographic proximity limits - MUCH stricter
-  maximum_distance_meters: 150, // Reduced from 500m to 150m
-  same_location_distance_meters: 30, // Reduced from 50m to 30m
-
-  // Price correlation (when enabled)
-  maximum_price_difference_ratio: 0.4, // Reduced from 0.5 to 0.4 (40% max)
-  consider_price_in_matching: true,
-
-  // Confidence scoring components
-  base_confidence_score: 0.3, // Reduced from 0.4 to 0.3
-  provider_count_bonus: 0.2, // Increased from 0.15 to 0.2
-  coordinate_data_bonus: 0.1,
-  complete_address_bonus: 0.05,
-  same_address_bonus: 0.25, // Increased from 0.2 to 0.25
-
-  // Quality thresholds
-  minimum_match_confidence: 0.7, // Increased from 0.6 to 0.7
-  excellent_match_threshold: 0.9,
-};
+import { Coordinates } from "../../providers/common/Coordinates";
+import { MatchedLocation } from "../../providers/common/MatchedLocation";
+import { ParkingLocation } from "../../providers/common/ParkingLocation";
+import { DEFAULT_MATCH_CRITERIA } from "./DEFAULT_MATCH_CRITERIA";
+import { MatchCriteria } from "./MatchCriteria";
 
 /**
  * Location Matching Service
@@ -68,6 +10,7 @@ const DEFAULT_MATCH_CRITERIA: MatchCriteria = {
  * Implements sophisticated algorithms to match parking locations across providers.
  * Uses multiple signals: name similarity, address matching, coordinate proximity, and price correlation.
  */
+
 export class LocationMatchingService {
   private criteria: MatchCriteria;
 
@@ -659,12 +602,4 @@ export class LocationMatchingService {
   }
 }
 
-// Create a default instance for backward compatibility
 export const locationMatchingService = new LocationMatchingService();
-
-// Export factory function for custom configurations
-export function createLocationMatchingService(
-  criteria?: MatchCriteria
-): LocationMatchingService {
-  return new LocationMatchingService(criteria);
-}

@@ -1,14 +1,10 @@
-import { Kysely } from "kysely";
-import { DBTypesafe, dbTypesafe } from "../../db/dbTypesafe";
-import { DB } from "../../db/types/database-generated";
-import {
-  ApiSearchParams,
-  MatchedLocation,
-  ParkingLocation,
-  ParkingProvider,
-  ParkingProviderService,
-} from "../../providers/providers";
-import { LocationMatchingService } from "../locationMatching/location-matching-service";
+import { DBTypesafe } from "../../db/dbTypesafe";
+import { ParkingProviderService } from "../../providers/common/ParkingProviderService";
+import { MatchedLocation } from "../../providers/common/MatchedLocation";
+import { ParkingLocation } from "../../providers/common/ParkingLocation";
+import { ApiSearchParams } from "../../providers/common/ApiSearchParams";
+import { ParkingProvider } from "../../providers/common/ParkingProvider";
+import { LocationMatchingService } from "../locationMatching/LocationMatchingService";
 
 interface SearchResults {
   locations: ParkingLocation[];
@@ -253,32 +249,4 @@ export class ParkingAggregationService {
       csv_export,
     };
   }
-}
-
-export async function createParkingAggregationService(): Promise<ParkingAggregationService> {
-  // Import default provider services and location matching service
-  const { cheapAirportParkingService } = await import(
-    "../../providers/cheapAirportParking/cheap-airport-parking-service"
-  );
-  const { mockParkWhizService } = await import(
-    "../../providers/parkwhiz/mock-parkwhiz-service"
-  );
-  const { spotHeroService } = await import(
-    "../../providers/spotHero/spothero-service"
-  );
-  const { locationMatchingService } = await import(
-    "../locationMatching/location-matching-service"
-  );
-
-  const providers = {
-    [ParkingProvider.PARKWHIZ]: mockParkWhizService,
-    [ParkingProvider.SPOTHERO]: spotHeroService,
-    [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingService,
-  };
-
-  return new ParkingAggregationService(
-    dbTypesafe,
-    providers,
-    locationMatchingService
-  );
 }

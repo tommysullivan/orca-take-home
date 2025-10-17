@@ -1,4 +1,4 @@
-import { ParkingLocation } from "./providers";
+import { ParkingLocation } from './ParkingLocation';
 
 /**
  * Provider-agnostic date range filtering for normalized parking locations
@@ -25,7 +25,8 @@ export function filterLocationsByDateRange(
 
     // Check for date range overlap:
     // Location overlaps if it starts before/at requested end AND ends after/at requested start
-    const hasOverlap = locationStart <= requestEnd && locationEnd >= requestStart;
+    const hasOverlap =
+      locationStart <= requestEnd && locationEnd >= requestStart;
 
     return hasOverlap;
   });

@@ -1,12 +1,15 @@
 #!/usr/bin/env tsx
 
-import { ParkingAggregationService } from "./services/aggregation/parking-aggregation-service";
-import { LocationMatchingService } from "./services/locationMatching/location-matching-service";
-import { dbTypesafe } from "./db/dbTypesafe";
-import { ParkingProvider } from "./providers/providers";
-import { ApiSearchParams } from "./providers/providers";
 import * as fs from "fs";
 import * as path from "path";
+import { dbTypesafe } from "./db/dbTypesafe";
+import { cheapAirportParkingMockService } from "./providers/cheapAirportParking/CheapAirportParkingMockService";
+import { ApiSearchParams } from "./providers/common/ApiSearchParams";
+import { ParkingProvider } from "./providers/common/ParkingProvider";
+import { parkWhizService } from "./providers/parkwhiz/ParkWhizService";
+import { spotHeroMockService } from "./providers/spotHero/mock/SpotHeroMockService";
+import { ParkingAggregationService } from "./services/aggregation/ParkingAggregationService";
+import { locationMatchingService } from "./services/locationMatching/LocationMatchingService";
 
 /**
  * Parking Location Quote Matching - Main Demo
@@ -27,24 +30,10 @@ async function main() {
     // Initialize the service with real ParkWhiz + mock others (like real integration tests)
     console.log("🔧 Initializing services with REAL ParkWhiz...");
 
-    // Import services - using same pattern as real integration tests
-    const { realParkWhizService } = await import(
-      "./providers/parkwhiz/real-parkwhiz-service"
-    );
-    const { spotHeroService } = await import(
-      "./providers/spotHero/spothero-service"
-    );
-    const { cheapAirportParkingService } = await import(
-      "./providers/cheapAirportParking/cheap-airport-parking-service"
-    );
-    const { locationMatchingService } = await import(
-      "./services/locationMatching/location-matching-service"
-    );
-
     const providers = {
-      [ParkingProvider.PARKWHIZ]: realParkWhizService,
-      [ParkingProvider.SPOTHERO]: spotHeroService, // Mock for now
-      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingService, // Mock for now
+      [ParkingProvider.PARKWHIZ]: parkWhizService,
+      [ParkingProvider.SPOTHERO]: spotHeroMockService, // Mock for now
+      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingMockService, // Mock for now
     };
 
     const service = new ParkingAggregationService(

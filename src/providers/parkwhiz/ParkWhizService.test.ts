@@ -1,214 +1,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { realParkWhizService } from "./real-parkwhiz-service";
-import { ParkingProvider } from "../providers";
-
-// Mock data captured from real API responses
-const mockBearerToken = "mock_bearer_token_12345";
-
-const mockAutocompleteResponse = {
-  autocomplete: [
-    {
-      id: "12",
-      result_type: "venue",
-      full_name: "LAX Airport",
-      short_name: "LAX Airport",
-      coordinates: [33.94240029061568, -118.40766429908399],
-      slug: "/lax-airport-parking/",
-      city: "Los Angeles",
-      state: "CA",
-      country: "US",
-    },
-  ],
-};
-
-const mockOrdAutocompleteResponse = {
-  autocomplete: [
-    {
-      id: "11",
-      result_type: "venue",
-      full_name: "Chicago O'Hare Airport",
-      short_name: "O'Hare Airport",
-      coordinates: [41.9786, -87.9048],
-      slug: "/ord-airport-parking/",
-      city: "Chicago",
-      state: "IL",
-      country: "US",
-    },
-  ],
-};
-
-const mockHtmlWithInitialState = `
-<!DOCTYPE html>
-<html>
-<head><title>LAX Airport Parking</title></head>
-<body>
-<script>
-window.__INITIAL_STATE__={
-  "locations": [
-    {
-      "location_id": "12345",
-      "type": "offstreet", 
-      "distance": {
-        "straight_line": {
-          "feet": 5280,
-          "meters": 1609
-        }
-      },
-      "purchase_options": [{
-        "id": "purchase_001",
-        "start_time": "2024-12-20T08:00:00.000-08:00",
-        "end_time": "2024-12-21T20:00:00.000-08:00",
-        "price": { "USD": "24.00" },
-        "space_availability": { "status": "available" },
-        "amenities": [
-          {
-            "name": "Shuttle",
-            "key": "shuttle",
-            "description": "Free Shuttle",
-            "enabled": true,
-            "visible": true
-          },
-          {
-            "name": "Covered",
-            "key": "indoor", 
-            "description": "Covered",
-            "enabled": true,
-            "visible": true
-          }
-        ]
-      }],
-      "_embedded": {
-        "pw:location": {
-          "id": "12345",
-          "name": "QuikPark LAX Garage",
-          "description": "Covered garage near LAX",
-          "address1": "123 Airport Blvd",
-          "city": "Los Angeles", 
-          "state": "CA",
-          "postal_code": "90045",
-          "location_type": "garage",
-          "entrances": [
-            {
-              "coordinates": [33.9425, -118.4081]
-            }
-          ]
-        }
-      }
-    },
-    {
-      "location_id": "67890",
-      "type": "offstreet",
-      "distance": {
-        "straight_line": {
-          "feet": 7920,
-          "meters": 2414
-        }
-      },
-      "purchase_options": [{
-        "id": "purchase_002", 
-        "start_time": "2024-12-20T08:00:00.000-08:00",
-        "end_time": "2024-12-21T20:00:00.000-08:00",
-        "price": { "USD": "18.50" },
-        "space_availability": { "status": "available" },
-        "amenities": [
-          {
-            "name": "Shuttle",
-            "key": "shuttle",
-            "description": "Free Shuttle",
-            "enabled": true,
-            "visible": true
-          },
-          {
-            "name": "Valet",
-            "key": "valet",
-            "description": "Valet",
-            "enabled": true,
-            "visible": true
-          }
-        ]
-      }],
-      "_embedded": {
-        "pw:location": {
-          "id": "67890",
-          "name": "Embassy Suites LAX",
-          "description": "Hotel parking near airport",
-          "address1": "456 Century Blvd",
-          "city": "Los Angeles",
-          "state": "CA", 
-          "postal_code": "90045",
-          "location_type": "lot",
-          "entrances": [
-            {
-              "coordinates": [33.9401, -118.4065]
-            }
-          ]
-        }
-      }
-    }
-  ]
-}
-</script>
-</body>
-</html>
-`;
-
-const mockOrdHtmlWithInitialState = `
-<!DOCTYPE html>
-<html>
-<head><title>ORD Airport Parking</title></head>
-<body>
-<script>
-window.__INITIAL_STATE__={
-  "locations": [
-    {
-      "location_id": "ord_001",
-      "type": "offstreet",
-      "distance": {
-        "straight_line": {
-          "feet": 3960,
-          "meters": 1207
-        }
-      },
-      "purchase_options": [{
-        "id": "ord_purchase_001",
-        "start_time": "2024-12-20T09:00:00.000-06:00",
-        "end_time": "2024-12-21T19:00:00.000-06:00",
-        "price": { "USD": "19.99" },
-        "space_availability": { "status": "available" },
-        "amenities": [
-          {
-            "name": "Shuttle",
-            "key": "shuttle",
-            "description": "Free Shuttle",
-            "enabled": true,
-            "visible": true
-          }
-        ]
-      }],
-      "_embedded": {
-        "pw:location": {
-          "id": "ord_001", 
-          "name": "Chicago Airport Parking",
-          "description": "Convenient ORD parking",
-          "address1": "789 Mannheim Rd",
-          "city": "Rosemont",
-          "state": "IL",
-          "postal_code": "60018", 
-          "location_type": "garage",
-          "entrances": [
-            {
-              "coordinates": [41.9786, -87.8824]
-            }
-          ]
-        }
-      }
-    }
-  ]
-}
-</script>
-</body>
-</html>
-`;
+import { mockBearerToken } from "./mock/mockBearerToken";
+import { mockAutocompleteResponse } from "./mock/mockAutocompleteResponse";
+import { mockOrdAutocompleteResponse } from "./mock/mockOrdAutocompleteResponse";
+import { mockHtmlWithInitialState } from "./mock/mockHtmlWithInitialState";
+import { mockOrdHtmlWithInitialState } from "./mock/mockOrdHtmlWithInitialState";
+import { ParkingProvider } from "../common/ParkingProvider";
+import { parkWhizService } from "./ParkWhizService";
 
 describe("ParkWhiz Real Service with HTTP Mocks", () => {
   let originalFetch: typeof global.fetch;
@@ -241,7 +38,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
     } as Response);
 
     // Access the private method through type assertion
-    const token = await (realParkWhizService as any).getBearerToken();
+    const token = await (parkWhizService as any).getBearerToken();
 
     expect(token).toBe(mockBearerToken);
     expect(fetch).toHaveBeenCalledWith("https://www.parkwhiz.com/", {
@@ -258,7 +55,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
     } as any);
 
     const venueData = await (
-      realParkWhizService as any
+      parkWhizService as any
     ).getAirportVenueDataWithAuth("LAX", mockBearerToken);
 
     expect(venueData).toEqual({
@@ -283,9 +80,9 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
       text: () => Promise.resolve(mockHtmlWithInitialState),
     } as Response);
 
-    const locations = await (
-      realParkWhizService as any
-    ).extractLocationsFromHtml("/lax-airport-parking/");
+    const locations = await (parkWhizService as any).extractLocationsFromHtml(
+      "/lax-airport-parking/"
+    );
 
     expect(locations).toHaveLength(2);
     expect(locations[0]).toMatchObject({
@@ -326,7 +123,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
         text: () => Promise.resolve(mockHtmlWithInitialState),
       } as Response);
 
-    const locations = await realParkWhizService.searchLocations({
+    const locations = await parkWhizService.searchLocations({
       airport_code: "LAX",
       start_time: "2024-12-20T10:00:00",
       end_time: "2024-12-20T18:00:00",
@@ -395,7 +192,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
         text: () => Promise.resolve(mockOrdHtmlWithInitialState),
       } as Response);
 
-    const locations = await realParkWhizService.searchLocations({
+    const locations = await parkWhizService.searchLocations({
       airport_code: "ORD",
       start_time: "2024-12-20T10:00:00",
       end_time: "2024-12-20T18:00:00",
@@ -433,7 +230,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
     } as Response);
 
     await expect(
-      realParkWhizService.searchLocations({
+      parkWhizService.searchLocations({
         airport_code: "LAX",
         start_time: "2024-12-20T10:00:00",
         end_time: "2024-12-20T18:00:00",
@@ -456,7 +253,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
         json: () => Promise.resolve(emptyAutocompleteResponse),
       } as Response);
 
-    const locations = await realParkWhizService.searchLocations({
+    const locations = await parkWhizService.searchLocations({
       airport_code: "INVALID",
       start_time: "2024-12-20T10:00:00",
       end_time: "2024-12-20T18:00:00",
@@ -485,7 +282,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
       } as Response);
 
     await expect(
-      realParkWhizService.searchLocations({
+      parkWhizService.searchLocations({
         airport_code: "LAX",
         start_time: "2024-12-20T10:00:00",
         end_time: "2024-12-20T18:00:00",
@@ -578,7 +375,7 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
         text: () => Promise.resolve(htmlWithVariedLocations),
       } as Response);
 
-    const locations = await realParkWhizService.searchLocations({
+    const locations = await parkWhizService.searchLocations({
       airport_code: "LAX",
       start_time: "2024-12-20T10:00:00",
       end_time: "2024-12-20T18:00:00",

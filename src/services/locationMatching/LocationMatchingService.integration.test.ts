@@ -1,18 +1,13 @@
-import { describe, expect, it, beforeEach } from "vitest";
-import {
-  LocationMatchingService,
-  createLocationMatchingService,
-} from "./location-matching-service";
-import {
-  ParkingLocation,
-  ParkingProvider,
-  ParkingProviderService,
-} from "../../providers/providers";
+import { beforeEach, describe, expect, it } from "vitest";
+import { ParkingProviderService } from "../../providers/common/ParkingProviderService";
+import { ParkingProvider } from "../../providers/common/ParkingProvider";
+import { createLocationMatchingService } from "./createLocationMatchingService";
+import { LocationMatchingService } from "./LocationMatchingService";
 
 // Import real and mock services
-import { realParkWhizService } from "../../providers/parkwhiz/real-parkwhiz-service";
-import { spotHeroService } from "../../providers/spotHero/spothero-service";
-import { cheapAirportParkingService } from "../../providers/cheapAirportParking/cheap-airport-parking-service";
+import { cheapAirportParkingMockService } from "../../providers/cheapAirportParking/CheapAirportParkingMockService";
+import { parkWhizService } from "../../providers/parkwhiz/ParkWhizService";
+import { spotHeroMockService } from "../../providers/spotHero/mock/SpotHeroMockService";
 
 describe("LocationMatchingService - Real Tests", () => {
   let service: LocationMatchingService;
@@ -21,9 +16,9 @@ describe("LocationMatchingService - Real Tests", () => {
   beforeEach(() => {
     // Use real ParkWhiz service + mock services for the others
     providers = {
-      [ParkingProvider.PARKWHIZ]: realParkWhizService,
-      [ParkingProvider.SPOTHERO]: spotHeroService, // Still mock for now
-      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingService, // Still mock for now
+      [ParkingProvider.PARKWHIZ]: parkWhizService,
+      [ParkingProvider.SPOTHERO]: spotHeroMockService, // Still mock for now
+      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingMockService, // Still mock for now
     };
 
     service = createLocationMatchingService({
