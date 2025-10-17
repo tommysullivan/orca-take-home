@@ -241,7 +241,6 @@ export class CheapAirportParkingService {
         latitude: location.location.lat,
         longitude: location.location.lon,
       },
-      airport_code: location.airport,
       distance_to_airport_miles: location.miles_from_airport,
       pricing: {
         daily_rate: location.pricing.daily_rate,

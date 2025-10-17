@@ -232,7 +232,6 @@ export class SpotHeroService {
         latitude: location.latitude,
         longitude: location.longitude,
       },
-      airport_code: airportCode,
       distance_to_airport_miles: location.distance,
       pricing: {
         daily_rate: location.price.amount,

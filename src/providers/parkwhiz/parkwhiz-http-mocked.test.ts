@@ -322,7 +322,6 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
         latitude: 33.9425,
         longitude: -118.4081,
       },
-      airport_code: "LAX",
       distance_to_airport_miles: 1.0, // 5280 feet = 1 mile
       pricing: {
         daily_rate: 24.0,
@@ -387,7 +386,6 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
         state: "IL",
         zip: "60018",
       }),
-      airport_code: "ORD",
       distance_to_airport_miles: 0.8, // 3960 feet ≈ 0.8 miles
       pricing: {
         daily_rate: 19.99,

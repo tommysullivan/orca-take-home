@@ -9,6 +9,7 @@ import {
   ParkWhizRealLocation,
   ParkWhizInitialState,
 } from "./parkwhiz-types";
+import { normalizeLocation } from "./parkwhiz-utils";
 
 /**
  * Real ParkWhiz Service Implementation
@@ -35,7 +36,7 @@ export class RealParkWhizService implements ParkingProviderService {
     });
 
     const locations = await this.getLocationsForAirport(params.airport_code);
-    return locations.map((location) => this.normalizeLocation(location));
+    return locations.map((location) => normalizeLocation(location));
   }
 
   /**
@@ -403,85 +404,7 @@ export class RealParkWhizService implements ParkingProviderService {
     }
   }
 
-  /**
-   * Normalize a ParkWhizRealLocation to ParkingLocation format
-   */
-  private normalizeLocation(location: ParkWhizRealLocation): ParkingLocation {
-    const locationData = location._embedded["pw:location"];
-    const firstPurchaseOption = location.purchase_options[0];
 
-    // Extract amenity names for simple array
-    const amenityNames = locationData.amenities.map((amenity) => amenity.name);
-
-    // Determine service features based on amenities
-    const shuttleService = amenityNames.includes("shuttle");
-    const valetService = amenityNames.includes("valet");
-    const coveredParking =
-      amenityNames.includes("covered") ||
-      locationData.location_type === "garage";
-
-    // Convert distance from feet to miles
-    const distanceMiles = location.distance.straight_line.feet / 5280;
-
-    // Extract pricing from first purchase option
-    const dailyRate = parseFloat(firstPurchaseOption.price.USD);
-
-    return {
-      provider_id: location.location_id,
-      provider: ParkingProvider.PARKWHIZ,
-      name: locationData.name,
-      address: {
-        street: locationData.address1,
-        city: locationData.city,
-        state: locationData.state,
-        zip: locationData.postal_code,
-        full_address:
-          `${locationData.address1}, ${locationData.city}, ${locationData.state} ${locationData.postal_code}`.trim(),
-      },
-      coordinates: {
-        latitude: locationData.coordinates[0],
-        longitude: locationData.coordinates[1],
-      },
-      airport_code: this.inferAirportCode(locationData.city, locationData.name),
-      distance_to_airport_miles: Math.round(distanceMiles * 10) / 10, // Round to 1 decimal
-      pricing: {
-        daily_rate: dailyRate,
-        currency: "USD",
-      },
-      amenities: amenityNames,
-      availability:
-        firstPurchaseOption.space_availability.status === "available",
-      shuttle_service: shuttleService,
-      valet_service: valetService,
-      covered_parking: coveredParking,
-      provider_data: {
-        location_type: locationData.location_type,
-        description: locationData.description,
-        purchase_options: location.purchase_options,
-        original_data: location,
-      },
-    };
-  }
-
-  /**
-   * Infer airport code from location data
-   */
-  private inferAirportCode(city: string, name: string): string | undefined {
-    const cityLower = city.toLowerCase();
-    const nameLower = name.toLowerCase();
-
-    if (
-      cityLower.includes("chicago") ||
-      cityLower.includes("rosemont") ||
-      nameLower.includes("o'hare")
-    ) {
-      return "ORD";
-    }
-    if (cityLower.includes("los angeles") || nameLower.includes("lax")) {
-      return "LAX";
-    }
-    return undefined;
-  }
 }
 
 export const realParkWhizService = new RealParkWhizService();

@@ -35,7 +35,6 @@ export interface ParkingLocation {
   name: string;
   address: Address;
   coordinates?: Coordinates;
-  airport_code?: string;
   distance_to_airport_miles?: number;
   pricing: Pricing;
   amenities: string[];

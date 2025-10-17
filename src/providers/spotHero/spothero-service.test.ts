@@ -1,0 +1,140 @@
+import { describe, it, expect } from "vitest";
+import { spotHeroService } from "./spothero-service";
+import { ParkingProvider, ParkingLocation } from "../providers";
+
+describe("SpotHero Service", () => {
+  const testSearchParams = {
+    airport_code: "LAX",
+    start_time: "2024-12-20T10:00:00",
+    end_time: "2024-12-20T18:00:00",
+  };
+
+  describe("Basic Functionality", () => {
+    it("should return locations for valid airport", async () => {
+      const locations = await spotHeroService.searchLocations(testSearchParams);
+
+      expect(locations).toBeDefined();
+      expect(Array.isArray(locations)).toBe(true);
+      expect(locations.length).toBeGreaterThan(0);
+
+      const firstLocation = locations[0];
+      expect(firstLocation.provider).toBe(ParkingProvider.SPOTHERO);
+      expect(firstLocation.name).toBeDefined();
+      expect(firstLocation.pricing.daily_rate).toBeGreaterThan(0);
+    });
+
+    it("should handle different amenity formats", () => {
+      const rawLocation = {
+        id: 999,
+        name: "SpotHero Test Location",
+        street_address: "456 Hero Ave",
+        city: "Hero City",
+        state: "HC",
+        postal_code: "54321",
+        latitude: 34.0522,
+        longitude: -118.2437,
+        distance: 0.8,
+        price: { amount: 30, currency: "USD" },
+        amenities: {
+          covered: false,
+          valet: true,
+          handicap_accessible: true,
+          electric_charging: false,
+          shuttle: true,
+        },
+        available: true,
+      };
+
+      const normalized = (spotHeroService as any).normalizeLocation(
+        rawLocation,
+        "LAX"
+      );
+
+      expect(normalized.provider).toBe(ParkingProvider.SPOTHERO);
+      expect(normalized.valet_service).toBe(true);
+      expect(normalized.covered_parking).toBe(false);
+      expect(normalized.amenities).toContain("handicap_accessible");
+      expect(normalized.amenities).toContain("shuttle");
+    });
+  });
+
+  describe("Error Handling", () => {
+    it("should handle invalid airport codes gracefully", async () => {
+      const invalidParams = {
+        ...testSearchParams,
+        airport_code: "INVALID",
+      };
+
+      const locations = await spotHeroService.searchLocations(invalidParams);
+
+      // Should return empty array, not throw errors
+      expect(locations).toEqual([]);
+    });
+
+    it("should handle malformed date ranges", async () => {
+      const invalidParams = {
+        airport_code: "LAX",
+        start_time: "invalid-date",
+        end_time: "also-invalid",
+      };
+
+      // Should not throw errors
+      expect(async () => {
+        await spotHeroService.searchLocations(invalidParams);
+      }).not.toThrow();
+    });
+  });
+
+  describe("Data Validation", () => {
+    it("should return consistent data structure", async () => {
+      const locations = await spotHeroService.searchLocations(testSearchParams);
+
+      locations.forEach((location: ParkingLocation) => {
+        // Required fields
+        expect(location.provider_id).toBeDefined();
+        expect(location.provider).toBe(ParkingProvider.SPOTHERO);
+        expect(location.name).toBeDefined();
+        expect(location.address).toBeDefined();
+        expect(location.address.full_address).toBeDefined();
+        expect(location.pricing).toBeDefined();
+        expect(location.pricing.daily_rate).toBeGreaterThan(0);
+        expect(location.pricing.currency).toBe("USD");
+
+        expect(Array.isArray(location.amenities)).toBe(true);
+        expect(typeof location.availability).toBe("boolean");
+        expect(typeof location.shuttle_service).toBe("boolean");
+        expect(typeof location.valet_service).toBe("boolean");
+        expect(typeof location.covered_parking).toBe("boolean");
+      });
+    });
+
+    it("should have reasonable price ranges", async () => {
+      const locations = await spotHeroService.searchLocations(testSearchParams);
+
+      locations.forEach((location: ParkingLocation) => {
+        // Reasonable parking prices
+        expect(location.pricing.daily_rate).toBeGreaterThan(5);
+        expect(location.pricing.daily_rate).toBeLessThan(100);
+
+        if (location.pricing.hourly_rate) {
+          expect(location.pricing.hourly_rate).toBeGreaterThan(0.5);
+          expect(location.pricing.hourly_rate).toBeLessThan(15);
+        }
+      });
+    });
+
+    it("should have valid coordinates when provided", async () => {
+      const locations = await spotHeroService.searchLocations(testSearchParams);
+
+      locations.forEach((location) => {
+        if (location.coordinates) {
+          // Valid latitude/longitude ranges
+          expect(location.coordinates.latitude).toBeGreaterThan(-90);
+          expect(location.coordinates.latitude).toBeLessThan(90);
+          expect(location.coordinates.longitude).toBeGreaterThan(-180);
+          expect(location.coordinates.longitude).toBeLessThan(180);
+        }
+      });
+    });
+  });
+});
