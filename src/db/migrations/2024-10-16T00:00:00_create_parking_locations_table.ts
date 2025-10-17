@@ -15,7 +15,6 @@ export async function up(db: Kysely<any>): Promise<void> {
     .addColumn("address_full", "text", (col) => col.notNull())
     .addColumn("latitude", "decimal(10, 8)")
     .addColumn("longitude", "decimal(11, 8)")
-    .addColumn("airport_code", "varchar(10)")
     .addColumn("distance_to_airport_miles", "decimal(5, 2)")
     .addColumn("daily_rate", "decimal(10, 2)", (col) => col.notNull())
     .addColumn("hourly_rate", "decimal(10, 2)")

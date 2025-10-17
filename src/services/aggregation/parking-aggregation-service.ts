@@ -235,7 +235,6 @@ export class ParkingAggregationService {
         match.id,
         `"${match.canonical_name}"`,
         `"${match.canonical_address.full_address}"`,
-        match.airport_code || "",
         (match.confidence_score * 100).toFixed(1),
         match.locations.length,
         prices[ParkingProvider.PARKWHIZ] || "",
