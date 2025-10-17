@@ -1,0 +1,218 @@
+{
+  "autocomplete": [
+    {
+      "id": "5",
+      "result_type": "venue",
+      "full_name": "O'Hare Airport",
+      "short_name": "O'Hare Airport",
+      "coordinates": [41.98056, -87.885705],
+      "slug": "/o-hare-airport-parking/",
+      "slugs": {
+        "bestparking": "/chicago-il-parking/destinations/o-hare-airport-parking/",
+        "parkwhiz": "/o-hare-airport-parking/"
+      },
+      "city": "Chicago",
+      "state": "IL",
+      "country": "US",
+      "timezone": "America/Chicago",
+      "place_id": "",
+      "must_resolve": false,
+      "score": 0.1
+    },
+    {
+      "id": "dXJuOm1ieHBvaToyZTkzMGExNy0wNGU0LTRlNTYtYWU2OS04YzZmZDFlNmM2YWM",
+      "result_type": "place",
+      "full_name": "Ordo",
+      "short_name": "Ordo",
+      "coordinates": [42.171102, -87.825309],
+      "slugs": null,
+      "address": "1855 Deerfield Rd Ste F, Highland Park, Illinois 60035, United States",
+      "city": "Highland Park",
+      "state": "IL",
+      "postal_code": "60035",
+      "country": "US",
+      "timezone": "America/Chicago",
+      "place_id": "dXJuOm1ieHBvaToyZTkzMGExNy0wNGU0LTRlNTYtYWU2OS04YzZmZDFlNmM2YWM",
+      "must_resolve": true,
+      "score": 2.0999999999999996
+    },
+    {
+      "id": "dXJuOm1ieHBvaTo0YmUzNmYwNS1mYWZmLTRlNWYtODg3ZS02MTg5OTAzZTZjNWQ",
+      "result_type": "place",
+      "full_name": "The Ordinary",
+      "short_name": "The Ordinary",
+      "coordinates": [41.90742813, -87.67271085],
+      "slugs": null,
+      "address": "1401 N Milwaukee Ave, Chicago, Illinois 60622, United States",
+      "city": "Chicago",
+      "state": "IL",
+      "postal_code": "60622",
+      "country": "US",
+      "timezone": "America/Chicago",
+      "place_id": "dXJuOm1ieHBvaTo0YmUzNmYwNS1mYWZmLTRlNWYtODg3ZS02MTg5OTAzZTZjNWQ",
+      "must_resolve": true,
+      "score": 11
+    },
+    {
+      "id": "15707",
+      "result_type": "address",
+      "full_name": "417 Ord St Los Angeles, CA",
+      "short_name": "417 Ord St",
+      "coordinates": [34.06046129429078, -118.23989195126329],
+      "slug": "/destination/417-Ord-St-Los-Angeles-CA-90012/?lat=34.06046129429078\u0026lng=-118.23989195126329",
+      "slugs": null,
+      "address": "417 Ord St",
+      "city": "Los Angeles",
+      "state": "CA",
+      "country": "US",
+      "timezone": "America/Los_Angeles",
+      "place_id": "15707",
+      "must_resolve": false,
+      "score": 19
+    },
+    {
+      "id": "34493",
+      "result_type": "address",
+      "full_name": "201 Ford Rd Bala Cynwyd, PA",
+      "short_name": "201 Ford Rd",
+      "coordinates": [40.005868, -75.242986],
+      "slug": "/destination/201-Ford-Rd-Bala-Cynwyd-PA-19044/?lat=40.005868\u0026lng=-75.242986",
+      "slugs": null,
+      "address": "201 Ford Rd",
+      "city": "Bala Cynwyd",
+      "state": "PA",
+      "country": "US",
+      "timezone": "America/New_York",
+      "place_id": "34493",
+      "must_resolve": false,
+      "score": 20
+    },
+    {
+      "id": "25993",
+      "result_type": "address",
+      "full_name": "11 Old Bedford Rd Goldens Bridge, NY",
+      "short_name": "11 Old Bedford Rd",
+      "coordinates": [41.294682519685956, -73.67780450812415],
+      "slug": "/destination/11-Old-Bedford-Rd-Goldens-Bridge-NY-10526/?lat=41.294682519685956\u0026lng=-73.67780450812415",
+      "slugs": null,
+      "address": "11 Old Bedford Rd",
+      "city": "Goldens Bridge",
+      "state": "NY",
+      "country": "US",
+      "timezone": "America/New_York",
+      "place_id": "25993",
+      "must_resolve": false,
+      "score": 26
+    }
+  ],
+  "events": [
+    {
+      "id": 1675437,
+      "name": "Funksgiving with Universal Funk Order x Mac Wondo",
+      "start_time": "2025-11-26T20:00:00.000-05:00",
+      "end_time": "2025-11-26T23:00:00.000-05:00",
+      "site_url": "/the-queen-parking/funksgiving-with-universal-funk-order-x-mac-wondo-18-1675437/",
+      "_embedded": {
+        "pw:venue": {
+          "id": "323546",
+          "name": "The Queen",
+          "city": "Wilmington",
+          "state": "DE",
+          "timezone": "America/New_York",
+          "enhanced_airport": false,
+          "coordinates": [39.7411018, -75.5502779]
+        }
+      }
+    },
+    {
+      "id": 1652387,
+      "name": "Richard Goode Plays Mozart’s Piano Concerto No. 14",
+      "start_time": "2025-10-17T11:00:00.000-05:00",
+      "end_time": "2025-10-17T14:00:00.000-05:00",
+      "site_url": "/ordway-center-for-the-performing-arts-parking/richard-goode-plays-mozart-s-piano-concerto-no-14-1652387/",
+      "_embedded": {
+        "pw:venue": {
+          "id": "2552",
+          "name": "Ordway Center for the Performing Arts",
+          "city": "Saint Paul",
+          "state": "MN",
+          "timezone": "America/Chicago",
+          "enhanced_airport": false,
+          "coordinates": [44.94457195447249, -93.09822486945797]
+        }
+      }
+    },
+    {
+      "id": 1652384,
+      "name": "Richard Goode Plays Mozart’s Piano Concerto No. 14",
+      "start_time": "2025-10-17T19:00:00.000-05:00",
+      "end_time": "2025-10-17T22:00:00.000-05:00",
+      "site_url": "/ordway-center-for-the-performing-arts-parking/richard-goode-plays-mozart-s-piano-concerto-no-14-1652384/",
+      "_embedded": {
+        "pw:venue": {
+          "id": "2552",
+          "name": "Ordway Center for the Performing Arts",
+          "city": "Saint Paul",
+          "state": "MN",
+          "timezone": "America/Chicago",
+          "enhanced_airport": false,
+          "coordinates": [44.94457195447249, -93.09822486945797]
+        }
+      }
+    },
+    {
+      "id": 1652386,
+      "name": "Richard Goode Plays Mozart’s Piano Concerto No. 14",
+      "start_time": "2025-10-18T19:00:00.000-05:00",
+      "end_time": "2025-10-18T22:00:00.000-05:00",
+      "site_url": "/ordway-center-for-the-performing-arts-parking/richard-goode-plays-mozart-s-piano-concerto-no-14-1652386/",
+      "_embedded": {
+        "pw:venue": {
+          "id": "2552",
+          "name": "Ordway Center for the Performing Arts",
+          "city": "Saint Paul",
+          "state": "MN",
+          "timezone": "America/Chicago",
+          "enhanced_airport": false,
+          "coordinates": [44.94457195447249, -93.09822486945797]
+        }
+      }
+    },
+    {
+      "id": 1652388,
+      "name": "Haydn’s Symphony No. 93 with Richard Egarr",
+      "start_time": "2025-10-31T19:00:00.000-05:00",
+      "end_time": "2025-10-31T22:00:00.000-05:00",
+      "site_url": "/ordway-center-for-the-performing-arts-parking/haydn-s-symphony-no-93-with-richard-egarr-1652388/",
+      "_embedded": {
+        "pw:venue": {
+          "id": "2552",
+          "name": "Ordway Center for the Performing Arts",
+          "city": "Saint Paul",
+          "state": "MN",
+          "timezone": "America/Chicago",
+          "enhanced_airport": false,
+          "coordinates": [44.94457195447249, -93.09822486945797]
+        }
+      }
+    },
+    {
+      "id": 1652389,
+      "name": "Haydn’s Symphony No. 93 with Richard Egarr",
+      "start_time": "2025-11-01T19:00:00.000-05:00",
+      "end_time": "2025-11-01T22:00:00.000-05:00",
+      "site_url": "/ordway-center-for-the-performing-arts-parking/haydn-s-symphony-no-93-with-richard-egarr-1652389/",
+      "_embedded": {
+        "pw:venue": {
+          "id": "2552",
+          "name": "Ordway Center for the Performing Arts",
+          "city": "Saint Paul",
+          "state": "MN",
+          "timezone": "America/Chicago",
+          "enhanced_airport": false,
+          "coordinates": [44.94457195447249, -93.09822486945797]
+        }
+      }
+    }
+  ]
+}

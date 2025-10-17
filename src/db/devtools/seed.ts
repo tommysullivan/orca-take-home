@@ -4,14 +4,14 @@ import { dbTypesafe } from "../dbTypesafe";
 async function seedDatabase(): Promise<void> {
   try {
     console.log("🌱 Starting database seeding...");
-    
+
     // Check if locations table has data already
     const existingLocations = await dbTypesafe
       .selectFrom("locations")
       .select("id")
       .limit(1)
       .execute();
-    
+
     if (existingLocations.length > 0) {
       console.log("📍 Locations already seeded, skipping...");
     } else {
@@ -43,7 +43,7 @@ async function seedDatabase(): Promise<void> {
       .select("id")
       .limit(1)
       .execute();
-    
+
     if (existingParkingLocations.length > 0) {
       console.log("🅿️  Parking locations already seeded, skipping...");
     } else {
