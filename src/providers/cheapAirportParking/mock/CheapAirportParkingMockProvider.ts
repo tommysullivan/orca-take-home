@@ -2,7 +2,10 @@ import { ParkingLocation } from "../../common/ParkingLocation";
 import { ApiSearchParams } from "../../common/ApiSearchParams";
 import { ParkingProviderType } from "../../common/ParkingProviderType";
 import { ParkingProvider } from "../../common/ParkingProvider";
-import { mockHtmlResponses, mockDetailPageResponses } from "./mockHtmlResponses.js";
+import {
+  mockHtmlResponses,
+  mockDetailPageResponses,
+} from "./mockHtmlResponses.js";
 import { parseHTMLResponse } from "../parseHTMLResponse.js";
 import { normalizeLocation } from "../normalizeLocation.js";
 import { CheapAirportParkingRawLocation } from "../CheapAirportParkingRawLocation.js";
@@ -20,7 +23,7 @@ import { JSDOM } from "jsdom";
  */
 export class CheapAirportParkingMockProvider implements ParkingProvider {
   readonly provider_type = ParkingProviderType.CHEAP_AIRPORT_PARKING;
-  
+
   // Batch size for fetching detail pages (same as real provider)
   private readonly detailPageBatchSize = 5;
 
@@ -62,11 +65,11 @@ export class CheapAirportParkingMockProvider implements ParkingProvider {
     locations: CheapAirportParkingRawLocation[]
   ): Promise<CheapAirportParkingRawLocation[]> {
     const results: CheapAirportParkingRawLocation[] = [];
-    
+
     // Process locations in batches
     for (let i = 0; i < locations.length; i += this.detailPageBatchSize) {
       const batch = locations.slice(i, i + this.detailPageBatchSize);
-      
+
       // Fetch addresses for all locations in this batch in parallel
       const batchResults = await Promise.all(
         batch.map(async (raw) => {
@@ -74,24 +77,21 @@ export class CheapAirportParkingMockProvider implements ParkingProvider {
             const address = await this.fetchLocationAddress(raw);
             return { ...raw, address };
           } catch (error) {
-            console.warn(
-              `⚠️  Failed to fetch address for ${raw.name}:`,
-              error
-            );
+            console.warn(`⚠️  Failed to fetch address for ${raw.name}:`, error);
             // Return without address if fetch fails
             return raw;
           }
         })
       );
-      
+
       results.push(...batchResults);
-      
+
       // Add a small delay between batches (same as real provider)
       if (i + this.detailPageBatchSize < locations.length) {
         await new Promise((resolve) => setTimeout(resolve, 500));
       }
     }
-    
+
     return results;
   }
 

@@ -6,6 +6,7 @@ import { normalizeLocation } from "./normalizeLocation";
 import { ParkWhizAutocompleteResponse } from "./ParkWhizAutocompleteResponse";
 import { ParkWhizInitialState } from "./ParkWhizInitialState";
 import { ParkWhizLocation } from "./ParkWhizLocation";
+import { retryWithBackoff } from "../common/retryWithBackoff.js";
 
 /**
  * Real ParkWhiz Service Implementation
@@ -295,6 +296,15 @@ export class ParkWhizProvider implements ParkingProvider {
    * Extract locations from venue HTML page
    */
   private async extractLocationsFromHtml(
+    slug: string
+  ): Promise<ParkWhizLocation[]> {
+    return retryWithBackoff(() => this.extractLocationsFromHtmlInternal(slug));
+  }
+
+  /**
+   * Internal method to extract locations (wrapped with retry logic)
+   */
+  private async extractLocationsFromHtmlInternal(
     slug: string
   ): Promise<ParkWhizLocation[]> {
     const url = `${this.websiteBaseUrl}${slug}`;

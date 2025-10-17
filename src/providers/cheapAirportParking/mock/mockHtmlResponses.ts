@@ -276,7 +276,7 @@ export const mockHtmlResponses: Record<string, string> = {
  */
 export const mockDetailPageResponses: Record<string, string> = {
   // ORD locations
-  "park_001_cap_ord_001": `
+  park_001_cap_ord_001: `
 <!DOCTYPE html>
 <html>
 <body>
@@ -292,7 +292,7 @@ export const mockDetailPageResponses: Record<string, string> = {
 </body>
 </html>
   `,
-  "park_002_cap_ord_002": `
+  park_002_cap_ord_002: `
 <!DOCTYPE html>
 <html>
 <body>
@@ -308,7 +308,7 @@ export const mockDetailPageResponses: Record<string, string> = {
 </body>
 </html>
   `,
-  "park_003_cap_ord_003": `
+  park_003_cap_ord_003: `
 <!DOCTYPE html>
 <html>
 <body>
@@ -324,7 +324,7 @@ export const mockDetailPageResponses: Record<string, string> = {
 </body>
 </html>
   `,
-  "park_004_cap_ord_004": `
+  park_004_cap_ord_004: `
 <!DOCTYPE html>
 <html>
 <body>
@@ -340,7 +340,7 @@ export const mockDetailPageResponses: Record<string, string> = {
 </body>
 </html>
   `,
-  "park_005_cap_ord_005": `
+  park_005_cap_ord_005: `
 <!DOCTYPE html>
 <html>
 <body>
@@ -357,7 +357,7 @@ export const mockDetailPageResponses: Record<string, string> = {
 </html>
   `,
   // LAX locations
-  "park_201_cap_lax_001": `
+  park_201_cap_lax_001: `
 <!DOCTYPE html>
 <html>
 <body>
@@ -373,7 +373,7 @@ export const mockDetailPageResponses: Record<string, string> = {
 </body>
 </html>
   `,
-  "park_202_cap_lax_002": `
+  park_202_cap_lax_002: `
 <!DOCTYPE html>
 <html>
 <body>
@@ -389,7 +389,7 @@ export const mockDetailPageResponses: Record<string, string> = {
 </body>
 </html>
   `,
-  "park_203_cap_lax_003": `
+  park_203_cap_lax_003: `
 <!DOCTYPE html>
 <html>
 <body>
@@ -405,7 +405,7 @@ export const mockDetailPageResponses: Record<string, string> = {
 </body>
 </html>
   `,
-  "park_204_cap_lax_004": `
+  park_204_cap_lax_004: `
 <!DOCTYPE html>
 <html>
 <body>
@@ -421,7 +421,7 @@ export const mockDetailPageResponses: Record<string, string> = {
 </body>
 </html>
   `,
-  "park_205_cap_lax_005": `
+  park_205_cap_lax_005: `
 <!DOCTYPE html>
 <html>
 <body>
@@ -437,7 +437,7 @@ export const mockDetailPageResponses: Record<string, string> = {
 </body>
 </html>
   `,
-  "park_206_cap_lax_006": `
+  park_206_cap_lax_006: `
 <!DOCTYPE html>
 <html>
 <body>

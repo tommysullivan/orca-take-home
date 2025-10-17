@@ -6,6 +6,7 @@ import { normalizeLocation } from "./normalizeLocation.js";
 import { parseHTMLResponse } from "./parseHTMLResponse.js";
 import nodeFetch from "node-fetch";
 import { JSDOM } from "jsdom";
+import { retryWithBackoff } from "../common/retryWithBackoff.js";
 
 /**
  * Real Cheap Airport Parking Service Implementation
@@ -25,13 +26,9 @@ import { JSDOM } from "jsdom";
 export class CheapAirportParkingProvider implements ParkingProvider {
   private readonly baseUrl =
     "https://www.cheapairportparking.org/parking/find.php";
-  
+
   // Batch size for fetching detail pages (to avoid rate limiting)
   private readonly detailPageBatchSize = 5;
-  
-  // Retry configuration for rate limiting
-  private readonly maxRetries = 4;
-  private readonly initialRetryDelay = 1000; // 1 second
 
   /**
    * Search for parking locations using the Cheap Airport Parking API
@@ -80,6 +77,15 @@ export class CheapAirportParkingProvider implements ParkingProvider {
    * Fetch locations from the Cheap Airport Parking API
    */
   private async fetchLocations(
+    params: ApiSearchParams
+  ): Promise<CheapAirportParkingRawLocation[]> {
+    return retryWithBackoff(() => this.fetchLocationsInternal(params));
+  }
+
+  /**
+   * Internal method to fetch locations (wrapped with retry logic)
+   */
+  private async fetchLocationsInternal(
     params: ApiSearchParams
   ): Promise<CheapAirportParkingRawLocation[]> {
     // Convert ISO datetime to the format expected by the API
@@ -158,50 +164,6 @@ export class CheapAirportParkingProvider implements ParkingProvider {
   }
 
   /**
-   * Sleep for a specified duration
-   */
-  private async sleep(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
-  /**
-   * Retry a function with exponential backoff
-   */
-  private async retryWithBackoff<T>(
-    fn: () => Promise<T>,
-    operation: string
-  ): Promise<T> {
-    let lastError: Error | undefined;
-
-    for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
-      try {
-        return await fn();
-      } catch (error) {
-        lastError = error as Error;
-
-        // Check if it's a rate limit error (403)
-        const is403 = error instanceof Error && error.message.includes("403");
-
-        // If this was the last attempt or not a rate limit error, throw
-        if (attempt === this.maxRetries || !is403) {
-          throw error;
-        }
-
-        // Calculate exponential backoff delay with base 3 (1s, 3s, 9s)
-        const delay = this.initialRetryDelay * Math.pow(3, attempt);
-        console.warn(
-          `⚠️  Rate limited (403) on ${operation}, retrying in ${delay}ms (attempt ${attempt + 1}/${this.maxRetries})...`
-        );
-
-        await this.sleep(delay);
-      }
-    }
-
-    // This should never be reached, but TypeScript needs it
-    throw lastError || new Error("Retry failed");
-  }
-
-  /**
    * Fetch addresses for multiple locations in batches
    */
   private async fetchAddressesInBatches(
@@ -209,29 +171,30 @@ export class CheapAirportParkingProvider implements ParkingProvider {
     params: ApiSearchParams
   ): Promise<CheapAirportParkingRawLocation[]> {
     const results: CheapAirportParkingRawLocation[] = [];
-    
+
     // Process locations in batches
     for (let i = 0; i < locations.length; i += this.detailPageBatchSize) {
       const batch = locations.slice(i, i + this.detailPageBatchSize);
       const batchNumber = Math.floor(i / this.detailPageBatchSize) + 1;
-      const totalBatches = Math.ceil(locations.length / this.detailPageBatchSize);
-      
+      const totalBatches = Math.ceil(
+        locations.length / this.detailPageBatchSize
+      );
+
       console.log(
         `  📦 Processing batch ${batchNumber}/${totalBatches} (${batch.length} locations)...`
       );
-      
+
       // Fetch addresses for all locations in this batch in parallel with retry
       const batchResults = await Promise.all(
         batch.map(async (raw) => {
           try {
-            const address = await this.retryWithBackoff(
-              () => this.fetchLocationAddress(raw, params),
-              `detail page for ${raw.name}`
+            const address = await retryWithBackoff(() =>
+              this.fetchLocationAddress(raw, params)
             );
             return { ...raw, address };
           } catch (error) {
             console.warn(
-              `⚠️  Failed to fetch address for ${raw.name} after ${this.maxRetries} retries:`,
+              `⚠️  Failed to fetch address for ${raw.name} after retries:`,
               error instanceof Error ? error.message : error
             );
             // Return without address if fetch fails after all retries
@@ -239,15 +202,15 @@ export class CheapAirportParkingProvider implements ParkingProvider {
           }
         })
       );
-      
+
       results.push(...batchResults);
-      
+
       // Add a small delay between batches to be extra cautious
       if (i + this.detailPageBatchSize < locations.length) {
         await new Promise((resolve) => setTimeout(resolve, 500));
       }
     }
-    
+
     return results;
   }
 

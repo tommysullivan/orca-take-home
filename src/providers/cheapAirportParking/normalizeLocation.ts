@@ -64,8 +64,12 @@ export function normalizeLocation(
     },
     amenities,
     availability: raw.is_available,
-    available_from: isNaN(params.start_time.getTime()) ? new Date().toISOString() : params.start_time.toISOString(),
-    available_until: isNaN(params.end_time.getTime()) ? new Date().toISOString() : params.end_time.toISOString(),
+    available_from: isNaN(params.start_time.getTime())
+      ? new Date().toISOString()
+      : params.start_time.toISOString(),
+    available_until: isNaN(params.end_time.getTime())
+      ? new Date().toISOString()
+      : params.end_time.toISOString(),
     shuttle_service,
     valet_service,
     covered_parking,

@@ -88,6 +88,17 @@ async function main() {
       fs.writeFileSync(reportPath, reports.matching_report);
       console.log(`📄 Matching report saved: ${reportPath}`);
 
+      // Save matches JSON (raw match objects)
+      const matchesJsonPath = path.join(
+        outputDir,
+        `${filePrefix}_matching_report.json`
+      );
+      fs.writeFileSync(
+        matchesJsonPath,
+        JSON.stringify(results.matches, null, 2)
+      );
+      console.log(`📋 Matches JSON saved: ${matchesJsonPath}`);
+
       // Save CSV export
       const csvPath = path.join(outputDir, `${filePrefix}_matches.csv`);
       fs.writeFileSync(csvPath, reports.csv_export);
@@ -113,6 +124,7 @@ async function main() {
     console.log("\n✅ DEMO COMPLETED SUCCESSFULLY!");
     console.log("\nOutput files generated:");
     console.log("- Matching reports (Markdown)");
+    console.log("- Matching reports (JSON with raw match objects)");
     console.log("- CSV exports for analysis");
     console.log("- Complete JSON datasets");
     console.log("\nNext steps:");

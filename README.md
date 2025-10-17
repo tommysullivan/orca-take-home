@@ -1,15 +1,20 @@
-# OCRA - Location Services with PostGIS
+# OCRA - Parking Location Quote Matching System
 
-A TypeScript Node.js application demonstrating geolocation capabilities using PostgreSQL with PostGIS extension and Kysely query builder.
+A TypeScript Node.js application for aggregating and matching parking location quotes across multiple providers (ParkWhiz, SpotHero, Cheap Airport Parking) using PostgreSQL with PostGIS extension and Kysely query builder.
 
 ## Features
 
-- 🐳 **Docker Compose** setup with separate services for app and database
+- 🅿️ **Multi-Provider Aggregation** - Fetches parking locations from ParkWhiz, SpotHero, and Cheap Airport Parking
+- � **Intelligent Matching** - Matches the same parking facilities across different providers using fuzzy matching, geolocation, and address analysis
+- 🌍 **Geospatial Queries** - Distance calculations and proximity searches using PostGIS
+- 📊 **Comprehensive Reports** - Generates Markdown reports, JSON exports, and CSV files for analysis
+- 🔄 **Retry with Exponential Backoff** - Handles API rate limiting automatically (4 retries with base-3 exponential backoff)
+- ✅ **Extensive Test Coverage** - 79 tests including unit and integration tests with real API calls
+- �🐳 **Docker Compose** setup with separate services for app and database
 - 🗄️ **PostgreSQL with PostGIS** for geolocation capabilities
 - 📦 **TypeScript** with strict type checking
 - 🔍 **Kysely Query Builder** for type-safe database operations
-- 🌍 **Geospatial Queries** including distance calculations and proximity searches
-- 📊 **Schema Management** with TypeScript-defined schema and migrations
+- 📊 **Schema Management** with migrations and automatic type generation
 - 🌱 **Database Seeding** with sample location data
 
 ## Getting Started
@@ -46,11 +51,43 @@ npm run db:setup
 npm test
 ```
 
-5. **Generate matches + sql records**
+5. **Run Demo - Generate Parking Location Matches**
 
 ```bash
 npm run demo
 ```
+
+This will:
+- Query all three providers (ParkWhiz, SpotHero, Cheap Airport Parking) for LAX and ORD
+- Store locations in the database
+- Match locations across providers
+- Generate reports in `./outputs/` directory:
+  - Markdown matching reports
+  - JSON exports with raw match data
+  - CSV files for spreadsheet analysis
+  - Complete JSON datasets with search parameters
+
+## How It Works
+
+### Location Matching Algorithm
+
+The system identifies the same parking facilities across different providers using multiple signals:
+
+1. **Address Analysis (PRIMARY)** - >0.75 similarity required, >0.95 for strong evidence
+2. **Name Similarity** - Fuzzy matching with >0.4 minimum threshold, >0.8 for strong evidence
+3. **Geographic Proximity** - Locations within 150m considered nearby, under 30m = same location
+4. **Price Correlation** - Prices must be within 40% of each other (when price matching is enabled)
+5. **Smart Differentiation** - Prevents matching obviously different facilities (e.g., valet vs self-park)
+
+Confidence scores range from 65% (fair) to 95% (excellent) based on the strength of matching signals.
+
+### Provider Integration
+
+- **ParkWhiz**: Multi-step authentication + HTML parsing from search results
+- **SpotHero**: Public API with structured JSON responses
+- **Cheap Airport Parking**: HTML scraping + batch address detail fetching (5 per batch, 500ms delay)
+
+All providers include automatic retry with exponential backoff for rate limiting (4 retries: 1s, 3s, 9s, 27s).
 
 ## Migration System
 
@@ -133,11 +170,38 @@ These are not committed, and are generated automatically based on current schema
 
 - `src/db/types/database-generated.ts` - Auto-generated types (created after migrations)
 
+## Available Scripts
+
+### Development
+- `npm run dev` - Start development server with auto-reload (tsx watch)
+- `npm run build` - Compile TypeScript to JavaScript
+- `npm start` - Run compiled JavaScript from dist/
+- `npm run type-check` - Run TypeScript type checking without compilation
+
+### Database Management
+- `npm run db:setup` - Complete database setup (migrate + generate types + seed)
+- `npm run db:migrate` - Run pending database migrations
+- `npm run db:migrate:down` - Rollback the most recent migration
+- `npm run db:seed` - Populate database with sample data
+- `npm run db:create-migration` - Create a new migration file with timestamp
+- `npm run db:generate-types` - Generate TypeScript types from database schema
+
+### Testing & Demo
+- `npm test` - Run all tests once
+- `npm run test:watch` - Run tests in watch mode (auto-rerun on changes)
+- `npm run test:unit` - Run unit tests only (excludes integration tests)
+- `npm run test:integration` - Run integration tests only (excludes unit tests)
+- `npm run demo` - Run parking location matching demo with real APIs
+
+### Advanced (Dev Container)
+- `npm run devcontainer:nuke` - Nuclear option: destroy database volume and rebuild
+
 ## Development
 
 The dev container includes:
 
 - Node.js 18 with TypeScript support
+- PostgreSQL with PostGIS extension
 - PostgreSQL client tools
 - Git and Bash
 - VS Code extensions for TypeScript development

@@ -133,8 +133,8 @@ export class ParkingAggregationService {
           valet_service: location.valet_service,
           covered_parking: location.covered_parking,
           provider_data: JSON.stringify(location.provider_data || {}),
-          search_start_time: searchParams.start_time,
-          search_end_time: searchParams.end_time,
+          search_start_time: searchParams.start_time.toISOString(),
+          search_end_time: searchParams.end_time.toISOString(),
           created_at: new Date().toISOString(),
         })
         .onConflict((oc: any) =>

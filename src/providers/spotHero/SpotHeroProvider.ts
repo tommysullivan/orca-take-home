@@ -3,6 +3,7 @@ import { ParkingLocation } from "../common/ParkingLocation";
 import { ApiSearchParams } from "../common/ApiSearchParams";
 import { SpotHeroSearchResponse } from "./SpotHeroTypes";
 import { normalizeLocation } from "./normalizeLocation";
+import { retryWithBackoff } from "../common/retryWithBackoff.js";
 
 /**
  * Real SpotHero Service Implementation
@@ -52,6 +53,15 @@ export class SpotHeroProvider implements ParkingProvider {
    * Fetch locations from the SpotHero API
    */
   private async fetchLocations(
+    params: ApiSearchParams
+  ): Promise<SpotHeroSearchResponse["results"]> {
+    return retryWithBackoff(() => this.fetchLocationsInternal(params));
+  }
+
+  /**
+   * Internal method to fetch locations (wrapped with retry logic)
+   */
+  private async fetchLocationsInternal(
     params: ApiSearchParams
   ): Promise<SpotHeroSearchResponse["results"]> {
     // Convert Date objects to ISO strings without milliseconds

@@ -1,10 +1,11 @@
 {
   "version": "2.0.0",
   "tasks": [
+    // Development Tasks
     {
-      "label": "Reset Database (Full)",
+      "label": "Start Development Server",
       "type": "shell",
-      "command": "npm run db:reset",
+      "command": "npm run dev",
       "group": "build",
       "presentation": {
         "echo": true,
@@ -12,12 +13,12 @@
         "focus": false,
         "panel": "shared"
       },
-      "detail": "Kill postgres, remove volume, then rebuild devcontainer"
+      "detail": "Start development server with auto-reload"
     },
     {
-      "label": "Clean Database Volume",
+      "label": "Build Project",
       "type": "shell",
-      "command": "npm run db:clean",
+      "command": "npm run build",
       "group": "build",
       "presentation": {
         "echo": true,
@@ -25,12 +26,12 @@
         "focus": false,
         "panel": "shared"
       },
-      "detail": "Kill postgres and remove volume (requires devcontainer rebuild)"
+      "detail": "Compile TypeScript to JavaScript"
     },
     {
-      "label": "Rebuild DevContainer",
+      "label": "Type Check",
       "type": "shell",
-      "command": "echo 'Use Ctrl+Shift+P → Dev Containers: Rebuild and Reopen in Container'",
+      "command": "npm run type-check",
       "group": "build",
       "presentation": {
         "echo": true,
@@ -38,8 +39,9 @@
         "focus": false,
         "panel": "shared"
       },
-      "detail": "Instructions to rebuild the devcontainer"
+      "detail": "Run TypeScript type checking without compilation"
     },
+    // Database Tasks
     {
       "label": "Run Database Migrations",
       "type": "shell",
@@ -67,9 +69,9 @@
       "detail": "Rollback the last applied migration"
     },
     {
-      "label": "Seed Database",
+      "label": "Create New Migration",
       "type": "shell",
-      "command": "npm run db:seed",
+      "command": "npm run db:create-migration",
       "group": "build",
       "presentation": {
         "echo": true,
@@ -77,7 +79,7 @@
         "focus": false,
         "panel": "shared"
       },
-      "detail": "Populate database with sample data"
+      "detail": "Create a new database migration file"
     },
     {
       "label": "Generate TypeScript Types",
@@ -93,9 +95,9 @@
       "detail": "Generate TypeScript types from database schema"
     },
     {
-      "label": "Create New Migration",
+      "label": "Seed Database",
       "type": "shell",
-      "command": "npm run db:create-migration",
+      "command": "npm run db:seed",
       "group": "build",
       "presentation": {
         "echo": true,
@@ -103,34 +105,9 @@
         "focus": false,
         "panel": "shared"
       },
-      "detail": "Create a new database migration file"
+      "detail": "Populate database with sample data"
     },
-    {
-      "label": "Run Demo",
-      "type": "shell",
-      "command": "npm run demo",
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "detail": "Run the parking location matching demo"
-    },
-    {
-      "label": "Run Demo (Price Toggle)",
-      "type": "shell",
-      "command": "npm run demo:price",
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "detail": "Run demo showing price consideration toggle"
-    },
+    // Testing & Demo Tasks
     {
       "label": "Run Tests",
       "type": "shell",
@@ -158,43 +135,43 @@
       "detail": "Run tests in watch mode (auto-rerun on changes)"
     },
     {
-      "label": "Type Check",
+      "label": "Run Unit Tests",
       "type": "shell",
-      "command": "npm run type-check",
-      "group": "build",
+      "command": "npm run test:unit",
+      "group": "test",
       "presentation": {
         "echo": true,
         "reveal": "always",
         "focus": false,
         "panel": "shared"
       },
-      "detail": "Run TypeScript type checking without compilation"
+      "detail": "Run unit tests only (excludes integration tests)"
     },
     {
-      "label": "Build Project",
+      "label": "Run Integration Tests",
       "type": "shell",
-      "command": "npm run build",
-      "group": "build",
+      "command": "npm run test:integration",
+      "group": "test",
       "presentation": {
         "echo": true,
         "reveal": "always",
         "focus": false,
         "panel": "shared"
       },
-      "detail": "Compile TypeScript to JavaScript"
+      "detail": "Run integration tests only (excludes unit tests)"
     },
     {
-      "label": "Start Development Server",
+      "label": "Run Demo",
       "type": "shell",
-      "command": "npm run dev",
-      "group": "build",
+      "command": "npm run demo",
+      "group": "test",
       "presentation": {
         "echo": true,
         "reveal": "always",
         "focus": false,
         "panel": "shared"
       },
-      "detail": "Start development server with auto-reload"
+      "detail": "Run the parking location matching demo with real APIs"
     }
   ]
 }
