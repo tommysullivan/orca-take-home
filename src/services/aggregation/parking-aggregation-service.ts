@@ -113,50 +113,43 @@ export class ParkingAggregationService {
     console.log("\n💾 Storing locations in database...");
 
     for (const location of locations) {
-      try {
-        await this.db
-          .insertInto("parking_locations")
-          .values({
-            provider_id: location.provider_id,
-            provider: location.provider,
-            name: location.name,
-            address_street: location.address.street,
-            address_city: location.address.city,
-            address_state: location.address.state,
-            address_zip: location.address.zip,
-            address_full: location.address.full_address,
-            latitude: location.coordinates?.latitude,
-            longitude: location.coordinates?.longitude,
-            airport_code: searchParams.airport_code,
-            distance_to_airport_miles: location.distance_to_airport_miles,
-            daily_rate: location.pricing.daily_rate,
-            hourly_rate: location.pricing.hourly_rate,
-            currency: location.pricing.currency,
-            amenities: JSON.stringify(location.amenities),
-            availability: location.availability,
-            shuttle_service: location.shuttle_service,
-            valet_service: location.valet_service,
-            covered_parking: location.covered_parking,
-            provider_data: JSON.stringify(location.provider_data || {}),
-            search_start_time: searchParams.start_time,
-            search_end_time: searchParams.end_time,
+      await this.db
+        .insertInto("parking_locations")
+        .values({
+          provider_id: location.provider_id,
+          provider: location.provider,
+          name: location.name,
+          address_street: location.address.street,
+          address_city: location.address.city,
+          address_state: location.address.state,
+          address_zip: location.address.zip,
+          address_full: location.address.full_address,
+          latitude: location.coordinates?.latitude,
+          longitude: location.coordinates?.longitude,
+          airport_code: searchParams.airport_code,
+          distance_to_airport_miles: location.distance_to_airport_miles,
+          daily_rate: location.pricing.daily_rate,
+          hourly_rate: location.pricing.hourly_rate,
+          currency: location.pricing.currency,
+          amenities: JSON.stringify(location.amenities),
+          availability: location.availability,
+          shuttle_service: location.shuttle_service,
+          valet_service: location.valet_service,
+          covered_parking: location.covered_parking,
+          provider_data: JSON.stringify(location.provider_data || {}),
+          search_start_time: searchParams.start_time,
+          search_end_time: searchParams.end_time,
+          created_at: new Date().toISOString(),
+        })
+        .onConflict((oc: any) =>
+          oc.columns(["provider", "provider_id"]).doUpdateSet({
+            name: (eb: any) => eb.ref("excluded.name"),
+            daily_rate: (eb: any) => eb.ref("excluded.daily_rate"),
+            availability: (eb: any) => eb.ref("excluded.availability"),
             created_at: new Date().toISOString(),
           })
-          .onConflict((oc: any) =>
-            oc.columns(["provider", "provider_id"]).doUpdateSet({
-              name: (eb: any) => eb.ref("excluded.name"),
-              daily_rate: (eb: any) => eb.ref("excluded.daily_rate"),
-              availability: (eb: any) => eb.ref("excluded.availability"),
-              created_at: new Date().toISOString(),
-            })
-          )
-          .execute();
-      } catch (error) {
-        console.error(
-          `Failed to store location ${location.provider_id}:`,
-          error
-        );
-      }
+        )
+        .execute();
     }
 
     console.log(`✅ Stored ${locations.length} locations`);

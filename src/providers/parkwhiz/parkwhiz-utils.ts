@@ -2,75 +2,103 @@ import { ParkingLocation, ParkingProvider } from "../providers";
 import { ParkWhizRealLocation } from "./parkwhiz-types";
 
 /**
- * Normalize a ParkWhiz location to the standard ParkingLocation format
- * This function is shared between mock and real ParkWhiz services
+ * Normalize a ParkWhiz location to the common ParkingLocation format
+ * Extracts data from the REAL ParkWhiz API format and includes availability dates
  */
 export function normalizeLocation(
-  location: ParkWhizRealLocation
+  rawLocation: ParkWhizRealLocation
 ): ParkingLocation {
-  const locationData = location._embedded["pw:location"];
-  const firstPurchaseOption = location.purchase_options[0];
-
-  // Extract amenity names from purchase_options (real API structure)
-  const amenityNames: string[] = [];
+  const locationData = rawLocation._embedded["pw:location"];
   
-  if (firstPurchaseOption.amenities) {
-    firstPurchaseOption.amenities.forEach((amenity: any) => {
-      // Only include enabled amenities
-      if (amenity.enabled && amenity.name) {
-        amenityNames.push(amenity.name.toLowerCase());
+  // Extract coordinates from entrances array (real format)
+  const entrance = locationData.entrances?.[0];
+  const coordinates = entrance?.coordinates
+    ? {
+        latitude: entrance.coordinates[0],
+        longitude: entrance.coordinates[1],
+      }
+    : undefined;
+
+  // Extract amenities from purchase_options (real format)
+  const amenitiesSet = new Set<string>();
+  const purchaseOption = rawLocation.purchase_options?.[0];
+  
+  // Get earliest start and latest end from all purchase options for availability dates
+  let earliestStart: string | undefined;
+  let latestEnd: string | undefined;
+  
+  if (rawLocation.purchase_options && rawLocation.purchase_options.length > 0) {
+    rawLocation.purchase_options.forEach((option) => {
+      if (option.start_time) {
+        if (!earliestStart || option.start_time < earliestStart) {
+          earliestStart = option.start_time;
+        }
+      }
+      if (option.end_time) {
+        if (!latestEnd || option.end_time > latestEnd) {
+          latestEnd = option.end_time;
+        }
+      }
+      
+      // Extract amenities from this purchase option
+      if (option.amenities) {
+        option.amenities.forEach((amenity) => {
+          if (amenity.enabled && amenity.key) {
+            amenitiesSet.add(amenity.key);
+          }
+        });
       }
     });
   }
 
-  // Determine service features based on amenities
-  const shuttleService = amenityNames.some(name => 
-    name.includes("shuttle") || name.includes("free shuttle")
-  );
-  const valetService = amenityNames.some(name => 
-    name.includes("valet")
-  );
-  const coveredParking = amenityNames.some(name => 
-    name.includes("covered") || name.includes("indoor")
-  ) || locationData.location_type === "garage";
+  const amenities = Array.from(amenitiesSet);
 
-  // Convert distance from feet to miles
-  const distanceMiles = location.distance.straight_line.feet / 5280;
+  // Determine specific amenity flags
+  const hasShuttle = amenities.some((a) => a.includes("shuttle"));
+  const hasValet = amenities.some((a) => a.includes("valet"));
+  const hasCovered =
+    amenities.some((a) => a.includes("covered")) ||
+    amenities.some((a) => a.includes("indoor")) ||
+    locationData.location_type === "garage";
+
+  // Calculate distance if available and round to 1 decimal place
+  const distanceMiles = rawLocation.distance?.straight_line?.feet
+    ? Math.round((rawLocation.distance.straight_line.feet / 5280) * 10) / 10
+    : undefined;
 
   // Extract pricing from first purchase option
-  const dailyRate = parseFloat(firstPurchaseOption.price.USD);
+  const priceUSD = purchaseOption?.price?.USD
+    ? parseFloat(purchaseOption.price.USD)
+    : 0;
 
   return {
-    provider_id: location.location_id,
+    provider_id: rawLocation.location_id,
     provider: ParkingProvider.PARKWHIZ,
-    name: locationData.name,
+    name: locationData.name || "Unknown Location",
     address: {
-      street: locationData.address1,
-      city: locationData.city,
-      state: locationData.state,
-      zip: locationData.postal_code,
-      full_address:
-        `${locationData.address1}, ${locationData.city}, ${locationData.state} ${locationData.postal_code}`.trim(),
+      street: locationData.address1 || "",
+      city: locationData.city || "",
+      state: locationData.state || "",
+      zip: locationData.postal_code || "",
+      full_address: `${locationData.address1}, ${locationData.city}, ${locationData.state} ${locationData.postal_code}`.trim(),
     },
-    coordinates: {
-      latitude: locationData.entrances?.[0]?.coordinates?.[0] || 0,
-      longitude: locationData.entrances?.[0]?.coordinates?.[1] || 0,
-    },
-    distance_to_airport_miles: Math.round(distanceMiles * 10) / 10, // Round to 1 decimal
+    coordinates,
+    distance_to_airport_miles: distanceMiles,
     pricing: {
-      daily_rate: dailyRate,
+      daily_rate: priceUSD,
       currency: "USD",
     },
-    amenities: amenityNames,
-    availability: firstPurchaseOption.space_availability.status === "available",
-    shuttle_service: shuttleService,
-    valet_service: valetService,
-    covered_parking: coveredParking,
+    amenities,
+    availability: true,
+    available_from: earliestStart,
+    available_until: latestEnd,
+    shuttle_service: hasShuttle,
+    valet_service: hasValet,
+    covered_parking: hasCovered,
     provider_data: {
       location_type: locationData.location_type,
       description: locationData.description,
-      purchase_options: location.purchase_options,
-      original_data: location,
+      purchase_options: rawLocation.purchase_options,
     },
   };
 }

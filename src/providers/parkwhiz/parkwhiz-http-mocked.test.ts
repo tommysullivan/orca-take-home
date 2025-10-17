@@ -56,6 +56,8 @@ window.__INITIAL_STATE__={
       },
       "purchase_options": [{
         "id": "purchase_001",
+        "start_time": "2024-12-20T08:00:00.000-08:00",
+        "end_time": "2024-12-21T20:00:00.000-08:00",
         "price": { "USD": "24.00" },
         "space_availability": { "status": "available" },
         "amenities": [
@@ -104,6 +106,8 @@ window.__INITIAL_STATE__={
       },
       "purchase_options": [{
         "id": "purchase_002", 
+        "start_time": "2024-12-20T08:00:00.000-08:00",
+        "end_time": "2024-12-21T20:00:00.000-08:00",
         "price": { "USD": "18.50" },
         "space_availability": { "status": "available" },
         "amenities": [
@@ -167,6 +171,8 @@ window.__INITIAL_STATE__={
       },
       "purchase_options": [{
         "id": "ord_purchase_001",
+        "start_time": "2024-12-20T09:00:00.000-06:00",
+        "end_time": "2024-12-21T19:00:00.000-06:00",
         "price": { "USD": "19.99" },
         "space_availability": { "status": "available" },
         "amenities": [
@@ -498,6 +504,8 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
             "location_id": "garage_001", 
             "distance": { "straight_line": { "feet": 2640 } },
             "purchase_options": [{ 
+              "start_time": "2024-12-20T08:00:00.000-08:00",
+              "end_time": "2024-12-21T20:00:00.000-08:00",
               "price": { "USD": "30.00" }, 
               "space_availability": { "status": "available" },
               "amenities": [
@@ -526,6 +534,8 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
             "location_id": "lot_001",
             "distance": { "straight_line": { "feet": 1320 } }, 
             "purchase_options": [{ 
+              "start_time": "2024-12-20T08:00:00.000-08:00",
+              "end_time": "2024-12-21T20:00:00.000-08:00",
               "price": { "USD": "15.00" }, 
               "space_availability": { "status": "available" },
               "amenities": [

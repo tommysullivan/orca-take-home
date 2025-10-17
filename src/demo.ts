@@ -55,17 +55,18 @@ async function main() {
 
     console.log("✅ Service initialized with real ParkWhiz provider!");
 
-    // Test airports and date ranges
+    // Test airports and date ranges - using dates that match real ParkWhiz purchase_options availability
+    // Real API returns purchase_options with start_time/end_time around current date (Oct 16-17, 2025)
     const testCases: ApiSearchParams[] = [
       {
         airport_code: "ORD",
-        start_time: "2024-12-15T10:00:00",
-        end_time: "2024-12-15T18:00:00",
+        start_time: "2025-10-17T10:00:00",
+        end_time: "2025-10-18T10:00:00",
       },
       {
         airport_code: "LAX",
-        start_time: "2024-12-20T08:00:00",
-        end_time: "2024-12-20T22:00:00",
+        start_time: "2025-10-17T08:00:00",
+        end_time: "2025-10-18T08:00:00",
       },
     ];
 

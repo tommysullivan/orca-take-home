@@ -39,6 +39,9 @@ export interface ParkingLocation {
   pricing: Pricing;
   amenities: string[];
   availability: boolean;
+  // Availability date range - ISO datetime strings
+  available_from?: string;
+  available_until?: string;
   shuttle_service: boolean;
   valet_service: boolean;
   covered_parking: boolean;

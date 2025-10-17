@@ -27,6 +27,9 @@ export interface SpotHeroLocation {
     shuttle: boolean;
   };
   available: boolean;
+  // Availability date range
+  available_from?: string; // ISO datetime
+  available_until?: string; // ISO datetime
 }
 
 /**
@@ -64,6 +67,8 @@ export class SpotHeroService {
         shuttle: true,
       },
       available: true,
+      available_from: "2024-12-20T06:00:00.000-06:00",
+      available_until: "2024-12-22T23:59:00.000-06:00",
     },
     {
       id: 102,
@@ -88,9 +93,13 @@ export class SpotHeroService {
         shuttle: true,
       },
       available: true,
+      available_from: "2024-12-20T06:00:00.000-06:00",
+      available_until: "2024-12-22T23:59:00.000-06:00",
     },
     {
       id: 103,
+      available_from: "2024-12-20T06:00:00.000-06:00",
+      available_until: "2024-12-22T23:59:00.000-06:00",
       name: "River Road Economy Parking",
       description: "Budget parking with frequent shuttle service",
       street_address: "5275 N River Rd",
@@ -115,6 +124,8 @@ export class SpotHeroService {
     },
     {
       id: 104,
+      available_from: "2024-12-20T06:00:00.000-06:00",
+      available_until: "2024-12-22T23:59:00.000-06:00",
       name: "O'Hare Park & Fly Hotel Lot",
       description: "Hotel parking with overnight stay packages",
       street_address: "9300 Bryn Mawr Ave",
@@ -139,6 +150,8 @@ export class SpotHeroService {
     },
     {
       id: 105,
+      available_from: "2024-12-20T06:00:00.000-06:00",
+      available_until: "2024-12-22T23:59:00.000-06:00",
       name: "Loews O'Hare Hotel Garage",
       description: "Premium hotel garage with covered parking",
       street_address: "5272 N River Rd", // Exact match to real ParkWhiz "5272 N. River Rd."
@@ -164,6 +177,8 @@ export class SpotHeroService {
     // Los Angeles LAX Airport Data - Updated to match real ParkWhiz locations
     {
       id: 201,
+      available_from: "2024-12-20T06:00:00.000-08:00",
+      available_until: "2024-12-22T23:59:00.000-08:00",
       name: "QuikPark LAX Self-Park",
       description: "Premium off-site parking near LAX",
       street_address: "9820 Vicksburg Ave", // Close to real ParkWhiz "9821 Vicksburg Ave."
@@ -188,6 +203,8 @@ export class SpotHeroService {
     },
     {
       id: 202,
+      available_from: "2024-12-20T06:00:00.000-08:00",
+      available_until: "2024-12-22T23:59:00.000-08:00",
       name: "Embassy Suites LAX Self Park",
       description: "Hotel parking with shuttle to LAX terminals",
       street_address: "1442 E Imperial Ave", // Close to real ParkWhiz "1440 E. Imperial Ave."
@@ -212,6 +229,8 @@ export class SpotHeroService {
     },
     {
       id: 203,
+      available_from: "2024-12-20T06:00:00.000-08:00",
+      available_until: "2024-12-22T23:59:00.000-08:00",
       name: "Joe's LAX Airport Parking",
       description: "Budget-friendly airport parking with covered options",
       street_address: "6155 W Century Blvd", // Close to real ParkWhiz "6151 W. Century Blvd."
@@ -236,6 +255,8 @@ export class SpotHeroService {
     },
     {
       id: 204,
+      available_from: "2024-12-20T06:00:00.000-08:00",
+      available_until: "2024-12-22T23:59:00.000-08:00",
       name: "Sheraton Gateway LAX Self Park",
       description: "Hotel parking with airport shuttle service",
       street_address: "6099 W Century Blvd", // Close to real ParkWhiz "6101 W. Century Blvd."
@@ -260,6 +281,8 @@ export class SpotHeroService {
     },
     {
       id: 205,
+      available_from: "2024-12-20T06:00:00.000-08:00",
+      available_until: "2024-12-22T23:59:00.000-08:00",
       name: "Pacific Coast Highway Garage",
       description: "Convenient garage parking near LAX",
       street_address: "907 N Pacific Coast Hwy", // Close to real ParkWhiz "909 N. Pacific Coast Hwy."
@@ -284,6 +307,8 @@ export class SpotHeroService {
     },
     {
       id: 206,
+      available_from: "2024-12-20T06:00:00.000-08:00",
+      available_until: "2024-12-22T23:59:00.000-08:00",
       name: "WallyPark LAX Premium",
       description: "Premium parking with valet options",
       street_address: "9698 Bellanca Ave", // Close to real ParkWhiz "9700 Bellanca Ave."
@@ -359,6 +384,9 @@ export class SpotHeroService {
       },
       amenities: this.extractAmenities(location.amenities),
       availability: location.available,
+      // Extract availability dates from mock data
+      available_from: location.available_from,
+      available_until: location.available_until,
       shuttle_service: location.amenities.shuttle,
       valet_service: location.amenities.valet,
       covered_parking: location.amenities.covered,

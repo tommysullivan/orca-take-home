@@ -6,6 +6,7 @@ import {
 } from "../providers";
 import { ParkWhizRealLocation } from "./parkwhiz-types";
 import { normalizeLocation } from "./parkwhiz-utils";
+import { filterLocationsByDateRange } from "../location-filter";
 
 /**
  * Mock ParkWhiz Service Implementation
@@ -19,10 +20,10 @@ export class MockParkWhizService implements ParkingProviderService {
     {
       location_id: "15012",
       type: "offstreet",
-      start_time: "2025-10-16T22:00:00.000-05:00",
-      end_time: "2025-10-17T22:00:00.000-05:00",
-      min_start: "2025-10-16T22:00:00.000-05:00",
-      max_end: "2025-10-17T22:00:00.000-05:00",
+      start_time: "2024-12-20T09:00:00.000-06:00",
+      end_time: "2024-12-21T19:00:00.000-06:00",
+      min_start: "2024-12-20T09:00:00.000-06:00",
+      max_end: "2024-12-21T19:00:00.000-06:00",
       distance: {
         straight_line: {
           meters: 2060,
@@ -32,18 +33,18 @@ export class MockParkWhizService implements ParkingProviderService {
       purchase_options: [
         {
           id: "f4b17c79-02d6-4242-9780-c154df6d260f",
-          start_time: "2025-10-16T22:00:00.000-05:00",
-          end_time: "2025-10-17T22:00:00.000-05:00",
-          min_start: "2025-10-16T22:00:00.000-05:00",
-          max_end: "2025-10-17T22:00:00.000-05:00",
+          start_time: "2024-12-20T09:00:00.000-06:00",
+          end_time: "2024-12-21T19:00:00.000-06:00",
+          min_start: "2024-12-20T09:00:00.000-06:00",
+          max_end: "2024-12-21T19:00:00.000-06:00",
           base_price: { USD: "21.00" },
           price: { USD: "21.00" },
           display: { price: "price" },
           pricing_segments: [
             {
               id: 4444934,
-              start_time: "2025-10-16T22:00:00.000-05:00",
-              end_time: "2025-10-17T22:00:00.000-05:00",
+              start_time: "2024-12-20T22:00:00.000-05:00",
+              end_time: "2024-12-21T22:00:00.000-05:00",
               event: {},
               space_availability: { status: "available" },
               pricing_type: "TransientPricing",
@@ -121,10 +122,10 @@ export class MockParkWhizService implements ParkingProviderService {
     {
       location_id: "15013",
       type: "offstreet",
-      start_time: "2025-10-16T22:00:00.000-05:00",
-      end_time: "2025-10-17T22:00:00.000-05:00",
-      min_start: "2025-10-16T22:00:00.000-05:00",
-      max_end: "2025-10-17T22:00:00.000-05:00",
+      start_time: "2024-12-20T22:00:00.000-05:00",
+      end_time: "2024-12-21T22:00:00.000-05:00",
+      min_start: "2024-12-20T22:00:00.000-05:00",
+      max_end: "2024-12-21T22:00:00.000-05:00",
       distance: {
         straight_line: {
           meters: 3200,
@@ -134,18 +135,18 @@ export class MockParkWhizService implements ParkingProviderService {
       purchase_options: [
         {
           id: "a1b2c3d4-5678-90ab-cdef-1234567890ab",
-          start_time: "2025-10-16T22:00:00.000-05:00",
-          end_time: "2025-10-17T22:00:00.000-05:00",
-          min_start: "2025-10-16T22:00:00.000-05:00",
-          max_end: "2025-10-17T22:00:00.000-05:00",
+          start_time: "2024-12-20T22:00:00.000-05:00",
+          end_time: "2024-12-21T22:00:00.000-05:00",
+          min_start: "2024-12-20T22:00:00.000-05:00",
+          max_end: "2024-12-21T22:00:00.000-05:00",
           base_price: { USD: "14.30" },
           price: { USD: "14.30" },
           display: { price: "price" },
           pricing_segments: [
             {
               id: 4444935,
-              start_time: "2025-10-16T22:00:00.000-05:00",
-              end_time: "2025-10-17T22:00:00.000-05:00",
+              start_time: "2024-12-20T22:00:00.000-05:00",
+              end_time: "2024-12-21T22:00:00.000-05:00",
               event: {},
               space_availability: { status: "available" },
               pricing_type: "TransientPricing",
@@ -210,10 +211,10 @@ export class MockParkWhizService implements ParkingProviderService {
     {
       location_id: "59931",
       type: "offstreet",
-      start_time: "2025-10-16T20:00:00.000-07:00",
-      end_time: "2025-10-17T20:00:00.000-07:00",
-      min_start: "2025-10-16T20:00:00.000-07:00",
-      max_end: "2025-10-17T20:00:00.000-07:00",
+      start_time: "2024-12-20T08:00:00.000-08:00",
+      end_time: "2024-12-21T20:00:00.000-08:00",
+      min_start: "2024-12-20T08:00:00.000-08:00",
+      max_end: "2024-12-21T20:00:00.000-08:00",
       distance: {
         straight_line: {
           meters: 1311,
@@ -223,18 +224,18 @@ export class MockParkWhizService implements ParkingProviderService {
       purchase_options: [
         {
           id: "b6916202-d040-4bc2-8a70-bc2ecdcfa345",
-          start_time: "2025-10-16T20:00:00.000-07:00",
-          end_time: "2025-10-17T20:00:00.000-07:00",
-          min_start: "2025-10-16T20:00:00.000-07:00",
-          max_end: "2025-10-17T20:00:00.000-07:00",
+          start_time: "2024-12-20T08:00:00.000-08:00",
+          end_time: "2024-12-21T20:00:00.000-08:00",
+          min_start: "2024-12-20T08:00:00.000-08:00",
+          max_end: "2024-12-21T20:00:00.000-08:00",
           base_price: { USD: "24.00" },
           price: { USD: "24.00" },
           display: { price: "price" },
           pricing_segments: [
             {
               id: 5555001,
-              start_time: "2025-10-16T20:00:00.000-07:00",
-              end_time: "2025-10-17T20:00:00.000-07:00",
+              start_time: "2024-12-20T08:00:00.000-08:00",
+              end_time: "2024-12-21T20:00:00.000-08:00",
               event: {},
               space_availability: { status: "available" },
               pricing_type: "TransientPricing",
@@ -337,8 +338,17 @@ export class MockParkWhizService implements ParkingProviderService {
       return false;
     });
 
-    // Convert to normalized format
-    return filteredLocations.map((location) => normalizeLocation(location));
+    // Normalize locations first (includes extracting availability dates)
+    const normalizedLocations = filteredLocations.map(normalizeLocation);
+
+    // Then filter by date range using the normalized availability dates
+    const dateFilteredLocations = filterLocationsByDateRange(
+      normalizedLocations,
+      params.start_time,
+      params.end_time
+    );
+
+    return dateFilteredLocations;
   }
 }
 

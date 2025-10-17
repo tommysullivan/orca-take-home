@@ -10,6 +10,7 @@ import {
   ParkWhizInitialState,
 } from "./parkwhiz-types";
 import { normalizeLocation } from "./parkwhiz-utils";
+import { filterLocationsByDateRange } from "../location-filter";
 
 /**
  * Real ParkWhiz Service Implementation
@@ -37,10 +38,18 @@ export class RealParkWhizService implements ParkingProviderService {
 
     const rawLocations = await this.getLocationsForAirport(params.airport_code);
 
-    const locations = rawLocations.map(normalizeLocation);
+    // Normalize locations first (includes extracting availability dates)
+    const normalizedLocations = rawLocations.map(normalizeLocation);
 
-    console.log(`✅ parkwhiz: Found ${locations.length} locations`);
-    return locations;
+    // Then filter by date range using the normalized availability dates
+    const filteredLocations = filterLocationsByDateRange(
+      normalizedLocations,
+      params.start_time,
+      params.end_time
+    );
+
+    console.log(`✅ parkwhiz: Found ${filteredLocations.length} locations`);
+    return filteredLocations;
   }
 
   /**

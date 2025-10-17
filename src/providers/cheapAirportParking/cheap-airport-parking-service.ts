@@ -34,6 +34,9 @@ export interface CheapAirportParkingLocation {
     spaces_available: number;
     total_spaces: number;
   };
+  // Availability date range
+  available_from?: string; // ISO datetime
+  available_until?: string; // ISO datetime
 }
 
 /**
@@ -48,6 +51,8 @@ export class CheapAirportParkingService {
     // Chicago ORD Airport Data - Updated to match real ParkWhiz locations for better matching
     {
       lot_id: "cap_ord_001",
+      available_from: "2024-12-20T06:00:00.000-06:00",
+      available_until: "2024-12-22T23:59:00.000-06:00",
       lot_name: "Loews O'Hare Hotel Budget Lot",
       address: {
         street: "5274 N River Rd", // Very close to real ParkWhiz "5272 N. River Rd."
@@ -79,6 +84,8 @@ export class CheapAirportParkingService {
     },
     {
       lot_id: "cap_ord_002",
+      available_from: "2024-12-20T06:00:00.000-06:00",
+      available_until: "2024-12-22T23:59:00.000-06:00",
       lot_name: "Easy Parking ORD Economy",
       address: {
         street: "3998 N Mannheim Rd", // Very close to real ParkWhiz "4000 N. Mannheim Rd."
@@ -110,6 +117,8 @@ export class CheapAirportParkingService {
     },
     {
       lot_id: "cap_ord_003",
+      available_from: "2024-12-20T06:00:00.000-06:00",
+      available_until: "2024-12-22T23:59:00.000-06:00",
       lot_name: "River Road Budget Parking",
       address: {
         street: "5268 N River Rd", // Close to real locations on River Rd
@@ -141,6 +150,8 @@ export class CheapAirportParkingService {
     },
     {
       lot_id: "cap_ord_004",
+      available_from: "2024-12-20T06:00:00.000-06:00",
+      available_until: "2024-12-22T23:59:00.000-06:00",
       lot_name: "Loews O'Hare Budget Garage",
       address: {
         street: "5272 N River Rd", // Exact match to real ParkWhiz "5272 N. River Rd."
@@ -173,6 +184,8 @@ export class CheapAirportParkingService {
     // Los Angeles LAX Airport Data - Updated to match real ParkWhiz locations
     {
       lot_id: "cap_lax_001",
+      available_from: "2024-12-20T06:00:00.000-08:00",
+      available_until: "2024-12-22T23:59:00.000-08:00",
       lot_name: "QuikPark LAX Budget",
       address: {
         street: "9819 Vicksburg Ave", // Very close to real ParkWhiz "9821 Vicksburg Ave."
@@ -204,6 +217,8 @@ export class CheapAirportParkingService {
     },
     {
       lot_id: "cap_lax_002",
+      available_from: "2024-12-20T06:00:00.000-08:00",
+      available_until: "2024-12-22T23:59:00.000-08:00",
       lot_name: "Embassy Suites Economy LAX",
       address: {
         street: "1438 E Imperial Ave", // Very close to real ParkWhiz "1440 E. Imperial Ave."
@@ -235,6 +250,8 @@ export class CheapAirportParkingService {
     },
     {
       lot_id: "cap_lax_003",
+      available_from: "2024-12-20T06:00:00.000-08:00",
+      available_until: "2024-12-22T23:59:00.000-08:00",
       lot_name: "Joe's Budget Airport Parking",
       address: {
         street: "6149 W Century Blvd", // Very close to real ParkWhiz "6151 W. Century Blvd."
@@ -266,6 +283,8 @@ export class CheapAirportParkingService {
     },
     {
       lot_id: "cap_lax_004",
+      available_from: "2024-12-20T06:00:00.000-08:00",
+      available_until: "2024-12-22T23:59:00.000-08:00",
       lot_name: "Sheraton Gateway Budget LAX",
       address: {
         street: "6103 W Century Blvd", // Very close to real ParkWhiz "6101 W. Century Blvd."
@@ -297,6 +316,8 @@ export class CheapAirportParkingService {
     },
     {
       lot_id: "cap_lax_005",
+      available_from: "2024-12-20T06:00:00.000-08:00",
+      available_until: "2024-12-22T23:59:00.000-08:00",
       lot_name: "Pacific Coast Budget Garage",
       address: {
         street: "911 N Pacific Coast Hwy", // Very close to real ParkWhiz "909 N. Pacific Coast Hwy."
@@ -328,6 +349,8 @@ export class CheapAirportParkingService {
     },
     {
       lot_id: "cap_lax_006",
+      available_from: "2024-12-20T06:00:00.000-08:00",
+      available_until: "2024-12-22T23:59:00.000-08:00",
       lot_name: "WallyPark LAX Budget",
       address: {
         street: "9702 Bellanca Ave", // Very close to real ParkWhiz "9700 Bellanca Ave."
@@ -403,6 +426,9 @@ export class CheapAirportParkingService {
       },
       amenities: this.extractAmenities(location.services),
       availability: location.availability.spaces_available > 0,
+      // Extract availability dates from mock data
+      available_from: location.available_from,
+      available_until: location.available_until,
       shuttle_service: location.services.shuttle_service,
       valet_service: location.services.valet_parking,
       covered_parking: location.services.indoor_parking,
