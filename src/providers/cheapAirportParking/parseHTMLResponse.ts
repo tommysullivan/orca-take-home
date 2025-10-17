@@ -1,4 +1,4 @@
-import { CheapAirportParkingRawLocation } from "./CheapAirportParkingTypes.js";
+import { CheapAirportParkingRawLocation } from "./CheapAirportParkingRawLocation.js";
 import { JSDOM } from "jsdom";
 
 /**
@@ -14,7 +14,7 @@ export function parseHTMLResponse(
 
   // Find all listing divs - these contain the parking locations
   const listings = document.querySelectorAll(".listing");
-  
+
   listings.forEach((element) => {
     // Skip if this is not a real listing (e.g., filter reset button)
     if (
@@ -47,8 +47,12 @@ function parseListingElement(
   const form = listing.querySelector("form");
   if (!form) return null;
 
-  const lot_id = form.querySelector<HTMLInputElement>('input[name="id_lot"]')?.value;
-  const park_id = form.querySelector<HTMLInputElement>('input[name="id_park"]')?.value;
+  const lot_id = form.querySelector<HTMLInputElement>(
+    'input[name="id_lot"]'
+  )?.value;
+  const park_id = form.querySelector<HTMLInputElement>(
+    'input[name="id_park"]'
+  )?.value;
 
   if (!lot_id || !park_id) {
     return null;

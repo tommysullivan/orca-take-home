@@ -10,8 +10,8 @@ describe("SpotHeroProvider Integration Tests", () => {
     it("should fetch and normalize real SpotHero locations for ORD airport", async () => {
       const params: ApiSearchParams = {
         airport_code: "ORD",
-        start_time: "2025-10-18T12:00:00",
-        end_time: "2025-10-22T12:00:00",
+        start_time: new Date("2025-10-18T12:00:00"),
+        end_time: new Date("2025-10-22T12:00:00"),
       };
 
       const locations = await provider.searchLocations(params);
@@ -93,8 +93,8 @@ describe("SpotHeroProvider Integration Tests", () => {
     it("should fetch and normalize real SpotHero locations for LAX airport", async () => {
       const params: ApiSearchParams = {
         airport_code: "LAX",
-        start_time: "2025-10-20T09:00:00",
-        end_time: "2025-10-25T09:00:00",
+        start_time: new Date("2025-10-20T09:00:00"),
+        end_time: new Date("2025-10-25T09:00:00"),
       };
 
       const locations = await provider.searchLocations(params);
@@ -138,8 +138,8 @@ describe("SpotHeroProvider Integration Tests", () => {
       // Test with a short stay (1 day)
       const shortStayParams: ApiSearchParams = {
         airport_code: "ORD",
-        start_time: "2025-11-01T08:00:00",
-        end_time: "2025-11-02T08:00:00",
+        start_time: new Date("2025-11-01T08:00:00"),
+        end_time: new Date("2025-11-02T08:00:00"),
       };
 
       const shortStayLocations = await provider.searchLocations(
@@ -150,8 +150,8 @@ describe("SpotHeroProvider Integration Tests", () => {
       // Test with a longer stay (7 days)
       const longStayParams: ApiSearchParams = {
         airport_code: "ORD",
-        start_time: "2025-11-01T08:00:00",
-        end_time: "2025-11-08T08:00:00",
+        start_time: new Date("2025-11-01T08:00:00"),
+        end_time: new Date("2025-11-08T08:00:00"),
       };
 
       const longStayLocations = await provider.searchLocations(longStayParams);
@@ -179,8 +179,8 @@ describe("SpotHeroProvider Integration Tests", () => {
     it("should handle amenities correctly", async () => {
       const params: ApiSearchParams = {
         airport_code: "ORD",
-        start_time: "2025-10-18T12:00:00",
-        end_time: "2025-10-22T12:00:00",
+        start_time: new Date("2025-10-18T12:00:00"),
+        end_time: new Date("2025-10-22T12:00:00"),
       };
 
       const locations = await provider.searchLocations(params);
@@ -213,8 +213,8 @@ describe("SpotHeroProvider Integration Tests", () => {
     it("should provide valid availability date ranges", async () => {
       const params: ApiSearchParams = {
         airport_code: "ORD",
-        start_time: "2025-10-18T12:00:00",
-        end_time: "2025-10-22T12:00:00",
+        start_time: new Date("2025-10-18T12:00:00"),
+        end_time: new Date("2025-10-22T12:00:00"),
       };
 
       const locations = await provider.searchLocations(params);

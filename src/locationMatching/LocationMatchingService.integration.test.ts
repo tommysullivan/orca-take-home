@@ -42,18 +42,18 @@ describe("LocationMatchingService - Integration Tests", () => {
       const allProviderResults = await Promise.all([
         providers[ParkingProviderType.PARKWHIZ].searchLocations({
           airport_code: "LAX",
-          start_time: "2025-10-20T10:00:00",
-          end_time: "2025-10-22T18:00:00",
+          start_time: new Date("2025-10-20T10:00:00"),
+          end_time: new Date("2025-10-22T18:00:00"),
         }),
         providers[ParkingProviderType.SPOTHERO].searchLocations({
           airport_code: "LAX",
-          start_time: "2025-10-20T10:00:00",
-          end_time: "2025-10-22T18:00:00",
+          start_time: new Date("2025-10-20T10:00:00"),
+          end_time: new Date("2025-10-22T18:00:00"),
         }),
         providers[ParkingProviderType.CHEAP_AIRPORT_PARKING].searchLocations({
           airport_code: "LAX",
-          start_time: "2025-10-20T10:00:00",
-          end_time: "2025-10-22T18:00:00",
+          start_time: new Date("2025-10-20T10:00:00"),
+          end_time: new Date("2025-10-22T18:00:00"),
         }),
       ]);
 
@@ -113,16 +113,16 @@ describe("LocationMatchingService - Integration Tests", () => {
         ParkingProviderType.PARKWHIZ
       ].searchLocations({
         airport_code: "ORD",
-        start_time: "2025-10-20T10:00:00",
-        end_time: "2025-10-22T18:00:00",
+        start_time: new Date("2025-10-20T10:00:00"),
+        end_time: new Date("2025-10-22T18:00:00"),
       });
 
       const spotheroResults = await providers[
         ParkingProviderType.SPOTHERO
       ].searchLocations({
         airport_code: "ORD",
-        start_time: "2025-10-20T10:00:00",
-        end_time: "2025-10-22T18:00:00",
+        start_time: new Date("2025-10-20T10:00:00"),
+        end_time: new Date("2025-10-22T18:00:00"),
       });
 
       const allLocations = [...parkwhizResults, ...spotheroResults];
@@ -163,13 +163,13 @@ describe("LocationMatchingService - Integration Tests", () => {
       const allProviderResults = await Promise.all([
         providers[ParkingProviderType.PARKWHIZ].searchLocations({
           airport_code: "LAX",
-          start_time: "2025-10-20T10:00:00",
-          end_time: "2025-10-22T18:00:00",
+          start_time: new Date("2025-10-20T10:00:00"),
+          end_time: new Date("2025-10-22T18:00:00"),
         }),
         providers[ParkingProviderType.SPOTHERO].searchLocations({
           airport_code: "LAX",
-          start_time: "2025-10-20T10:00:00",
-          end_time: "2025-10-22T18:00:00",
+          start_time: new Date("2025-10-20T10:00:00"),
+          end_time: new Date("2025-10-22T18:00:00"),
         }),
       ]);
 
@@ -201,8 +201,8 @@ describe("LocationMatchingService - Integration Tests", () => {
         ParkingProviderType.PARKWHIZ
       ].searchLocations({
         airport_code: "BUR", // Burbank airport - smaller, may have fewer results
-        start_time: "2025-10-20T10:00:00",
-        end_time: "2025-10-22T18:00:00",
+        start_time: new Date("2025-10-20T10:00:00"),
+        end_time: new Date("2025-10-22T18:00:00"),
       });
 
       const matches = service.findMatches(results);

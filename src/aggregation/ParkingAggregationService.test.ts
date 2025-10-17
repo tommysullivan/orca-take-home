@@ -40,8 +40,8 @@ describe("ParkingAggregationService - Mock Tests", () => {
     it("should search all providers and find matches", async () => {
       const searchParams = {
         airport_code: "LAX",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: new Date("2024-12-20T10:00:00"),
+        end_time: new Date("2024-12-20T18:00:00"),
       };
 
       const results = await service.searchParkingWithMatching(searchParams);
@@ -77,8 +77,8 @@ describe("ParkingAggregationService - Mock Tests", () => {
     it("should handle empty results gracefully", async () => {
       const searchParams = {
         airport_code: "INVALID",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: new Date("2024-12-20T10:00:00"),
+        end_time: new Date("2024-12-20T18:00:00"),
       };
 
       const results = await service.searchParkingWithMatching(searchParams);
@@ -93,8 +93,8 @@ describe("ParkingAggregationService - Mock Tests", () => {
     it("should store locations in database", async () => {
       const searchParams = {
         airport_code: "LAX",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: new Date("2024-12-20T10:00:00"),
+        end_time: new Date("2024-12-20T18:00:00"),
       };
 
       const results = await service.searchParkingWithMatching(searchParams);
@@ -197,8 +197,8 @@ describe("ParkingAggregationService - Mock Tests", () => {
     it("should handle provider failures gracefully", async () => {
       const searchParams = {
         airport_code: "LAX",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: new Date("2024-12-20T10:00:00"),
+        end_time: new Date("2024-12-20T18:00:00"),
       };
 
       // Should not throw error, but handle gracefully
@@ -210,8 +210,8 @@ describe("ParkingAggregationService - Mock Tests", () => {
     it("should handle provider failures", async () => {
       const searchParams = {
         airport_code: "NONEXISTENT",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: new Date("2024-12-20T10:00:00"),
+        end_time: new Date("2024-12-20T18:00:00"),
       };
 
       const results = await service.searchParkingWithMatching(searchParams);
@@ -224,8 +224,8 @@ describe("ParkingAggregationService - Mock Tests", () => {
     it("should complete searches within reasonable time", async () => {
       const searchParams = {
         airport_code: "LAX",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: new Date("2024-12-20T10:00:00"),
+        end_time: new Date("2024-12-20T18:00:00"),
       };
 
       const startTime = Date.now();

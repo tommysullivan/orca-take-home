@@ -44,16 +44,16 @@ describe("LocationMatchingService - Mock Tests", () => {
         ParkingProviderType.PARKWHIZ
       ].searchLocations({
         airport_code: "LAX",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: new Date("2024-12-20T10:00:00"),
+        end_time: new Date("2024-12-20T18:00:00"),
       });
 
       const spotheroResults = await mockProviders[
         ParkingProviderType.SPOTHERO
       ].searchLocations({
         airport_code: "LAX",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: new Date("2024-12-20T10:00:00"),
+        end_time: new Date("2024-12-20T18:00:00"),
       });
 
       const allLocations = [...parkwhizResults, ...spotheroResults];
@@ -138,8 +138,8 @@ describe("LocationMatchingService - Mock Tests", () => {
         ParkingProviderType.PARKWHIZ
       ].searchLocations({
         airport_code: "LAX",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: new Date("2024-12-20T10:00:00"),
+        end_time: new Date("2024-12-20T18:00:00"),
       });
 
       if (parkwhizResults.length > 0) {
@@ -154,20 +154,20 @@ describe("LocationMatchingService - Mock Tests", () => {
       const allProviderResults = await Promise.all([
         mockProviders[ParkingProviderType.PARKWHIZ].searchLocations({
           airport_code: "LAX",
-          start_time: "2024-12-20T10:00:00",
-          end_time: "2024-12-20T18:00:00",
+          start_time: new Date("2024-12-20T10:00:00"),
+          end_time: new Date("2024-12-20T18:00:00"),
         }),
         mockProviders[ParkingProviderType.SPOTHERO].searchLocations({
           airport_code: "LAX",
-          start_time: "2024-12-20T10:00:00",
-          end_time: "2024-12-20T18:00:00",
+          start_time: new Date("2024-12-20T10:00:00"),
+          end_time: new Date("2024-12-20T18:00:00"),
         }),
         mockProviders[
           ParkingProviderType.CHEAP_AIRPORT_PARKING
         ].searchLocations({
           airport_code: "LAX",
-          start_time: "2024-12-20T10:00:00",
-          end_time: "2024-12-20T18:00:00",
+          start_time: new Date("2024-12-20T10:00:00"),
+          end_time: new Date("2024-12-20T18:00:00"),
         }),
       ]);
 

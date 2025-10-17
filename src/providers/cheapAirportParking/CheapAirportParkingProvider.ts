@@ -1,7 +1,7 @@
 import { ParkingProvider } from "../common/ParkingProvider.js";
 import { ParkingLocation } from "../common/ParkingLocation.js";
 import { ApiSearchParams } from "../common/ApiSearchParams.js";
-import { CheapAirportParkingRawLocation } from "./CheapAirportParkingTypes.js";
+import { CheapAirportParkingRawLocation } from "./CheapAirportParkingRawLocation.js";
 import { normalizeLocation } from "./normalizeLocation.js";
 import { parseHTMLResponse } from "./parseHTMLResponse.js";
 import nodeFetch from "node-fetch";
@@ -29,9 +29,12 @@ export class CheapAirportParkingProvider implements ParkingProvider {
    * Search for parking locations using the Cheap Airport Parking API
    */
   async searchLocations(params: ApiSearchParams): Promise<ParkingLocation[]> {
+    const startTimeISO = params.start_time.toISOString().split(".")[0];
+    const endTimeISO = params.end_time.toISOString().split(".")[0];
+
     console.log("🔍 Cheap Airport Parking: Searching locations...", {
       airport: params.airport_code,
-      dates: `${params.start_time} to ${params.end_time}`,
+      dates: `${startTimeISO} to ${endTimeISO}`,
     });
 
     try {
@@ -62,32 +65,32 @@ export class CheapAirportParkingProvider implements ParkingProvider {
     params: ApiSearchParams
   ): Promise<CheapAirportParkingRawLocation[]> {
     // Convert ISO datetime to the format expected by the API
-    const { fromDate, fromTime, toDate, toTime } =
-      this.convertDatesToAPIFormat(params.start_time, params.end_time);
+    const { fromDate, fromTime, toDate, toTime } = this.convertDatesToAPIFormat(
+      params.start_time,
+      params.end_time
+    );
 
     // Build the API URL with query parameters
     // Note: We manually encode the dates with %2F, so we need to build the URL string directly
     // rather than using URLSearchParams which would double-encode
     const baseUrl = `${this.baseUrl}?airport=${params.airport_code}&FromDate=${fromDate}&from_time=${fromTime}&ToDate=${toDate}&to_time=${toTime}`;
 
-    console.log(
-      `🌐 Cheap Airport Parking: Fetching from API: ${baseUrl}`
-    );
+    console.log(`🌐 Cheap Airport Parking: Fetching from API: ${baseUrl}`);
 
     // Build cookies based on search parameters
-    const startDate = new Date(params.start_time);
-    const endDate = new Date(params.end_time);
     const formatCookieDate = (date: Date) => {
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
       const year = date.getFullYear();
       return `${month}-${day}-${year}`;
     };
-    
+
     const cookies = [
       `airport=${params.airport_code}`,
-      `_from=${formatCookieDate(startDate)}_${startDate.getHours()}`,
-      `_to=${formatCookieDate(endDate)}_${endDate.getHours()}`,
+      `_from=${formatCookieDate(
+        params.start_time
+      )}_${params.start_time.getHours()}`,
+      `_to=${formatCookieDate(params.end_time)}_${params.end_time.getHours()}`,
       `id_visit=${Date.now()}`, // Use timestamp as visit ID
       `find=1`,
     ].join("; ");
@@ -137,20 +140,17 @@ export class CheapAirportParkingProvider implements ParkingProvider {
   }
 
   /**
-   * Convert ISO datetime strings to the format expected by the API
+   * Convert Date objects to the format expected by the API
    */
   private convertDatesToAPIFormat(
-    startTime: string,
-    endTime: string
+    startTime: Date,
+    endTime: Date
   ): {
     fromDate: string;
     fromTime: string;
     toDate: string;
     toTime: string;
   } {
-    const startDate = new Date(startTime);
-    const endDate = new Date(endTime);
-
     // Format: MM%2FDD%2FYYYY (URL-encoded slashes)
     const formatDate = (date: Date): string => {
       const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -160,10 +160,10 @@ export class CheapAirportParkingProvider implements ParkingProvider {
     };
 
     return {
-      fromDate: formatDate(startDate),
-      fromTime: String(startDate.getHours()),
-      toDate: formatDate(endDate),
-      toTime: String(endDate.getHours()),
+      fromDate: formatDate(startTime),
+      fromTime: String(startTime.getHours()),
+      toDate: formatDate(endTime),
+      toTime: String(endTime.getHours()),
     };
   }
 }

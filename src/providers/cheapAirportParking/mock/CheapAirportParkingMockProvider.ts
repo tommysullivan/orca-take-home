@@ -9,7 +9,7 @@ import { normalizeLocation } from "../normalizeLocation.js";
 /**
  * Mock implementation of CheapAirportParking provider
  * Uses mock HTML responses to test the full parsing pipeline
- * 
+ *
  * This shares the same parsing and normalization logic as the real provider:
  * - parseHTMLResponse: extracts data from HTML structure
  * - normalizeLocation: converts raw data to common ParkingLocation format
@@ -46,4 +46,3 @@ export class CheapAirportParkingMockProvider implements ParkingProvider {
 
 export const cheapAirportParkingMockProvider =
   new CheapAirportParkingMockProvider();
-

@@ -26,9 +26,12 @@ export class SpotHeroProvider implements ParkingProvider {
    * Search for parking locations using the SpotHero API
    */
   async searchLocations(params: ApiSearchParams): Promise<ParkingLocation[]> {
+    const startTimeISO = params.start_time.toISOString().split(".")[0];
+    const endTimeISO = params.end_time.toISOString().split(".")[0];
+
     console.log("🔍 SpotHero: Searching locations...", {
       airport: params.airport_code,
-      dates: `${params.start_time} to ${params.end_time}`,
+      dates: `${startTimeISO} to ${endTimeISO}`,
     });
 
     try {
@@ -51,11 +54,15 @@ export class SpotHeroProvider implements ParkingProvider {
   private async fetchLocations(
     params: ApiSearchParams
   ): Promise<SpotHeroSearchResponse["results"]> {
+    // Convert Date objects to ISO strings without milliseconds
+    const startTimeISO = params.start_time.toISOString().split(".")[0];
+    const endTimeISO = params.end_time.toISOString().split(".")[0];
+
     // Build the API URL with query parameters
     const url = new URL(this.baseUrl);
     url.searchParams.set("iata", params.airport_code);
-    url.searchParams.set("starts", params.start_time);
-    url.searchParams.set("ends", params.end_time);
+    url.searchParams.set("starts", startTimeISO);
+    url.searchParams.set("ends", endTimeISO);
     url.searchParams.set("oversize", "false");
     url.searchParams.set("show_unavailable", "false");
 

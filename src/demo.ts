@@ -3,7 +3,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { dbTypesafe } from "./db/dbTypesafe";
-import { cheapAirportParkingMockProvider } from "./providers/cheapAirportParking/mock/CheapAirportParkingMockProvider";
+import { cheapAirportParkingProvider } from "./providers/cheapAirportParking/CheapAirportParkingProvider";
 import { ApiSearchParams } from "./providers/common/ApiSearchParams";
 import { ParkingProviderType } from "./providers/common/ParkingProviderType";
 import { parkWhizProvider } from "./providers/parkwhiz/ParkWhizProvider";
@@ -22,19 +22,18 @@ import { locationMatchingService } from "./locationMatching/LocationMatchingServ
  */
 
 async function main() {
-  console.log("🅿️  PARKING LOCATION QUOTE MATCHING SYSTEM (REAL APIS)");
-  console.log("========================================================");
+  console.log("🅿️  PARKING LOCATION QUOTE MATCHING SYSTEM (ALL REAL APIS)");
+  console.log("==========================================================");
   console.log("");
 
   try {
-    // Initialize the service with real ParkWhiz + real SpotHero + mock CAP
-    console.log("🔧 Initializing services with REAL ParkWhiz and SpotHero...");
+    // Initialize the service with ALL REAL providers!
+    console.log("🔧 Initializing services with ALL REAL providers...");
 
     const providers = {
       [ParkingProviderType.PARKWHIZ]: parkWhizProvider,
-      [ParkingProviderType.SPOTHERO]: spotHeroProvider, // Now using real SpotHero!
-      [ParkingProviderType.CHEAP_AIRPORT_PARKING]:
-        cheapAirportParkingMockProvider, // Mock for now
+      [ParkingProviderType.SPOTHERO]: spotHeroProvider,
+      [ParkingProviderType.CHEAP_AIRPORT_PARKING]: cheapAirportParkingProvider, // Now using real CheapAirportParking!
     };
 
     const service = new ParkingAggregationService(
@@ -44,7 +43,7 @@ async function main() {
     );
 
     console.log(
-      "✅ Service initialized with real ParkWhiz + SpotHero providers!"
+      "✅ Service initialized with ParkWhiz + SpotHero + CheapAirportParking (ALL REAL)!"
     );
 
     // Test airports and date ranges - using dates that match real ParkWhiz purchase_options availability
@@ -52,13 +51,13 @@ async function main() {
     const testCases: ApiSearchParams[] = [
       {
         airport_code: "ORD",
-        start_time: "2025-10-17T10:00:00",
-        end_time: "2025-10-18T10:00:00",
+        start_time: new Date("2025-10-17T10:00:00"),
+        end_time: new Date("2025-10-18T10:00:00"),
       },
       {
         airport_code: "LAX",
-        start_time: "2025-10-17T08:00:00",
-        end_time: "2025-10-18T08:00:00",
+        start_time: new Date("2025-10-17T08:00:00"),
+        end_time: new Date("2025-10-18T08:00:00"),
       },
     ];
 

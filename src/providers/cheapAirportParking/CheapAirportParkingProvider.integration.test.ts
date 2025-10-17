@@ -10,8 +10,8 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
     it("should fetch and normalize real Cheap Airport Parking locations for ORD airport", async () => {
       const params: ApiSearchParams = {
         airport_code: "ORD",
-        start_time: "2025-10-18T12:00:00",
-        end_time: "2025-10-22T12:00:00",
+        start_time: new Date("2025-10-18T12:00:00"),
+        end_time: new Date("2025-10-22T12:00:00"),
       };
 
       const locations = await provider.searchLocations(params);
@@ -84,8 +84,8 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
     it("should fetch and normalize real Cheap Airport Parking locations for LAX airport", async () => {
       const params: ApiSearchParams = {
         airport_code: "LAX",
-        start_time: "2025-10-20T09:00:00",
-        end_time: "2025-10-25T09:00:00",
+        start_time: new Date("2025-10-20T09:00:00"),
+        end_time: new Date("2025-10-25T09:00:00"),
       };
 
       const locations = await provider.searchLocations(params);
@@ -128,17 +128,15 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
       );
       console.log(`  Shuttle: ${firstLocation.shuttle_service ? "Yes" : "No"}`);
       console.log(`  Valet: ${firstLocation.valet_service ? "Yes" : "No"}`);
-      console.log(
-        `  Covered: ${firstLocation.covered_parking ? "Yes" : "No"}`
-      );
+      console.log(`  Covered: ${firstLocation.covered_parking ? "Yes" : "No"}`);
     }, 30000);
 
     it("should handle different date ranges correctly", async () => {
       // Test with a short stay (1 day)
       const shortStayParams: ApiSearchParams = {
         airport_code: "ORD",
-        start_time: "2025-11-01T08:00:00",
-        end_time: "2025-11-02T08:00:00",
+        start_time: new Date("2025-11-01T08:00:00"),
+        end_time: new Date("2025-11-02T08:00:00"),
       };
 
       const shortStayLocations = await provider.searchLocations(
@@ -149,8 +147,8 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
       // Test with a longer stay (7 days)
       const longStayParams: ApiSearchParams = {
         airport_code: "ORD",
-        start_time: "2025-11-01T08:00:00",
-        end_time: "2025-11-08T08:00:00",
+        start_time: new Date("2025-11-01T08:00:00"),
+        end_time: new Date("2025-11-08T08:00:00"),
       };
 
       const longStayLocations = await provider.searchLocations(longStayParams);
@@ -180,8 +178,8 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
     it("should handle amenities correctly", async () => {
       const params: ApiSearchParams = {
         airport_code: "ORD",
-        start_time: "2025-10-18T12:00:00",
-        end_time: "2025-10-22T12:00:00",
+        start_time: new Date("2025-10-18T12:00:00"),
+        end_time: new Date("2025-10-22T12:00:00"),
       };
 
       const locations = await provider.searchLocations(params);
@@ -214,8 +212,8 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
     it("should provide valid availability information", async () => {
       const params: ApiSearchParams = {
         airport_code: "ORD",
-        start_time: "2025-10-18T12:00:00",
-        end_time: "2025-10-22T12:00:00",
+        start_time: new Date("2025-10-18T12:00:00"),
+        end_time: new Date("2025-10-22T12:00:00"),
       };
 
       const locations = await provider.searchLocations(params);
@@ -246,8 +244,8 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
     it("should extract review and rating information", async () => {
       const params: ApiSearchParams = {
         airport_code: "ORD",
-        start_time: "2025-10-18T12:00:00",
-        end_time: "2025-10-22T12:00:00",
+        start_time: new Date("2025-10-18T12:00:00"),
+        end_time: new Date("2025-10-22T12:00:00"),
       };
 
       const locations = await provider.searchLocations(params);
@@ -276,17 +274,17 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
         expect(firstRated.provider_data?.recommend_percentage).toBeGreaterThan(
           0
         );
-        expect(firstRated.provider_data?.recommend_percentage).toBeLessThanOrEqual(
-          100
-        );
+        expect(
+          firstRated.provider_data?.recommend_percentage
+        ).toBeLessThanOrEqual(100);
       }
     }, 30000);
 
     it("should parse parking types correctly", async () => {
       const params: ApiSearchParams = {
         airport_code: "ORD",
-        start_time: "2025-10-18T12:00:00",
-        end_time: "2025-10-22T12:00:00",
+        start_time: new Date("2025-10-18T12:00:00"),
+        end_time: new Date("2025-10-22T12:00:00"),
       };
 
       const locations = await provider.searchLocations(params);

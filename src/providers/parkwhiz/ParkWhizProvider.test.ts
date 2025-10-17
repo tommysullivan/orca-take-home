@@ -125,8 +125,8 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
 
     const locations = await parkWhizProvider.searchLocations({
       airport_code: "LAX",
-      start_time: "2024-12-20T10:00:00",
-      end_time: "2024-12-20T18:00:00",
+      start_time: new Date("2024-12-20T10:00:00"),
+      end_time: new Date("2024-12-20T18:00:00"),
     });
 
     expect(locations).toHaveLength(2);
@@ -194,8 +194,8 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
 
     const locations = await parkWhizProvider.searchLocations({
       airport_code: "ORD",
-      start_time: "2024-12-20T10:00:00",
-      end_time: "2024-12-20T18:00:00",
+      start_time: new Date("2024-12-20T10:00:00"),
+      end_time: new Date("2024-12-20T18:00:00"),
     });
 
     expect(locations).toHaveLength(1);
@@ -232,8 +232,8 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
     await expect(
       parkWhizProvider.searchLocations({
         airport_code: "LAX",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: new Date("2024-12-20T10:00:00"),
+        end_time: new Date("2024-12-20T18:00:00"),
       })
     ).rejects.toThrow("Failed to fetch ParkWhiz homepage: 500");
   });
@@ -255,8 +255,8 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
 
     const locations = await parkWhizProvider.searchLocations({
       airport_code: "INVALID",
-      start_time: "2024-12-20T10:00:00",
-      end_time: "2024-12-20T18:00:00",
+      start_time: new Date("2024-12-20T10:00:00"),
+      end_time: new Date("2024-12-20T18:00:00"),
     });
 
     expect(locations).toEqual([]);
@@ -284,8 +284,8 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
     await expect(
       parkWhizProvider.searchLocations({
         airport_code: "LAX",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
+        start_time: new Date("2024-12-20T10:00:00"),
+        end_time: new Date("2024-12-20T18:00:00"),
       })
     ).rejects.toThrow("Could not find window.__INITIAL_STATE__ in HTML");
   });
@@ -377,8 +377,8 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
 
     const locations = await parkWhizProvider.searchLocations({
       airport_code: "LAX",
-      start_time: "2024-12-20T10:00:00",
-      end_time: "2024-12-20T18:00:00",
+      start_time: new Date("2024-12-20T10:00:00"),
+      end_time: new Date("2024-12-20T18:00:00"),
     });
 
     expect(locations).toHaveLength(2);

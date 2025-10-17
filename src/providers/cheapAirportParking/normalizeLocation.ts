@@ -1,6 +1,6 @@
 import { ParkingLocation } from "../common/ParkingLocation.js";
 import { ParkingProviderType } from "../common/ParkingProviderType.js";
-import { CheapAirportParkingRawLocation } from "./CheapAirportParkingTypes.js";
+import { CheapAirportParkingRawLocation } from "./CheapAirportParkingRawLocation.js";
 import { ApiSearchParams } from "../common/ApiSearchParams.js";
 
 /**

@@ -26,17 +26,24 @@ export class ParkWhizProvider implements ParkingProvider {
    * Search for parking locations using real ParkWhiz API
    */
   async searchLocations(params: ApiSearchParams): Promise<ParkingLocation[]> {
+    const startTimeISO = params.start_time.toISOString().split(".")[0];
+    const endTimeISO = params.end_time.toISOString().split(".")[0];
+
     console.log("🔍 ParkWhiz Real: Searching locations...", {
       airport: params.airport_code,
-      dates: `${params.start_time} to ${params.end_time}`,
+      dates: `${startTimeISO} to ${endTimeISO}`,
     });
 
     const rawLocations = await this.getLocationsForAirport(params.airport_code);
 
-    // Normalize locations first (includes extracting availability dates)
+    // Normalize locations first (includes extracting availability dates from purchase_options)
     const normalizedLocations = rawLocations.map(normalizeLocation);
 
-    // Then filter by date range using the normalized availability dates
+    // ParkWhiz doesn't accept date parameters in its API/URL, so it returns data for
+    // the current date. We need to filter client-side based on the availability dates
+    // extracted from purchase_options.
+    // NOTE: This may return 0 results if the requested dates don't overlap with
+    // what ParkWhiz currently has available (typically "today")
     const filteredLocations = filterLocationsByDateRange(
       normalizedLocations,
       params.start_time,
