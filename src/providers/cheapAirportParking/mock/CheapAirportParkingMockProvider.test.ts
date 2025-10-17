@@ -6,8 +6,8 @@ import { ParkingProviderType } from "../../common/ParkingProviderType";
 describe("Cheap Airport Parking Service", () => {
   const testSearchParams = {
     airport_code: "LAX",
-    start_time: "2024-12-20T10:00:00",
-    end_time: "2024-12-20T18:00:00",
+    start_time: new Date("2024-12-20T10:00:00"),
+    end_time: new Date("2024-12-20T18:00:00"),
   };
 
   describe("Basic Functionality", () => {
@@ -59,8 +59,8 @@ describe("Cheap Airport Parking Service", () => {
     it("should handle malformed date ranges", async () => {
       const invalidParams = {
         airport_code: "LAX",
-        start_time: "invalid-date",
-        end_time: "also-invalid",
+        start_time: new Date("invalid-date"),
+        end_time: new Date("also-invalid"),
       };
 
       // Should not throw errors

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { ParkingProvider } from "../providers/common/ParkingProvider";
 import { ParkingProviderType } from "../providers/common/ParkingProviderType";
 import { LocationMatchingService } from "./LocationMatchingService";
-import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/mock/CheapAirportParkingMockProvider";
+import { cheapAirportParkingProvider } from "../providers/cheapAirportParking/CheapAirportParkingProvider";
 import { parkWhizProvider } from "../providers/parkwhiz/ParkWhizProvider";
 import { spotHeroProvider } from "../providers/spotHero/SpotHeroProvider";
 
@@ -15,7 +15,7 @@ describe("LocationMatchingService - Integration Tests", () => {
       [ParkingProviderType.PARKWHIZ]: parkWhizProvider,
       [ParkingProviderType.SPOTHERO]: spotHeroProvider, // Now using real SpotHero!
       [ParkingProviderType.CHEAP_AIRPORT_PARKING]:
-        cheapAirportParkingMockProvider,
+        cheapAirportParkingProvider, // Now using real CheapAirportParking!
     };
 
     service = new LocationMatchingService({
@@ -74,10 +74,11 @@ describe("LocationMatchingService - Integration Tests", () => {
       console.log(`Provider breakdown:`);
       console.log(`- ParkWhiz (REAL): ${parkwhizCount} locations`);
       console.log(`- SpotHero (REAL): ${spotheroCount} locations`);
-      console.log(`- CAP (MOCK): ${capCount} locations`);
+      console.log(`- CAP (REAL): ${capCount} locations`);
 
-      // Real SpotHero should return substantial data
+      // Real providers should return substantial data
       expect(spotheroCount).toBeGreaterThan(40);
+      expect(capCount).toBeGreaterThan(30); // Cheap Airport Parking should have plenty of locations
 
       // Verify match structure
       matches.forEach((match) => {
