@@ -223,21 +223,6 @@ The dev container includes:
 - Git and Bash
 - VS Code extensions for TypeScript development
 
-## Database Management with PostgreSQL Extension
-
-This project includes the **PostgreSQL extension** for VS Code, allowing you to query and explore your database directly within the editor.
-
-### Getting Started with the PostgreSQL Extension
-
-1. **Open PostgreSQL View**
-
-   - Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
-   - Run: `Focus on PostgreSQL View`
-
-2. **Add Database Connection**
-   - Click the `+` button in the PostgreSQL view to add a new connection
-   - Enter your connection details (found in DATABASE_URL in [.env](./.env))
-
 ## Environment Variables
 
 - `DATABASE_URL` - PostgreSQL connection string (set automatically in dev container)

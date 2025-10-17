@@ -1,12 +1,10 @@
-version: '3.8'
-
 services:
   app:
     build:
       context: .
       dockerfile: app.Dockerfile
     volumes:
-      - ../:/workspace:cached
+      - ../:/workspace:consistent
       - /var/run/docker.sock:/var/run/docker.sock
     working_dir: /workspace
     command: sleep infinity
@@ -15,8 +13,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    ports:
-      - "3000:3000"
 
   postgres:
     build:
@@ -26,8 +22,6 @@ services:
       - POSTGRES_DB=ocra_dev
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

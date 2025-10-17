@@ -1,0 +1,16 @@
+{
+  "typescript.preferences.quoteStyle": "single",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "vscode-postgres.connections": [
+    {
+      "label": "OCRA Development Database",
+      "host": "postgres",
+      "user": "postgres",
+      "password": "password",
+      "port": 5432,
+      "database": "ocra_dev",
+      "ssl": false
+    }
+  ]
+}

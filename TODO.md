@@ -45,7 +45,7 @@ These providers expose publicly accessible APIs, which can be discovered with so
 
 # Deliverables
 
-1. Python code + Instructions
+1. ~~Python~~ Typescript code + Instructions
    - Fully runnable solution with setup instructions.
 2. Normalized Dataset / Storage Example
    - JSON, CSV, or database export showing normalized data.

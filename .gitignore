@@ -15,7 +15,7 @@ build/
 .env.production.local
 
 # IDE
-.vscode/settings.json
+# .vscode/settings.json
 .idea/
 
 # OS
@@ -39,4 +39,8 @@ coverage/
 *.tsbuildinfo
 
 # Generated files
-src/types/database-generated.ts
+src/db/types/database-generated.ts
+
+outputs
+
+src/db/types/**/*.ts
