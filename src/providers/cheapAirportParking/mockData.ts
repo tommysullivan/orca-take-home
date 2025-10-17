@@ -1,4 +1,4 @@
-import { CheapAirportParkingLocation } from "./CheapAirportParkingLocation";
+import { CheapAirportParkingLocation } from "./mock/CheapAirportParkingLocation";
 
 export const mockData: CheapAirportParkingLocation[] = [
   // Chicago ORD Airport Data - Updated to match real ParkWhiz locations for better matching

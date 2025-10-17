@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { cheapAirportParkingMockProvider } from "./CheapAirportParkingMockProvider";
-import { ParkingLocation } from "../common/ParkingLocation";
-import { ParkingProviderType } from "../common/ParkingProviderType";
+import { ParkingLocation } from "../../common/ParkingLocation";
+import { ParkingProviderType } from "../../common/ParkingProviderType";
 
 describe("Cheap Airport Parking Service", () => {
   const testSearchParams = {

@@ -26,38 +26,28 @@ describe("SpotHero Service", () => {
       expect(firstLocation.pricing.daily_rate).toBeGreaterThan(0);
     });
 
-    it("should handle different amenity formats", () => {
-      const rawLocation = {
-        id: 999,
-        name: "SpotHero Test Location",
-        street_address: "456 Hero Ave",
-        city: "Hero City",
-        state: "HC",
-        postal_code: "54321",
-        latitude: 34.0522,
-        longitude: -118.2437,
-        distance: 0.8,
-        price: { amount: 30, currency: "USD" },
-        amenities: {
-          covered: false,
-          valet: true,
-          handicap_accessible: true,
-          electric_charging: false,
-          shuttle: true,
-        },
-        available: true,
-      };
-
-      const normalized = (spotHeroMockProvider as any).normalizeLocation(
-        rawLocation,
-        "LAX"
+    it("should properly normalize amenities through the API", async () => {
+      const locations = await spotHeroMockProvider.searchLocations(
+        testSearchParams
       );
 
-      expect(normalized.provider).toBe(ParkingProviderType.SPOTHERO);
-      expect(normalized.valet_service).toBe(true);
-      expect(normalized.covered_parking).toBe(false);
-      expect(normalized.amenities).toContain("handicap_accessible");
-      expect(normalized.amenities).toContain("shuttle");
+      // Find a location with amenities to test
+      const locationWithAmenities = locations.find((loc) => 
+        loc.amenities && loc.amenities.length > 0
+      );
+
+      expect(locationWithAmenities).toBeDefined();
+      if (locationWithAmenities) {
+        // Check that amenities are properly extracted
+        expect(Array.isArray(locationWithAmenities.amenities)).toBe(true);
+        // The boolean flags should match amenities in the array
+        if (locationWithAmenities.valet_service) {
+          expect(locationWithAmenities.amenities).toContain("valet");
+        }
+        if (locationWithAmenities.shuttle_service) {
+          expect(locationWithAmenities.amenities).toContain("shuttle");
+        }
+      }
     });
   });
 

@@ -7,7 +7,7 @@ import { ParkingProviderType } from "../providers/common/ParkingProviderType";
 
 // Import the mock services
 import { mockParkWhizProvider } from "../providers/parkwhiz/mock/MockParkWhizProvider";
-import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/CheapAirportParkingMockProvider";
+import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/mock/CheapAirportParkingMockProvider";
 import { spotHeroMockProvider } from "../providers/spotHero/mock/SpotHeroMockProvider";
 
 describe("ParkingAggregationService - Mock Tests", () => {

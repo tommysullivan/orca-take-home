@@ -3,7 +3,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { dbTypesafe } from "./db/dbTypesafe";
-import { cheapAirportParkingMockProvider } from "./providers/cheapAirportParking/CheapAirportParkingMockProvider";
+import { cheapAirportParkingMockProvider } from "./providers/cheapAirportParking/mock/CheapAirportParkingMockProvider";
 import { ApiSearchParams } from "./providers/common/ApiSearchParams";
 import { ParkingProviderType } from "./providers/common/ParkingProviderType";
 import { parkWhizProvider } from "./providers/parkwhiz/ParkWhizProvider";

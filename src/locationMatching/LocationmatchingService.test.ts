@@ -3,7 +3,7 @@ import { ParkingLocation } from "../providers/common/ParkingLocation";
 import { ParkingProvider } from "../providers/common/ParkingProvider";
 import { ParkingProviderType } from "../providers/common/ParkingProviderType";
 import { LocationMatchingService } from "./LocationMatchingService";
-import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/CheapAirportParkingMockProvider";
+import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/mock/CheapAirportParkingMockProvider";
 import { mockParkWhizProvider } from "../providers/parkwhiz/mock/MockParkWhizProvider";
 import { spotHeroMockProvider } from "../providers/spotHero/mock/SpotHeroMockProvider";
 

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { ParkingProvider } from "../providers/common/ParkingProvider";
 import { ParkingProviderType } from "../providers/common/ParkingProviderType";
 import { LocationMatchingService } from "./LocationMatchingService";
-import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/CheapAirportParkingMockProvider";
+import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/mock/CheapAirportParkingMockProvider";
 import { parkWhizProvider } from "../providers/parkwhiz/ParkWhizProvider";
 import { spotHeroMockProvider } from "../providers/spotHero/mock/SpotHeroMockProvider";
 

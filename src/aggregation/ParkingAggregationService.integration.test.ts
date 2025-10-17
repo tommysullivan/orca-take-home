@@ -6,7 +6,7 @@ import { LocationMatchingService } from "../locationMatching/LocationMatchingSer
 import { ParkingAggregationService } from "./ParkingAggregationService";
 
 // Import the real and mock services
-import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/CheapAirportParkingMockProvider";
+import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/mock/CheapAirportParkingMockProvider";
 import { parkWhizProvider } from "../providers/parkwhiz/ParkWhizProvider";
 import { spotHeroMockProvider } from "../providers/spotHero/mock/SpotHeroMockProvider";
 

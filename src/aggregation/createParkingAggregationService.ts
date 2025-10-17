@@ -1,10 +1,10 @@
 import { dbTypesafe } from "../db/dbTypesafe";
-import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/CheapAirportParkingMockProvider";
+import { cheapAirportParkingMockProvider } from "../providers/cheapAirportParking/mock/CheapAirportParkingMockProvider";
 import { mockParkWhizProvider } from "../providers/parkwhiz/mock/MockParkWhizProvider";
 import { ParkingProviderType } from "../providers/common/ParkingProviderType";
 import { spotHeroMockProvider } from "../providers/spotHero/mock/SpotHeroMockProvider";
-import { locationMatchingService } from "../locationMatching/locationMatchingService.1";
 import { ParkingAggregationService } from "./ParkingAggregationService";
+import { locationMatchingService } from "../locationMatching/LocationMatchingService";
 
 export async function createParkingAggregationService(): Promise<ParkingAggregationService> {
   const providers = {

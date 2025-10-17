@@ -1,8 +1,9 @@
-import { ParkingLocation } from "../common/ParkingLocation";
-import { ApiSearchParams } from "../common/ApiSearchParams";
-import { ParkingProviderType } from "../common/ParkingProviderType";
-import { CheapAirportParkingLocation } from "./CheapAirportParkingLocation";
-import { mockData } from "./mockData";
+import { ParkingLocation } from "../../common/ParkingLocation";
+import { ApiSearchParams } from "../../common/ApiSearchParams";
+import { ParkingProviderType } from "../../common/ParkingProviderType";
+import { CheapAirportParkingLocation } from "../CheapAirportParkingLocation";
+import { mockData } from "../mockData";
+import { ParkingProvider } from "../../common/ParkingProvider";
 
 /**
  * Cheap Airport Parking Service Implementation
@@ -10,7 +11,7 @@ import { mockData } from "./mockData";
  * Known for budget-friendly airport parking options
  * Typically focuses on off-site lots with shuttle service
  */
-export class CheapAirportParkingMockProvider {
+export class CheapAirportParkingMockProvider implements ParkingProvider {
   private readonly baseUrl = "https://api.cheapairportparking.com/v2";
   private readonly mockData = mockData;
 

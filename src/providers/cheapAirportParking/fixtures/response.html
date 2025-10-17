@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ORD Airport Parking Reservation - CheapAirportParking.org</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="ORD Airport Parking Reservation - CheapAirportParking.org"
+    />
+    <meta name="author" content="CheapAirportParking.org" />
+    <meta name="msvalidate.01" content="A00F8943AFF66005A86FDE27D21892A4" />
+    <meta property="fb:page_id" content="183889931632458" />
+
+    <meta name="robots" content="NOINDEX, NOFOLLOW" />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      rel="preload"
+      href="/css/fonts/fontello.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript
+      ><link rel="stylesheet" href="/css/fonts/fontello.css"
+    /></noscript>
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/jquery-ui.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="32x32" href="/icons/icon-32x32.png" />
+  </head>
+  <body>
+    <!-- Header -->
+
+    <header id="header">
+      <div class="container">
+        <div class="col-lg-15">
+          <div class="logo">
+            <a href="/ord" title="ORD Airport Parking"
+              ><img src="/img/logo.png" alt="Airport Parking"
+            /></a>
+          </div>
+          <ul class="menu">
+            <li><a href="/ord">ORD Parking</a></li>
+            <li id="aps">
+              <a style="cursor: pointer" onclick="$('#aps').addClass('child');"
+                >Airports</a
+              >
+              <ul class="sub-menu">
+                <li><a href="/atl">Atlanta (ATL)</a></li>
+                <li><a href="/bwi">Baltimore-Washington (BWI)</a></li>
+                <li><a href="/buf">Buffalo / Niagara Falls (BUF)</a></li>
+                <li><a href="/bur">Burbank (BUR)</a></li>
+                <li><a href="/ord">Chicago O'Hare (ORD)</a></li>
+                <li><a href="/cvg">Cincinnati / N Kentucky (CVG)</a></li>
+                <li><a href="/dfw">Dallas / Fort Worth (DFW)</a></li>
+                <li><a href="/den">Denver (DEN)</a></li>
+                <li><a href="/dtw">Detroit (DTW)</a></li>
+                <li><a href="/fll">Fort Lauderdale (FLL)</a></li>
+                <li><a href="/rsw">Fort Myers (RSW)</a></li>
+                <li><a href="/bdl">Hartford Bradley (BDL)</a></li>
+                <li><a href="/iah">Houston George Bush (IAH)</a></li>
+                <li><a href="/hou">Houston Hobby (HOU)</a></li>
+                <li><a href="/ind">Indianapolis (IND)</a></li>
+                <li><a href="/jax">Jacksonville (JAX)</a></li>
+                <li><a href="/lax">Los Angeles International (LAX)</a></li>
+                <li><a href="/mia">Miami (MIA)</a></li>
+                <li><a href="/bna">Nashville (BNA)</a></li>
+                <li><a href="/jfk">New York Kennedy (JFK)</a></li>
+                <li><a href="/lga">New York LaGuardia (LGA)</a></li>
+                <li><a href="/hpn">New York Westchester (HPN)</a></li>
+                <li><a href="/ewr">Newark (EWR)</a></li>
+                <li><a href="/oak">Oakland (OAK)</a></li>
+                <li><a href="/sna">Orange County (SNA)</a></li>
+                <li><a href="/mco">Orlando (MCO)</a></li>
+                <li><a href="/phl">Philadelphia (PHL)</a></li>
+                <li><a href="/phx">Phoenix (PHX)</a></li>
+                <li><a href="/pit">Pittsburgh (PIT)</a></li>
+                <li><a href="/pdx">Portland (PDX)</a></li>
+                <li><a href="/rdm">Redmond (RDM)</a></li>
+                <li><a href="/ric">Richmond (RIC)</a></li>
+                <li><a href="/slc">Salt Lake City (SLC)</a></li>
+                <li><a href="/san">San Diego (SAN)</a></li>
+                <li><a href="/sfo">San Francisco (SFO)</a></li>
+                <li><a href="/sjc">San Jose (SJC)</a></li>
+                <li><a href="/sea">Seattle SeaTac (SEA)</a></li>
+                <li><a href="/tpa">Tampa (TPA)</a></li>
+                <li><a href="/iad">Washington Dulles (IAD)</a></li>
+                <li><a href="/dca">Washington Reagan (DCA)</a></li>
+              </ul>
+            </li>
+
+            <li class="child" style="cursor: pointer">
+              <a>Partners</a>
+              <ul class="sub-menu">
+                <li class="my-partners"><a>Add Your Parking Lot</a></li>
+                <li><a>Parking Lot Login</a></li>
+              </ul>
+            </li>
+            <li><a href="/parking/faq">FAQ</a></li>
+            <li><a href="/info/contact_us">Contact</a></li>
+            <style>
+              #header .menu > li > .sub-menu > a li {
+                display: block;
+                padding: 0 20px;
+                line-height: 36px;
+                color: #515151;
+              }
+              #header .menu > li > .sub-menu > a li:hover {
+                background: #eeeeee;
+              }
+            </style>
+            <li class="last child my-res" style="cursor: pointer">
+              <a>My Reservations</a>
+              <ul class="sub-menu sub-last">
+                <li class="my-res"><a>View / Print</a></li>
+                <li class="my-res"><a>Change Dates</a></li>
+                <li class="my-res"><a>Cancel</a></li>
+              </ul>
+            </li>
+            <script>
+              $(".my-partners").click(function () {
+                window.location.href = "/info/partnerships";
+              });
+              $(".my-res").click(function () {
+                window.location.href = "/parking/account";
+              });
+            </script>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <!-- Intro -->
+    <style>
+      .lnk3 {
+        padding: 0px 6px 0px 6px;
+        font-weight: normal;
+      }
+      div#tolist:hover,
+      div#tomap:hover,
+      div#tomap:hover div {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .a_ext {
+        color: #515151;
+      }
+      .a_ext:hover {
+        color: #e3801c;
+      }
+      .knpk_reserve {
+        padding: 12px 30px 10px 30px;
+      }
+    </style>
+    <section style="margin-top: 10px">
+      <div class="container">
+        <div class="col-lg-15">
+          <h3 style="margin-bottom: 12px">
+            Select Chicago O'Hare Airport Parking
+          </h3>
+        </div>
+        <div class="col-lg-4" style="border: #0f0 0px solid">
+          <div style="border: #ccc 0px solid">
+            <div
+              id="tolist"
+              style="
+                display: none;
+                border-top: #999 1px solid;
+                padding-top: 10px;
+                margin-bottom: 100px;
+              "
+            >
+              Hide map, Show list
+            </div>
+            <div
+              id="tomap"
+              style="
+                width: 100%;
+                background: url(/img/maps/map-ORD.png) no-repeat center;
+                padding-top: 22%;
+                height: 160px;
+              "
+            >
+              <div
+                style="
+                  text-align: center;
+                  padding: 16px 30px 16px 30px;
+                  width: 70%;
+                  margin: auto;
+                  background-color: #fff;
+                  opacity: 0.9;
+                "
+              >
+                Go to map view
+              </div>
+            </div>
+            <script>
+              var mapLoaded = false;
+              $("#tolist").click(function () {
+                $("#map_box, #tolist").slideUp("fast");
+                $("#tomap").slideDown("fast");
+              });
+              $("#tomap").click(function () {
+                $("#map_box, #tolist").slideDown("fast");
+                $("#tomap").slideUp("fast");
+                if (!mapLoaded) ini_lg();
+                mapLoaded = true;
+                // jquery ajax
+                // var jqxhr = $.ajax( "/templates/reserve-user-data.php?id_visit=336144&desktop_map=1" ).done();
+                // END jquery ajax
+              });
+            </script>
+
+            <style>
+              div.loc_hi {
+                cursor: pointer;
+              }
+              div.loc_hi:hover {
+                background-color: #c7dfff;
+              }
+              div.loc_opt {
+                margin-top: 6px;
+                padding-top: 3px;
+                padding-bottom: 4px;
+              }
+              div#filter input {
+                margin-top: 6px;
+                margin-right: 8px;
+              }
+              .div-reset {
+                float: right;
+                display: none;
+                cursor: pointer;
+                color: #e3801c;
+              }
+              .div-reset:hover {
+                text-decoration: underline;
+              }
+              div.hint {
+                float: right;
+                padding-top: 4px;
+                margin-right: 6px;
+                color: #e3801c;
+              }
+            </style>
+            <div id="filter" style="font-size: 14px">
+              <div
+                style="
+                  border-top: #999 1px solid;
+                  margin-top: 10px;
+                  padding-top: 10px;
+                "
+              >
+                <b>Filters</b>
+                <div
+                  style="
+                    width: 100%;
+                    border-bottom: #999 1px solid;
+                    margin-top: 10px;
+                  "
+                ></div>
+
+                <div
+                  id="div-is"
+                  class="loc_hi"
+                  onMouseOver="mOver('inself');"
+                  onMouseOut="mOut('inself');"
+                  onclick="mySelect(0,'is','inself');"
+                >
+                  <div id="d_inself" class="hint"></div>
+                  <div style="float: left">
+                    <input type="checkbox" id="inp_inself" />
+                  </div>
+                  <div id="div_is" class="loc_opt">
+                    Indoor Self <span id="p_inself"></span>
+                  </div>
+                </div>
+
+                <div
+                  id="div-iv"
+                  class="loc_hi"
+                  onMouseOver="mOver('invalet');"
+                  onMouseOut="mOut('invalet');"
+                  onclick="mySelect(1,'iv','invalet');"
+                >
+                  <div id="d_invalet" class="hint"></div>
+                  <div style="float: left">
+                    <input type="checkbox" id="inp_invalet" />
+                  </div>
+                  <div id="div_iv" class="loc_opt">
+                    Indoor Valet <span id="p_invalet"></span>
+                  </div>
+                </div>
+
+                <div
+                  id="div-os"
+                  class="loc_hi"
+                  onMouseOver="mOver('outself');"
+                  onMouseOut="mOut('outself');"
+                  onclick="mySelect(2,'os','outself');"
+                >
+                  <div id="d_outself" class="hint"></div>
+                  <div style="float: left">
+                    <input type="checkbox" id="inp_outself" />
+                  </div>
+                  <div id="div_os" class="loc_opt">
+                    Outdoor Self <span id="p_outself"></span>
+                  </div>
+                </div>
+
+                <div
+                  id="div-ov"
+                  class="loc_hi"
+                  onMouseOver="mOver('outvalet');"
+                  onMouseOut="mOut('outvalet');"
+                  onclick="mySelect(3,'ov','outvalet');"
+                >
+                  <div id="d_outvalet" class="hint"></div>
+                  <div style="float: left">
+                    <input type="checkbox" id="inp_outvalet" />
+                  </div>
+                  <div id="div_ov" class="loc_opt">
+                    Outdoor Valet <span id="p_outvalet"></span>
+                  </div>
+                </div>
+
+                <div
+                  id="div-all"
+                  class="loc_hi"
+                  onMouseOver="if(!$('#inp_all').is(':checked')) $('#d_all').html('Select');"
+                  onMouseOut="mOut('all');"
+                  onclick="Reset();"
+                >
+                  <div id="d_all" class="hint"></div>
+                  <div style="float: left">
+                    <input type="checkbox" id="inp_all" checked />
+                  </div>
+                  <div class="loc_opt">
+                    All available lots <span id="p_all"></span>
+                  </div>
+                </div>
+
+                <div
+                  style="
+                    width: 100%;
+                    border-bottom: #999 1px solid;
+                    margin-top: 6px;
+                    margin-bottom: 10px;
+                  "
+                ></div>
+                <span id="my_subset"></span><span id="my_total"></span> lots
+                shown
+                <div class="div-reset" onclick="Reset();" style="">
+                  Display all
+                </div>
+
+                <script type="text/javascript">
+                  function mOver(pointer) {
+                    if ($("#inp_" + pointer).is(":checked"))
+                      $("#d_" + pointer).html("Remove");
+                    else $("#d_" + pointer).html("Select");
+                  }
+                  function mOut(pointer) {
+                    $("#d_" + pointer).html("");
+                  }
+                </script>
+
+                <div id="" style="display: none">
+                  <div
+                    style="
+                      width: 100%;
+                      border-bottom: #999 1px solid;
+                      margin-top: 10px;
+                    "
+                  ></div>
+                  <div class="loc_hi">
+                    <div
+                      class="loc_opt"
+                      onclick="Reset();"
+                      style="padding-left: 4px"
+                    >
+                      Display all parking options
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script type="text/javascript">
+              // Firefox :(
+              $("#inp_inself, #inp_invalet, #inp_outself, #inp_outvalet").prop(
+                "checked",
+                false
+              );
+              $("#inp_all").prop("checked", true);
+
+              var showIS = true;
+              var showIV = true;
+              var showOS = true;
+              var showOV = true;
+
+              let show = [true, true, true, true];
+
+              function Reset() {
+                $(
+                  "#inp_inself, #inp_invalet, #inp_outself, #inp_outvalet"
+                ).prop("checked", false);
+                $("#inp_all").prop("checked", true);
+                $("#div_is, #div_iv, #div_os, #div_ov").css(
+                  "font-weight",
+                  "normal"
+                );
+
+                showIS = true;
+                showIV = true;
+                showOS = true;
+                showOV = true;
+
+                show[0] = true;
+                show[1] = true;
+                show[2] = true;
+                show[3] = true;
+
+                $("#my_wait").slideDown();
+
+                setTimeout(nothing, 1500);
+
+                var jqxhr = $.ajax(
+                  "/templates/reserve-user-data.php?id_visit=336144&filters=X"
+                ).done();
+
+                function nothing() {
+                  $("#my_wait").slideUp();
+                  $(".listing").show();
+                  myRecalc();
+                  $(".div-reset").hide();
+                }
+              }
+
+              function mySelect(i, t_short, t_long) {
+                $("#my_wait").slideDown();
+
+                setTimeout(nothing, 1500);
+
+                var jqxhr = $.ajax(
+                  "/templates/reserve-user-data.php?id_visit=336144&filters=" +
+                    i
+                ).done();
+
+                function nothing() {
+                  $("#my_wait").slideUp();
+
+                  if (show[0] && show[1] && show[2] && show[3]) {
+                    $(".listing").hide();
+                    $("." + t_long).show();
+
+                    show[0] = false;
+                    show[1] = false;
+                    show[2] = false;
+                    show[3] = false;
+                    show[i] = true;
+
+                    $("#inp_" + t_long).prop("checked", true);
+                    $("#div_" + t_short).css("font-weight", "bold");
+                  } else {
+                    if (show[i]) {
+                      $("." + t_long).hide();
+                      show[i] = false;
+                      $("#inp_" + t_long).prop("checked", false);
+                      $("#div_" + t_short).css("font-weight", "normal");
+                    } else {
+                      $("." + t_long).show();
+                      show[i] = true;
+                      $("#inp_" + t_long).prop("checked", true);
+                      $("#div_" + t_short).css("font-weight", "bold");
+                    }
+                  }
+
+                  $("#inp_all").prop("checked", false);
+
+                  myRecalc();
+                }
+              }
+
+              function typeDeals() {
+                window.open(
+                  "//www.cheapairportparking.org/parking/find.php?gd=1&airport=ORD&FromDate=10%2F17%2F2025&from_time=11&ToDate=10%2F17%2F2025&to_time=16",
+                  "_self"
+                );
+              }
+            </script>
+
+            <script type="text/javascript">
+              function showSearch() {
+                if (
+                  document.getElementById("search_box").style.display == "none"
+                ) {
+                  $("#search_box").slideDown("fast");
+                } else {
+                  $("#search_box").slideUp("fast");
+                }
+              }
+            </script>
+          </div>
+        </div>
+
+        <div class="col-lg-11">
+          <style>
+            .listing {
+              border: #ccc 1px solid;
+              border-bottom: 0;
+              padding: 10px 10px 10px 10px;
+            }
+            .listing:hover {
+              border-color: #888;
+            }
+            /* .listing:hover + .listing:not(.hidden) {border-top:#999 1px solid;} */
+            .ole {
+              border-top: #888 1px solid;
+            }
+            .listing-left {
+              min-width: 120px;
+              min-height: 110px;
+              margin-right: 10px;
+              margin-bottom: 4px;
+              float: left;
+            }
+            .listing-last {
+              border-bottom: #ccc 1px solid;
+            }
+          </style>
+          <div
+            class=""
+            style="
+              border: #ccc 1px solid;
+              border-bottom: 0;
+              padding: 10px 10px 10px 10px;
+            "
+          >
+            <!--- START Old design  --->
+            <div
+              class="editdates"
+              style="float: right; cursor: pointer"
+              onclick="showSearch();"
+            >
+              <img
+                src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDUyOC44OTkgNTI4Ljg5OSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTI4Ljg5OSA1MjguODk5OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTMyOC44ODMsODkuMTI1bDEwNy41OSwxMDcuNTg5bC0yNzIuMzQsMjcyLjM0TDU2LjYwNCwzNjEuNDY1TDMyOC44ODMsODkuMTI1eiBNNTE4LjExMyw2My4xNzdsLTQ3Ljk4MS00Ny45ODEgICBjLTE4LjU0My0xOC41NDMtNDguNjUzLTE4LjU0My02Ny4yNTksMGwtNDUuOTYxLDQ1Ljk2MWwxMDcuNTksMTA3LjU5bDUzLjYxMS01My42MTEgICBDNTMyLjQ5NSwxMDAuNzUzLDUzMi40OTUsNzcuNTU5LDUxOC4xMTMsNjMuMTc3eiBNMC4zLDUxMi42OWMtMS45NTgsOC44MTIsNS45OTgsMTYuNzA4LDE0LjgxMSwxNC41NjVsMTE5Ljg5MS0yOS4wNjkgICBMMjcuNDczLDM5MC41OTdMMC4zLDUxMi42OXoiIGZpbGw9IiM3ODc4NzgiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K"
+              />
+            </div>
+            <div style="cursor: pointer" onclick="showSearch();">
+              <b>From: </b>Fri, Oct 17 - 11:00 AM
+              <span style="margin-left: 30px"
+                ><b>To: </b>Fri, Oct 17 - 4:00 PM</span
+              >
+            </div>
+            1 Day of parking (0 days and 5 hours)
+            <div id="search_box" style="display: none; margin-top: 6px">
+              <form name="searchform" action="" method="GET">
+                <style>
+                  #myOldTable {
+                    width: 100%;
+                    background-color: #eee;
+                    border: #fff 1px solid;
+                  }
+                  #myOldTable td {
+                    padding: 12px 0 12px 0px;
+                  }
+                </style>
+                <table id="myOldTable">
+                  <tr>
+                    <td
+                      style="
+                        border-bottom: #ffffff 1px solid;
+                        padding-left: 140px;
+                      "
+                      align="left"
+                      width="40%"
+                    >
+                      <b>Airport</b>
+                    </td>
+                    <td style="border-bottom: #ffffff 1px solid" width="60%">
+                      <select
+                        name="airport"
+                        size="1"
+                        class="mySelect"
+                        style="width: 240px; border: #bbb 1px solid"
+                      >
+                        <option value="">Select Airport</option>
+                        <option value="ATL">Atlanta (ATL)</option>
+                        <option value="BWI">Baltimore-Washington (BWI)</option>
+                        <option value="BUF">
+                          Buffalo / Niagara Falls (BUF)
+                        </option>
+                        <option value="BUR">Burbank (BUR)</option>
+                        <option value="ORD" selected>
+                          Chicago O'Hare (ORD)
+                        </option>
+                        <option value="CVG">
+                          Cincinnati / N Kentucky (CVG)
+                        </option>
+                        <option value="DFW">Dallas / Fort Worth (DFW)</option>
+                        <option value="DEN">Denver (DEN)</option>
+                        <option value="DTW">Detroit (DTW)</option>
+                        <option value="FLL">Fort Lauderdale (FLL)</option>
+                        <option value="RSW">Fort Myers (RSW)</option>
+                        <option value="BDL">Hartford Bradley (BDL)</option>
+                        <option value="IAH">Houston George Bush (IAH)</option>
+                        <option value="HOU">Houston Hobby (HOU)</option>
+                        <option value="IND">Indianapolis (IND)</option>
+                        <option value="JAX">Jacksonville (JAX)</option>
+                        <option value="LAX">
+                          Los Angeles International (LAX)
+                        </option>
+                        <option value="MIA">Miami (MIA)</option>
+                        <option value="BNA">Nashville (BNA)</option>
+                        <option value="JFK">New York Kennedy (JFK)</option>
+                        <option value="LGA">New York LaGuardia (LGA)</option>
+                        <option value="HPN">New York Westchester (HPN)</option>
+                        <option value="EWR">Newark (EWR)</option>
+                        <option value="OAK">Oakland (OAK)</option>
+                        <option value="SNA">Orange County (SNA)</option>
+                        <option value="MCO">Orlando (MCO)</option>
+                        <option value="PHL">Philadelphia (PHL)</option>
+                        <option value="PHX">Phoenix (PHX)</option>
+                        <option value="PIT">Pittsburgh (PIT)</option>
+                        <option value="PDX">Portland (PDX)</option>
+                        <option value="RDM">Redmond (RDM)</option>
+                        <option value="RIC">Richmond (RIC)</option>
+                        <option value="SLC">Salt Lake City (SLC)</option>
+                        <option value="SAN">San Diego (SAN)</option>
+                        <option value="SFO">San Francisco (SFO)</option>
+                        <option value="SJC">San Jose (SJC)</option>
+                        <option value="SEA">Seattle SeaTac (SEA)</option>
+                        <option value="TPA">Tampa (TPA)</option>
+                        <option value="IAD">Washington Dulles (IAD)</option>
+                        <option value="DCA">Washington Reagan (DCA)</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border-bottom: #ffffff 1px solid;
+                        padding-left: 140px;
+                      "
+                      align="left"
+                      width="40%"
+                    >
+                      <b>Park From</b>
+                    </td>
+                    <td style="border-bottom: #ffffff 1px solid" width="60%">
+                      <div style="float: left; margin-right: 4px">
+                        <input
+                          id="dfromNice"
+                          class="infield"
+                          style="
+                            width: 110px;
+                            padding-left: 4px;
+                            border: #bbb 1px solid;
+                            height: 28px;
+                          "
+                          maxlength="10"
+                          size="10"
+                          name="FromDateNice"
+                          value="Oct 17"
+                        />
+                      </div>
+                      <input
+                        type="hidden"
+                        id="dfrom"
+                        style="width: 100px"
+                        maxlength="10"
+                        size="10"
+                        name="FromDate"
+                        value="10/17/2025"
+                      />
+
+                      <select
+                        name="from_time"
+                        size="1"
+                        class="mySelect"
+                        style="
+                          width: 100px;
+                          margin-left: 26px;
+                          border: #bbb 1px solid;
+                        "
+                      >
+                        <option value="11" selected>11:00 AM</option>
+                        <option value="0">12:00 AM</option>
+                        <option value="1">1:00 AM</option>
+                        <option value="2">2:00 AM</option>
+                        <option value="3">3:00 AM</option>
+                        <option value="4">4:00 AM</option>
+                        <option value="5">5:00 AM</option>
+                        <option value="6">6:00 AM</option>
+                        <option value="7">7:00 AM</option>
+                        <option value="8">8:00 AM</option>
+                        <option value="9">9:00 AM</option>
+                        <option value="10">10:00 AM</option>
+                        <option value="11">11:00 AM</option>
+                        <option value="12">12:00 PM</option>
+                        <option value="13">1:00 PM</option>
+                        <option value="14">2:00 PM</option>
+                        <option value="15">3:00 PM</option>
+                        <option value="16">4:00 PM</option>
+                        <option value="17">5:00 PM</option>
+                        <option value="18">6:00 PM</option>
+                        <option value="19">7:00 PM</option>
+                        <option value="20">8:00 PM</option>
+                        <option value="21">9:00 PM</option>
+                        <option value="22">10:00 PM</option>
+                        <option value="23">11:00 PM</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border-bottom: #ffffff 1px solid;
+                        padding-left: 140px;
+                      "
+                      align="left"
+                    >
+                      <b>Park To</b>
+                    </td>
+                    <td style="border-bottom: #ffffff 1px solid">
+                      <div style="float: left; margin-right: 4px">
+                        <input
+                          id="dtoNice"
+                          class="infield"
+                          style="
+                            width: 110px;
+                            padding-left: 4px;
+                            border: #bbb 1px solid;
+                            height: 28px;
+                          "
+                          maxlength="10"
+                          size="10"
+                          name="ToDateNice"
+                          value="Oct 17"
+                        />
+                      </div>
+                      <input
+                        type="hidden"
+                        id="dto"
+                        style="width: 100px"
+                        maxlength="10"
+                        size="10"
+                        name="ToDate"
+                        value="10/17/2025"
+                      />
+
+                      <select
+                        name="to_time"
+                        size="1"
+                        class="mySelect"
+                        style="
+                          width: 100px;
+                          margin-left: 26px;
+                          border: #bbb 1px solid;
+                        "
+                      >
+                        <option value="16" selected>4:00 PM</option>
+                        <option value="0">12:00 AM</option>
+                        <option value="1">1:00 AM</option>
+                        <option value="2">2:00 AM</option>
+                        <option value="3">3:00 AM</option>
+                        <option value="4">4:00 AM</option>
+                        <option value="5">5:00 AM</option>
+                        <option value="6">6:00 AM</option>
+                        <option value="7">7:00 AM</option>
+                        <option value="8">8:00 AM</option>
+                        <option value="9">9:00 AM</option>
+                        <option value="10">10:00 AM</option>
+                        <option value="11">11:00 AM</option>
+                        <option value="12">12:00 PM</option>
+                        <option value="13">1:00 PM</option>
+                        <option value="14">2:00 PM</option>
+                        <option value="15">3:00 PM</option>
+                        <option value="16">4:00 PM</option>
+                        <option value="17">5:00 PM</option>
+                        <option value="18">6:00 PM</option>
+                        <option value="19">7:00 PM</option>
+                        <option value="20">8:00 PM</option>
+                        <option value="21">9:00 PM</option>
+                        <option value="22">10:00 PM</option>
+                        <option value="23">11:00 PM</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="text-align: center">
+                      <input
+                        class="knopka btn"
+                        type="submit"
+                        value="SEARCH AIRPORT PARKING"
+                        style="padding: 6px 16px 6px 16px"
+                      />
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+            <!--- END Old design  --->
+          </div>
+          <!-- Map -->
+          <div
+            id="map_box"
+            class=""
+            style="border: #ccc 1px solid; border-bottom: 0; display: none"
+          >
+            <div id="map_body_large" style="width: 100%; height: 500px"></div>
+          </div>
+          <!-- END Map -->
+          <!--- START Promo text  --->
+          <!--- END Promo text  --->
+          <!--- START Sort  --->
+          <div
+            style="
+              border: #ccc 1px solid;
+              border-bottom: 0;
+              padding: 10px 10px 10px 10px;
+              background-color: #eee;
+            "
+          >
+            Sort Results by:
+
+            <a
+              class="mylink"
+              href="/parking/find.php?airport=ORD&FromDate=10%2F17%2F2025&from_time=11&ToDate=10%2F17%2F2025&to_time=16&sort=rating"
+              >Customer Rating</a
+            >
+            |
+            <a
+              class="mylink"
+              href="/parking/find.php?airport=ORD&FromDate=10%2F17%2F2025&from_time=11&ToDate=10%2F17%2F2025&to_time=16&sort=price"
+              >Price</a
+            >
+            |
+            <a
+              class="mylink"
+              href="/parking/find.php?airport=ORD&FromDate=10%2F17%2F2025&from_time=11&ToDate=10%2F17%2F2025&to_time=16&sort=dist"
+              >Distance from Airport</a
+            >
+          </div>
+          <!--- END Sort  --->
+          <!--- START Main Part block  --->
+          <div
+            id="my_wait"
+            style="
+              display: none;
+              height: 420px;
+              border: #ccc 1px solid;
+              border-bottom: 0;
+            "
+          >
+            <div style="text-align: center">
+              <img src="/img/wait648x260.gif" style="margin-top: 80px" />
+            </div>
+          </div>
+          <!--- END Main Part block  --->
+          <script type="text/javascript">
+            function gotoLot(id) {
+              document.getElementById("parking" + id).action =
+                "/parking/lot.php";
+              document.getElementById("parking" + id).submit();
+            }
+            function gotoMap(localId_curr, localId, lat, lon, name) {
+              if (localId_curr > 0) closeDetails(localId_curr);
+              id_parking_curr = localId;
+
+              showMap(localId, lat, lon, name);
+            }
+          </script>
+          <script language="javascript">
+            function expandMore(id) {
+              document.getElementById(id + "-less").style.display = "none";
+              document.getElementById(id + "-more").style.display = "inline";
+            }
+            function compressLess(id) {
+              document.getElementById(id + "-less").style.display = "inline";
+              document.getElementById(id + "-more").style.display = "none";
+            }
+            function mycolor(id, color) {
+              document.getElementById(id).style.color = "#" + color;
+            }
+            function listOver(id) {
+              document.getElementById("det" + id).className = "det_h";
+            }
+            function listOut(id) {
+              document.getElementById("det" + id).className = "det";
+            }
+          </script>
+
+          <!--- START Listing  --->
+          <div
+            id="newId-1"
+            class="listing coveredself inself available"
+            onmouseover="$(this).nextAll('.listing:visible:first').addClass('ole');listOver('288');"
+            onmouseout="$('.ole').removeClass('ole');listOut('288');"
+          >
+            <div>
+              <div class="park-right">
+                <form
+                  id="parking288"
+                  name="reservation_form"
+                  action="/parking/reserve-stripe.php"
+                  method="post"
+                >
+                  <div id="deal288"></div>
+
+                  <div>
+                    <div class="dayrate">
+                      <div style="min-height: 54px">
+                        <div>
+                          <div style="margin-bottom: 8px; margin-top: 24px">
+                            <span style="font-size: 24px">$26</span
+                            ><span style="font-size: 18px">.95 total</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <input
+                    type="submit"
+                    value="RESERVE"
+                    class="knopka knpk_reserve"
+                  />
+                  <input type="hidden" name="id_lot" value="195" />
+                  <input type="hidden" name="id_park" value="288" />
+                  <input type="hidden" name="date_from" value="10/17/2025" />
+                  <input type="hidden" name="date_to" value="10/17/2025" />
+                  <input type="hidden" name="time_from" value="11" />
+                  <input type="hidden" name="time_to" value="16" />
+
+                  <input type="hidden" name="n_days" value="1" />
+                  <input type="hidden" name="pay_now" value="21" />
+                  <input type="hidden" name="pay_lot" value="0" />
+
+                  <input type="hidden" name="rate_min" value="21" />
+
+                  <input type="hidden" name="partner" value="" />
+                  <input type="hidden" name="go" value="res" />
+                  <input
+                    type="hidden"
+                    name="call_query"
+                    value="airport=ORD&FromDate=10%2F17%2F2025&from_time=11&ToDate=10%2F17%2F2025&to_time=16"
+                  />
+                  <input type="hidden" name="ind_discount" value="0" />
+                </form>
+              </div>
+              <div>
+                <div
+                  id="s1-288"
+                  class="clearfix lnk0"
+                  style="min-height: 90px; margin-bottom: 8px"
+                >
+                  <div>
+                    <div class="listing-left">
+                      <div
+                        class="rating nostar"
+                        style="margin-top: 6px; margin-bottom: 14px"
+                      >
+                        <div class="rating my4-5"></div>
+                      </div>
+                      <div style="cursor: pointer" onClick="gotoLot('288');">
+                        <img
+                          src="/img/parking/loews-logo.jpg"
+                          width="120"
+                          height="120"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="margin-bottom: 0px; float: left">
+                      <div
+                        class="lot-name"
+                        style="max-width: 350px"
+                        onClick="gotoLot('288');"
+                      >
+                        Loews Chicago O'Hare
+                      </div>
+                      <div class="park-type">
+                        <img class="menu_aufz" src="/img/checkmark.png" />
+                        Indoor Self Parking
+                      </div>
+
+                      <div style="font-size: 14px">
+                        <span style="font-size: 16px"
+                          >91<span style="font-size: 12px">%</span></span
+                        >
+                        Recommend
+                        <a
+                          class="mylink"
+                          onClick="javascript:showDetails('',288,'reviews');"
+                          style="font-size: 0.9em"
+                          >95 reviews</a
+                        >
+                        <br />Free shuttle every 10-15 min <br />
+                      </div>
+
+                      <div id="det288" class="det" style="margin-top: 8px">
+                        <div
+                          class="my_but"
+                          onclick="gotoMap(id_parking_curr, 288, 41.974824, -87.863022, 'Loews Chicago OHare');"
+                        >
+                          Map
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="if(id_parking_curr > 0) closeDetails(id_parking_curr); id_parking_curr=288; showDetails(195,288,'photos');"
+                        >
+                          Photos
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="showDetails('',288,'reviews');"
+                        >
+                          Reviews
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="rates-288"></div>
+              <div id="details-288"></div>
+            </div>
+          </div>
+
+          <!--- END Listing  --->
+
+          <!--- START Listing  --->
+          <style>
+            div.cl_reset {
+              background-color: #fff9f9;
+            }
+            div.cl_reset:hover {
+              text-decoration: underline;
+            }
+          </style>
+          <div
+            id="id_reset"
+            class="listing"
+            onmouseover="$(this).nextAll('.listing:visible:first').addClass('ole');listOver('273');"
+            onmouseout="$('.ole').removeClass('ole');listOut('273');"
+            style="display: none"
+          >
+            <div
+              class="cl_reset"
+              onclick="Reset();"
+              style="
+                font-size: 20px;
+                color: #e3801c;
+                cursor: pointer;
+                text-align: center;
+                padding-top: 12px;
+                padding-bottom: 12px;
+                border: #e3801c 1px solid;
+                border-radius: 3px;
+                margin: 40px;
+              "
+            >
+              Some lots are hidden by filters. Click here to see them
+            </div>
+          </div>
+          <!--- END Listing  --->
+          <!--- START Listing  --->
+          <div
+            id="newId-2"
+            class="listing uncoveredself outself"
+            onmouseover="$(this).nextAll('.listing:visible:first').addClass('ole');listOver('273');"
+            onmouseout="$('.ole').removeClass('ole');listOut('273');"
+          >
+            <div>
+              <div class="park-right">
+                <form
+                  id="parking273"
+                  name="reservation_form"
+                  action="/parking/reserve-stripe.php"
+                  method="post"
+                >
+                  <div
+                    style="
+                      margin: 50px 12px 0 12px;
+                      text-align: center;
+                      padding: 4px 16px 4px 16px;
+                      font-size: 16px;
+                    "
+                  >
+                    Not Available for <br />less than 2 days
+                  </div>
+                  <input type="hidden" name="id_lot" value="181" />
+                  <input type="hidden" name="id_park" value="273" />
+                  <input type="hidden" name="date_from" value="10/17/2025" />
+                  <input type="hidden" name="date_to" value="10/17/2025" />
+                  <input type="hidden" name="time_from" value="11" />
+                  <input type="hidden" name="time_to" value="16" />
+
+                  <input type="hidden" name="n_days" value="1" />
+                  <input type="hidden" name="pay_now" value="20" />
+                  <input type="hidden" name="pay_lot" value="0" />
+
+                  <input type="hidden" name="rate_min" value="20" />
+
+                  <input type="hidden" name="partner" value="" />
+                  <input type="hidden" name="go" value="" />
+                  <input
+                    type="hidden"
+                    name="call_query"
+                    value="airport=ORD&FromDate=10%2F17%2F2025&from_time=11&ToDate=10%2F17%2F2025&to_time=16"
+                  />
+                  <input type="hidden" name="ind_discount" value="0" />
+                </form>
+              </div>
+              <div>
+                <div
+                  id="s1-273"
+                  class="clearfix lnk0"
+                  style="min-height: 90px; margin-bottom: 8px"
+                >
+                  <div>
+                    <div class="listing-left">
+                      <div
+                        class="rating nostar"
+                        style="margin-top: 6px; margin-bottom: 14px"
+                      >
+                        <div class="rating my4-0"></div>
+                      </div>
+                      <div style="cursor: pointer" onClick="gotoLot('273');">
+                        <img
+                          src="/img/parking/img-ORD/hyatt-place-icon.jpg"
+                          width="120"
+                          height="120"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="margin-bottom: 0px; float: left">
+                      <div
+                        class="lot-name"
+                        style="max-width: 350px"
+                        onClick="gotoLot('273');"
+                      >
+                        Hyatt Place O'hare
+                      </div>
+                      <div class="park-type">
+                        <img class="menu_aufz" src="/img/checkmark.png" />
+                        Outdoor Self Parking
+                      </div>
+
+                      <div style="font-size: 14px">
+                        <span style="font-size: 16px"
+                          >88<span style="font-size: 12px">%</span></span
+                        >
+                        Recommend
+                        <a
+                          class="mylink"
+                          onClick="javascript:showDetails('',273,'reviews');"
+                          style="font-size: 0.9em"
+                          >48 reviews</a
+                        >
+                        <br />Free shuttle 6am to 1pm and 4pm to 8pm <br />
+                      </div>
+
+                      <div id="det273" class="det" style="margin-top: 8px">
+                        <div
+                          class="my_but"
+                          onclick="gotoMap(id_parking_curr, 273, 42.002622, -87.885198, 'Hyatt Place Ohare');"
+                        >
+                          Map
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="if(id_parking_curr > 0) closeDetails(id_parking_curr); id_parking_curr=273; showDetails(181,273,'photos');"
+                        >
+                          Photos
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="showDetails('',273,'reviews');"
+                        >
+                          Reviews
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="rates-273"></div>
+              <div id="details-273"></div>
+            </div>
+          </div>
+
+          <!--- END Listing  --->
+
+          <!--- START Listing  --->
+          <div
+            id="newId-3"
+            class="listing coveredvalet invalet"
+            onmouseover="$(this).nextAll('.listing:visible:first').addClass('ole');listOver('190');"
+            onmouseout="$('.ole').removeClass('ole');listOut('190');"
+          >
+            <div>
+              <div class="park-right">
+                <form
+                  id="parking190"
+                  name="reservation_form"
+                  action="/parking/reserve-stripe.php"
+                  method="post"
+                >
+                  <div
+                    style="
+                      margin: 50px 12px 0 12px;
+                      text-align: center;
+                      padding: 4px 16px 4px 16px;
+                      font-size: 16px;
+                    "
+                  >
+                    Not Available for <br />less than 2 days
+                  </div>
+                  <input type="hidden" name="id_lot" value="130" />
+                  <input type="hidden" name="id_park" value="190" />
+                  <input type="hidden" name="date_from" value="10/17/2025" />
+                  <input type="hidden" name="date_to" value="10/17/2025" />
+                  <input type="hidden" name="time_from" value="11" />
+                  <input type="hidden" name="time_to" value="16" />
+
+                  <input type="hidden" name="n_days" value="1" />
+                  <input type="hidden" name="pay_now" value="3" />
+                  <input type="hidden" name="pay_lot" value="17.79" />
+
+                  <input type="hidden" name="rate_min" value="20.79" />
+
+                  <input type="hidden" name="partner" value="" />
+                  <input type="hidden" name="go" value="" />
+                  <input
+                    type="hidden"
+                    name="call_query"
+                    value="airport=ORD&FromDate=10%2F17%2F2025&from_time=11&ToDate=10%2F17%2F2025&to_time=16"
+                  />
+                  <input type="hidden" name="ind_discount" value="0" />
+                </form>
+              </div>
+              <div>
+                <div
+                  id="s1-190"
+                  class="clearfix lnk0"
+                  style="min-height: 90px; margin-bottom: 8px"
+                >
+                  <div>
+                    <div class="listing-left">
+                      <div
+                        class="rating nostar"
+                        style="margin-top: 6px; margin-bottom: 14px"
+                      >
+                        <div class="rating my4-5"></div>
+                      </div>
+                      <div style="cursor: pointer" onClick="gotoLot('190');">
+                        <img
+                          src="/img/parking/ORD-bluesky-logo.png"
+                          width="120"
+                          height="100"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="margin-bottom: 0px; float: left">
+                      <div
+                        class="lot-name"
+                        style="max-width: 350px"
+                        onClick="gotoLot('190');"
+                      >
+                        Blue Sky Parking
+                      </div>
+                      <div class="park-type">
+                        <img class="menu_aufz" src="/img/checkmark.png" />
+                        Indoor Valet
+                      </div>
+
+                      <div style="font-size: 14px">
+                        <span style="font-size: 16px"
+                          >94<span style="font-size: 12px">%</span></span
+                        >
+                        Recommend
+                        <a
+                          class="mylink"
+                          onClick="javascript:showDetails('',190,'reviews');"
+                          style="font-size: 0.9em"
+                          >148 reviews</a
+                        >
+                        <br />Free shuttle every 5-10 min <br />
+                      </div>
+
+                      <div id="det190" class="det" style="margin-top: 8px">
+                        <div
+                          class="my_but"
+                          onclick="gotoMap(id_parking_curr, 190, 41.953782, -87.886099, 'Blue Sky Parking');"
+                        >
+                          Map
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="if(id_parking_curr > 0) closeDetails(id_parking_curr); id_parking_curr=190; showDetails(130,190,'photos');"
+                        >
+                          Photos
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="showDetails('',190,'reviews');"
+                        >
+                          Reviews
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="rates-190"></div>
+              <div id="details-190"></div>
+            </div>
+          </div>
+
+          <!--- END Listing  --->
+
+          <!--- START Listing  --->
+          <div
+            id="newId-4"
+            class="listing coveredself inself"
+            onmouseover="$(this).nextAll('.listing:visible:first').addClass('ole');listOver('195');"
+            onmouseout="$('.ole').removeClass('ole');listOut('195');"
+          >
+            <div>
+              <div class="park-right">
+                <form
+                  id="parking195"
+                  name="reservation_form"
+                  action="/parking/reserve-stripe.php"
+                  method="post"
+                >
+                  <div
+                    style="
+                      margin: 50px 12px 0 12px;
+                      text-align: center;
+                      padding: 4px 16px 4px 16px;
+                      font-size: 16px;
+                    "
+                  >
+                    Not Available for <br />less than 2 days
+                  </div>
+                  <input type="hidden" name="id_lot" value="132" />
+                  <input type="hidden" name="id_park" value="195" />
+                  <input type="hidden" name="date_from" value="10/17/2025" />
+                  <input type="hidden" name="date_to" value="10/17/2025" />
+                  <input type="hidden" name="time_from" value="11" />
+                  <input type="hidden" name="time_to" value="16" />
+
+                  <input type="hidden" name="n_days" value="1" />
+                  <input type="hidden" name="pay_now" value="15" />
+                  <input type="hidden" name="pay_lot" value="0" />
+
+                  <input type="hidden" name="rate_min" value="15" />
+
+                  <input type="hidden" name="partner" value="" />
+                  <input type="hidden" name="go" value="" />
+                  <input
+                    type="hidden"
+                    name="call_query"
+                    value="airport=ORD&FromDate=10%2F17%2F2025&from_time=11&ToDate=10%2F17%2F2025&to_time=16"
+                  />
+                  <input type="hidden" name="ind_discount" value="0" />
+                </form>
+              </div>
+              <div>
+                <div
+                  id="s1-195"
+                  class="clearfix lnk0"
+                  style="min-height: 90px; margin-bottom: 8px"
+                >
+                  <div>
+                    <div class="listing-left">
+                      <div
+                        class="rating nostar"
+                        style="margin-top: 6px; margin-bottom: 14px"
+                      >
+                        <div class="rating my4-0"></div>
+                      </div>
+                      <div style="cursor: pointer" onClick="gotoLot('195');">
+                        <img
+                          src="/img/parking/ORD-crowne-logo.jpg"
+                          width="120"
+                          height="60"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="margin-bottom: 0px; float: left">
+                      <div
+                        class="lot-name"
+                        style="max-width: 350px"
+                        onClick="gotoLot('195');"
+                      >
+                        Crowne Plaza O'Hare Parking
+                      </div>
+                      <div class="park-type">
+                        <img class="menu_aufz" src="/img/checkmark.png" /> Self
+                        Parking
+                      </div>
+
+                      <div style="font-size: 14px">
+                        <span style="font-size: 16px"
+                          >90<span style="font-size: 12px">%</span></span
+                        >
+                        Recommend
+                        <a
+                          class="mylink"
+                          onClick="javascript:showDetails('',195,'reviews');"
+                          style="font-size: 0.9em"
+                          >61 reviews</a
+                        >
+                        <br />No shuttle available <br />
+                      </div>
+
+                      <div id="det195" class="det" style="margin-top: 8px">
+                        <div
+                          class="my_but"
+                          onclick="gotoMap(id_parking_curr, 195, 41.9776229, -87.8635409, 'Crowne Plaza OHare Parking');"
+                        >
+                          Map
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="if(id_parking_curr > 0) closeDetails(id_parking_curr); id_parking_curr=195; showDetails(132,195,'photos');"
+                        >
+                          Photos
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="showDetails('',195,'reviews');"
+                        >
+                          Reviews
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="rates-195"></div>
+              <div id="details-195"></div>
+            </div>
+          </div>
+
+          <!--- END Listing  --->
+
+          <!--- START Listing  --->
+          <div
+            id="newId-5"
+            class="listing uncoveredself outself"
+            onmouseover="$(this).nextAll('.listing:visible:first').addClass('ole');listOver('464');"
+            onmouseout="$('.ole').removeClass('ole');listOut('464');"
+          >
+            <div>
+              <div class="park-right">
+                <form
+                  id="parking464"
+                  name="reservation_form"
+                  action="/parking/reserve-stripe.php"
+                  method="post"
+                >
+                  <div
+                    style="
+                      margin: 50px 12px 0 12px;
+                      text-align: center;
+                      padding: 4px 16px 4px 16px;
+                      font-size: 16px;
+                    "
+                  >
+                    Sold Out
+                  </div>
+                  <input type="hidden" name="id_lot" value="322" />
+                  <input type="hidden" name="id_park" value="464" />
+                  <input type="hidden" name="date_from" value="10/17/2025" />
+                  <input type="hidden" name="date_to" value="10/17/2025" />
+                  <input type="hidden" name="time_from" value="11" />
+                  <input type="hidden" name="time_to" value="16" />
+
+                  <input type="hidden" name="n_days" value="1" />
+                  <input type="hidden" name="pay_now" value="-16.75" />
+                  <input type="hidden" name="pay_lot" value="0" />
+
+                  <input type="hidden" name="rate_min" value="-16.75" />
+
+                  <input type="hidden" name="partner" value="" />
+                  <input type="hidden" name="go" value="" />
+                  <input
+                    type="hidden"
+                    name="call_query"
+                    value="airport=ORD&FromDate=10%2F17%2F2025&from_time=11&ToDate=10%2F17%2F2025&to_time=16"
+                  />
+                  <input type="hidden" name="ind_discount" value="0" />
+                </form>
+              </div>
+              <div>
+                <div
+                  id="s1-464"
+                  class="clearfix lnk0"
+                  style="min-height: 90px; margin-bottom: 8px"
+                >
+                  <div>
+                    <div class="listing-left">
+                      <div
+                        class="rating nostar"
+                        style="margin-top: 6px; margin-bottom: 14px"
+                      >
+                        <div class="rating my4-5"></div>
+                      </div>
+                      <div style="cursor: pointer" onClick="gotoLot('464');">
+                        <img
+                          src="/img/parking/img-ORD/Hyatt-Regency-ORD-logo.jpg"
+                          width="120"
+                          height="115"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="margin-bottom: 0px; float: left">
+                      <div
+                        class="lot-name"
+                        style="max-width: 350px"
+                        onClick="gotoLot('464');"
+                      >
+                        Hyatt Regency ORD
+                      </div>
+                      <div class="park-type">
+                        <img class="menu_aufz" src="/img/checkmark.png" />
+                        Uncovered Self
+                      </div>
+
+                      <div style="font-size: 14px">
+                        <span style="font-size: 16px"
+                          >98<span style="font-size: 12px">%</span></span
+                        >
+                        Recommend
+                        <a
+                          class="mylink"
+                          onClick="javascript:showDetails('',464,'reviews');"
+                          style="font-size: 0.9em"
+                          >80 reviews</a
+                        >
+                        <br />Free shuttle every 15-30 min <br />
+                      </div>
+
+                      <div id="det464" class="det" style="margin-top: 8px">
+                        <div
+                          class="my_but"
+                          onclick="gotoMap(id_parking_curr, 464, 41.980056, -87.862717, 'Hyatt Regency ORD');"
+                        >
+                          Map
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="if(id_parking_curr > 0) closeDetails(id_parking_curr); id_parking_curr=464; showDetails(322,464,'photos');"
+                        >
+                          Photos
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="showDetails('',464,'reviews');"
+                        >
+                          Reviews
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="rates-464"></div>
+              <div id="details-464"></div>
+            </div>
+          </div>
+
+          <!--- END Listing  --->
+
+          <!--- START Listing  --->
+          <div
+            id="newId-6"
+            class="listing uncoveredvalet outvalet"
+            onmouseover="$(this).nextAll('.listing:visible:first').addClass('ole');listOver('191');"
+            onmouseout="$('.ole').removeClass('ole');listOut('191');"
+          >
+            <div>
+              <div class="park-right">
+                <form
+                  id="parking191"
+                  name="reservation_form"
+                  action="/parking/reserve-stripe.php"
+                  method="post"
+                >
+                  <div
+                    style="
+                      margin: 50px 12px 0 12px;
+                      text-align: center;
+                      padding: 4px 16px 4px 16px;
+                      font-size: 16px;
+                    "
+                  >
+                    Not Available for <br />less than 2 days
+                  </div>
+                  <input type="hidden" name="id_lot" value="130" />
+                  <input type="hidden" name="id_park" value="191" />
+                  <input type="hidden" name="date_from" value="10/17/2025" />
+                  <input type="hidden" name="date_to" value="10/17/2025" />
+                  <input type="hidden" name="time_from" value="11" />
+                  <input type="hidden" name="time_to" value="16" />
+
+                  <input type="hidden" name="n_days" value="1" />
+                  <input type="hidden" name="pay_now" value="3" />
+                  <input type="hidden" name="pay_lot" value="13.79" />
+
+                  <input type="hidden" name="rate_min" value="16.79" />
+
+                  <input type="hidden" name="partner" value="" />
+                  <input type="hidden" name="go" value="" />
+                  <input
+                    type="hidden"
+                    name="call_query"
+                    value="airport=ORD&FromDate=10%2F17%2F2025&from_time=11&ToDate=10%2F17%2F2025&to_time=16"
+                  />
+                  <input type="hidden" name="ind_discount" value="0" />
+                </form>
+              </div>
+              <div>
+                <div
+                  id="s1-191"
+                  class="clearfix lnk0"
+                  style="min-height: 90px; margin-bottom: 8px"
+                >
+                  <div>
+                    <div class="listing-left">
+                      <div
+                        class="rating nostar"
+                        style="margin-top: 6px; margin-bottom: 14px"
+                      >
+                        <div class="rating my4-0"></div>
+                      </div>
+                      <div style="cursor: pointer" onClick="gotoLot('191');">
+                        <img
+                          src="/img/parking/ORD-bluesky-logo.png"
+                          width="120"
+                          height="100"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="margin-bottom: 0px; float: left">
+                      <div
+                        class="lot-name"
+                        style="max-width: 350px"
+                        onClick="gotoLot('191');"
+                      >
+                        Blue Sky Parking
+                      </div>
+                      <div class="park-type">
+                        <img class="menu_aufz" src="/img/checkmark.png" />
+                        Outdoor Valet
+                      </div>
+
+                      <div style="font-size: 14px">
+                        <span style="font-size: 16px"
+                          >97<span style="font-size: 12px">%</span></span
+                        >
+                        Recommend
+                        <a
+                          class="mylink"
+                          onClick="javascript:showDetails('',191,'reviews');"
+                          style="font-size: 0.9em"
+                          >148 reviews</a
+                        >
+                        <br />Free shuttle every 5-10 min <br />
+                      </div>
+
+                      <div id="det191" class="det" style="margin-top: 8px">
+                        <div
+                          class="my_but"
+                          onclick="gotoMap(id_parking_curr, 191, 41.953782, -87.886099, 'Blue Sky Parking');"
+                        >
+                          Map
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="if(id_parking_curr > 0) closeDetails(id_parking_curr); id_parking_curr=191; showDetails(130,191,'photos');"
+                        >
+                          Photos
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="showDetails('',191,'reviews');"
+                        >
+                          Reviews
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="rates-191"></div>
+              <div id="details-191"></div>
+            </div>
+          </div>
+
+          <!--- END Listing  --->
+
+          <!--- START Listing  --->
+          <div
+            id="newId-7"
+            class="listing uncoveredvalet outvalet"
+            onmouseover="$(this).nextAll('.listing:visible:first').addClass('ole');listOver('183');"
+            onmouseout="$('.ole').removeClass('ole');listOut('183');"
+          >
+            <div>
+              <div class="park-right">
+                <form
+                  id="parking183"
+                  name="reservation_form"
+                  action="/parking/reserve-stripe.php"
+                  method="post"
+                >
+                  <div
+                    style="
+                      margin: 50px 12px 0 12px;
+                      text-align: center;
+                      padding: 4px 16px 4px 16px;
+                      font-size: 16px;
+                    "
+                  >
+                    Not Available for <br />less than 2 days
+                  </div>
+                  <input type="hidden" name="id_lot" value="125" />
+                  <input type="hidden" name="id_park" value="183" />
+                  <input type="hidden" name="date_from" value="10/17/2025" />
+                  <input type="hidden" name="date_to" value="10/17/2025" />
+                  <input type="hidden" name="time_from" value="11" />
+                  <input type="hidden" name="time_to" value="16" />
+
+                  <input type="hidden" name="n_days" value="1" />
+                  <input type="hidden" name="pay_now" value="3" />
+                  <input type="hidden" name="pay_lot" value="15" />
+
+                  <input type="hidden" name="rate_min" value="18" />
+
+                  <input type="hidden" name="partner" value="" />
+                  <input type="hidden" name="go" value="" />
+                  <input
+                    type="hidden"
+                    name="call_query"
+                    value="airport=ORD&FromDate=10%2F17%2F2025&from_time=11&ToDate=10%2F17%2F2025&to_time=16"
+                  />
+                  <input type="hidden" name="ind_discount" value="0" />
+                </form>
+              </div>
+              <div>
+                <div
+                  id="s1-183"
+                  class="clearfix lnk0"
+                  style="min-height: 90px; margin-bottom: 8px"
+                >
+                  <div>
+                    <div class="listing-left">
+                      <div
+                        class="rating nostar"
+                        style="margin-top: 6px; margin-bottom: 14px"
+                      >
+                        <div class="rating my4-0"></div>
+                      </div>
+                      <div style="cursor: pointer" onClick="gotoLot('183');">
+                        <img
+                          src="/img/parking/ORD-parknjet-logo.png"
+                          width="120"
+                          height="40"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="margin-bottom: 0px; float: left">
+                      <div
+                        class="lot-name"
+                        style="max-width: 350px"
+                        onClick="gotoLot('183');"
+                      >
+                        Park N' Jet
+                      </div>
+                      <div class="park-type">
+                        <img class="menu_aufz" src="/img/checkmark.png" />
+                        Outdoor Valet
+                      </div>
+
+                      <div style="font-size: 14px">
+                        <span style="font-size: 16px"
+                          >90<span style="font-size: 12px">%</span></span
+                        >
+                        Recommend
+                        <a
+                          class="mylink"
+                          onClick="javascript:showDetails('',183,'reviews');"
+                          style="font-size: 0.9em"
+                          >52 reviews</a
+                        >
+                        <br />Free shuttle every 5-10 min <br />
+                      </div>
+
+                      <div id="det183" class="det" style="margin-top: 8px">
+                        <div
+                          class="my_but"
+                          onclick="gotoMap(id_parking_curr, 183, 41.950989, -87.885537, 'Park N Jet');"
+                        >
+                          Map
+                        </div>
+                        <div
+                          class="my_but"
+                          onclick="showDetails('',183,'reviews');"
+                        >
+                          Reviews
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="rates-183"></div>
+              <div id="details-183"></div>
+            </div>
+          </div>
+
+          <!--- END Listing  --->
+
+          <script>
+            function bigPic(id, pic) {
+              var p = "/img/parking/";
+              p = p.concat(pic);
+              document.getElementById("pic-lg-" + id).style.backgroundImage =
+                "url('" + p + "')";
+            }
+
+            var id_parking_curr = 0;
+
+            function closeDetails(id) {
+              document.getElementById("details-" + id).innerHTML = "";
+              document.getElementById("rates-" + id).style.display = "block";
+            }
+
+            function showMap(id_parking, latitude, longitude, name) {
+              document.getElementById("rates-" + id_parking).style.display =
+                "none";
+              document.getElementById("details-" + id_parking).innerHTML =
+                '<div id="map' +
+                id_parking +
+                '" style="width:100%; height:340px;"></div>' +
+                '<div style="margin-top:6px; text-align:right"><span class="mylink" onclick="javascript:closeDetails(' +
+                id_parking +
+                ');">X Hide map</span></div>';
+
+              var airport_lat = 41.9786;
+              var airport_lng = -87.9047;
+              var zoom = 13;
+              if (id_parking == 158) zoom = 12;
+
+              var myOptions = {
+                center: new google.maps.LatLng(
+                  (airport_lat + latitude) / 2,
+                  (airport_lng + longitude) / 2
+                ),
+                scrollwheel: false,
+                zoom: zoom,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+              };
+
+              var map = new google.maps.Map(
+                document.getElementById("map" + id_parking),
+                myOptions
+              );
+
+              var myLatLng = new google.maps.LatLng(airport_lat, airport_lng);
+
+              var image = "/img/g_map_img/icon_flight_baa.gif";
+
+              var airportMarker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: image,
+              });
+
+              var myLatLng = new google.maps.LatLng(latitude, longitude);
+
+              var image = "/img/g_map_img/icon_parking_baa.gif";
+
+              var parkingMarker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: image,
+              });
+
+              var infowindowA = new google.maps.InfoWindow({
+                content: "Chicago O'Hare International Airport",
+              });
+              var infowindowP = new google.maps.InfoWindow({
+                content: name,
+              });
+
+              google.maps.event.addListener(
+                airportMarker,
+                "mouseover",
+                function () {
+                  infowindowP.close(map, parkingMarker);
+                  infowindowA.open(map, airportMarker);
+                }
+              );
+
+              google.maps.event.addListener(
+                parkingMarker,
+                "mouseover",
+                function () {
+                  infowindowA.close(map, airportMarker);
+                  infowindowP.open(map, parkingMarker);
+                }
+              );
+            }
+            function showDetails(id_lot, id_parking, control) {
+              var url;
+
+              if (control == "photos") {
+                var url =
+                  "/parking/find_pics.php?lot=" +
+                  id_lot +
+                  "&park=" +
+                  id_parking;
+              } else
+                var url =
+                  "/templates/ajax-data.php?id_parking=" +
+                  id_parking +
+                  "&data=" +
+                  control +
+                  "&id_visit=336144";
+
+              // jquery ajax
+              var jqxhr = $.ajax(url)
+                .done(function (info) {
+                  $("#rates-" + id_parking).hide();
+
+                  if (control == "photos") {
+                    info =
+                      info +
+                      '<div style="margin-top:6px; text-align:right"><span class="mylink" onclick="closeDetails(' +
+                      id_parking +
+                      ');">X Hide Photos</span></div>';
+                  } else if (control == "reviews") {
+                    info =
+                      info +
+                      '<br /><span class="mylink" onclick="gotoLot(' +
+                      id_parking +
+                      ');">Read more reviews >></span>' +
+                      '<div style="float:right"><span class="mylink" onclick="javascript:closeDetails(' +
+                      id_parking +
+                      ');">X Hide Reviews</span></div>';
+                  }
+
+                  $("#details-" + id_parking).html(info);
+                })
+                .fail(function () {
+                  // Open lot.php
+                  var input = document.createElement("input");
+
+                  input.setAttribute("type", "hidden");
+                  input.setAttribute("name", "ajax_err");
+                  input.setAttribute("value", control + id_parking);
+
+                  document
+                    .getElementById("parking" + id_parking)
+                    .appendChild(input);
+                  document.getElementById("parking" + id_parking).action =
+                    "/parking/lot.php";
+                  document.getElementById("parking" + id_parking).submit();
+                });
+              // END jquery ajax
+            }
+
+            function showVideo(id_parking) {
+              var info =
+                '<video style="" width="100%" height="auto" controls muted poster="/img/placeholder1.jpg"><source src="/img/QuikPark-360p30-captions.mov" type="video/mp4"></video>';
+
+              info =
+                info +
+                '<br /><div style="text-align:right"><span class="mylink" onclick="javascript:closeDetails(' +
+                id_parking +
+                ');">X Hide</span></div>';
+
+              $("#details-" + id_parking).html(info);
+            }
+          </script>
+
+          <script type="text/javascript">
+            function myRecalc() {
+              var iSubset = 0;
+
+              for (var iCount = 1; iCount <= 7; iCount++) {
+                if (
+                  $("#newId-" + iCount).hasClass("available") &&
+                  document.getElementById("newId-" + iCount).style.display !=
+                    "none"
+                ) {
+                  iSubset = iSubset + 1;
+                }
+              }
+
+              document.getElementById("my_subset").innerHTML =
+                "<b>" + iSubset + "</b>";
+
+              if (iSubset == iAvailable) $(".div-reset").hide();
+              else $(".div-reset").show();
+
+              if (iSubset < 4 && iSubset < iAvailable)
+                $("#id_reset").slideDown();
+              else $("#id_reset").slideUp();
+            }
+
+            var iAvailable = 0;
+            for (var iCount = 1; iCount <= 7; iCount++) {
+              if ($("#newId-" + iCount).hasClass("available")) {
+                iAvailable = iAvailable + 1;
+              }
+            }
+
+            document.getElementById("my_subset").innerHTML =
+              "<b>" + iAvailable + "</b>";
+            document.getElementById("my_total").innerHTML =
+              " out of <b>" + iAvailable + "</b>";
+
+            document.getElementById("p_inself").innerHTML = " (1)";
+            document.getElementById("p_invalet").innerHTML = " (0)";
+            document.getElementById("p_outself").innerHTML = " (0)";
+            document.getElementById("p_outvalet").innerHTML = " (0)";
+            document.getElementById("p_all").innerHTML =
+              " (" + iAvailable + ")";
+
+            $("#div-iv").hide();
+            $("#div-os").hide();
+            $("#div-ov").hide();
+          </script>
+
+          <script>
+            function tempo() {}
+          </script>
+
+          <script
+            async
+            type="text/javascript"
+            src="//maps.googleapis.com/maps/api/js?key=AIzaSyBU4L5DdlSx1shEnKITJ12zUtWucsGOceQ&callback=tempo"
+          ></script>
+          <script type="text/javascript">
+            function ini_lg() {
+              var iCurr = -1;
+
+              var myOptions = {
+                center: new google.maps.LatLng(41.9715347375, -87.8796141125),
+                scrollwheel: false,
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+              };
+
+              var map = new google.maps.Map(
+                document.getElementById("map_body_large"),
+                myOptions
+              );
+
+              var myLatLng = new google.maps.LatLng(41.9786, -87.9047);
+
+              var image = "/img/g_map_img/icon_flight_baa.gif";
+
+              var myMarker = new Array();
+              var infowindow = new Array();
+
+              myMarker[0] = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: image,
+                title: "Chicago O'Hare International Airport",
+              });
+
+              var contentString0 =
+                '<div><span style="font-size: 12px;"><b>Chicago O&rsquo;Hare International Airport</b></span></div>';
+
+              infowindow[0] = new google.maps.InfoWindow({
+                content: contentString0,
+              });
+
+              google.maps.event.addListener(myMarker[0], "click", function () {
+                if (iCurr > -1) infowindow[iCurr].close(map, myMarker[iCurr]);
+                infowindow[0].open(map, myMarker[0]);
+                iCurr = 0;
+              });
+
+              var image = "/img/g_map_img/icon_parking_baa.gif";
+              var myLatLng = new google.maps.LatLng(41.974824, -87.863022);
+
+              myMarker[195] = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: image,
+                title: "Loews Chicago O'Hare",
+              });
+
+              var contentString195 =
+                '<div style="width:220px; height:100px; "><span style="font-weight:bold;font-size:14px;">Loews Chicago O\'Hare</span><br><div class="rating nostar" style="margin-bottom: 4px;"><div class="rating my4-5"></div></div><div class="lnk1" onClick="document.getElementById(\'parking288\').submit();">Indoor Self  &nbsp;&nbsp;<span style="font-weight:bold">$21</span> <span class="knopka lnk3">Reserve</span></div></div>';
+
+              infowindow[195] = new google.maps.InfoWindow({
+                content: contentString195,
+              });
+
+              google.maps.event.addListener(
+                myMarker[195],
+                "mouseover",
+                function () {
+                  if (iCurr > -1) infowindow[iCurr].close(map, myMarker[iCurr]);
+                  infowindow[195].open(map, myMarker[195]);
+                  iCurr = 195;
+                }
+              );
+
+              var myLatLng = new google.maps.LatLng(41.950989, -87.885537);
+
+              myMarker[125] = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: image,
+                title: "Park N' Jet",
+              });
+
+              var contentString125 =
+                '<div style="width:220px; height:100px; "><span style="font-weight:bold;font-size:14px;">Park N\' Jet</span><br><div class="rating nostar" style="margin-bottom: 4px;"><div class="rating my4-0"></div></div></div>';
+
+              infowindow[125] = new google.maps.InfoWindow({
+                content: contentString125,
+              });
+
+              google.maps.event.addListener(
+                myMarker[125],
+                "mouseover",
+                function () {
+                  if (iCurr > -1) infowindow[iCurr].close(map, myMarker[iCurr]);
+                  infowindow[125].open(map, myMarker[125]);
+                  iCurr = 125;
+                }
+              );
+
+              var myLatLng = new google.maps.LatLng(41.953782, -87.886099);
+
+              myMarker[130] = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: image,
+                title: "Blue Sky Parking",
+              });
+
+              var contentString130 =
+                '<div style="width:220px; height:100px; "><span style="font-weight:bold;font-size:14px;">Blue Sky Parking</span><br><div class="rating nostar" style="margin-bottom: 4px;"><div class="rating my4-0"></div></div></div>';
+
+              infowindow[130] = new google.maps.InfoWindow({
+                content: contentString130,
+              });
+
+              google.maps.event.addListener(
+                myMarker[130],
+                "mouseover",
+                function () {
+                  if (iCurr > -1) infowindow[iCurr].close(map, myMarker[iCurr]);
+                  infowindow[130].open(map, myMarker[130]);
+                  iCurr = 130;
+                }
+              );
+
+              var myLatLng = new google.maps.LatLng(41.953782, -87.886099);
+
+              myMarker[130] = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: image,
+                title: "Blue Sky Parking",
+              });
+
+              var contentString130 =
+                '<div style="width:220px; height:100px; "><span style="font-weight:bold;font-size:14px;">Blue Sky Parking</span><br><div class="rating nostar" style="margin-bottom: 4px;"><div class="rating my4-0"></div></div></div>';
+
+              infowindow[130] = new google.maps.InfoWindow({
+                content: contentString130,
+              });
+
+              google.maps.event.addListener(
+                myMarker[130],
+                "mouseover",
+                function () {
+                  if (iCurr > -1) infowindow[iCurr].close(map, myMarker[iCurr]);
+                  infowindow[130].open(map, myMarker[130]);
+                  iCurr = 130;
+                }
+              );
+
+              var myLatLng = new google.maps.LatLng(41.9776229, -87.8635409);
+
+              myMarker[132] = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: image,
+                title: "Crowne Plaza O'Hare Parking",
+              });
+
+              var contentString132 =
+                '<div style="width:220px; height:100px; "><span style="font-weight:bold;font-size:14px;">Crowne Plaza O\'Hare Parking</span><br><div class="rating nostar" style="margin-bottom: 4px;"><div class="rating my4-5"></div></div></div>';
+
+              infowindow[132] = new google.maps.InfoWindow({
+                content: contentString132,
+              });
+
+              google.maps.event.addListener(
+                myMarker[132],
+                "mouseover",
+                function () {
+                  if (iCurr > -1) infowindow[iCurr].close(map, myMarker[iCurr]);
+                  infowindow[132].open(map, myMarker[132]);
+                  iCurr = 132;
+                }
+              );
+
+              var myLatLng = new google.maps.LatLng(42.002622, -87.885198);
+
+              myMarker[181] = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: image,
+                title: "Hyatt Place O'hare",
+              });
+
+              var contentString181 =
+                '<div style="width:220px; height:100px; "><span style="font-weight:bold;font-size:14px;">Hyatt Place O\'hare</span><br><div class="rating nostar" style="margin-bottom: 4px;"><div class="rating my4-0"></div></div></div>';
+
+              infowindow[181] = new google.maps.InfoWindow({
+                content: contentString181,
+              });
+
+              google.maps.event.addListener(
+                myMarker[181],
+                "mouseover",
+                function () {
+                  if (iCurr > -1) infowindow[iCurr].close(map, myMarker[iCurr]);
+                  infowindow[181].open(map, myMarker[181]);
+                  iCurr = 181;
+                }
+              );
+
+              var myLatLng = new google.maps.LatLng(41.980056, -87.862717);
+
+              myMarker[322] = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: image,
+                title: "Hyatt Regency ORD",
+              });
+
+              var contentString322 =
+                '<div style="width:220px; height:100px; "><span style="font-weight:bold;font-size:14px;">Hyatt Regency ORD</span><br><div class="rating nostar" style="margin-bottom: 4px;"><div class="rating my4-5"></div></div></div>';
+
+              infowindow[322] = new google.maps.InfoWindow({
+                content: contentString322,
+              });
+
+              google.maps.event.addListener(
+                myMarker[322],
+                "mouseover",
+                function () {
+                  if (iCurr > -1) infowindow[iCurr].close(map, myMarker[iCurr]);
+                  infowindow[322].open(map, myMarker[322]);
+                  iCurr = 322;
+                }
+              );
+            }
+          </script>
+
+          <div class="listing listing-last"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JS -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+    <script src="/scripts/main.js"></script>
+
+    <!-- Placed at the end of the document so the pages load faster
+================================================== -->
+
+    <script src="https://js.stripe.com/v3/" defer></script>
+
+    <!-- My Footer -->
+    <style>
+      #myfooter .bottom-line {
+        background-color: #eee;
+        padding-top: 10px;
+      }
+
+      #myfooter .menu {
+        list-style: none;
+        text-align: center;
+        margin: 0 -14px;
+      }
+
+      #myfooter .menu > li {
+        display: inline-block;
+      }
+
+      #myfooter .menu > li > a {
+        padding: 5px 14px;
+        display: block;
+        color: #666;
+      }
+    </style>
+    <footer id="myfooter">
+      <div class="bottom-line">
+        <div class="container">
+          <div class="col-lg-10" style="padding-top: 16px">
+            <div class="copyright" style="float: left; margin-top: 6px">
+              CheapAirportParking.org &copy; 2025
+            </div>
+            <ul class="menu">
+              <li><a href="/info/about_us">About us</a></li>
+              <li><a href="/info/privacy">Privacy</a></li>
+            </ul>
+          </div>
+          <div
+            class="col-lg-5"
+            style="margin-top: 10px; margin-bottom: 10px; text-align: right"
+          >
+            <img src="/img/logo_footer_9bb300.png" />
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!--- Google Analytics --->
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-PKR9SQ8Q");
+    </script>
+    <!-- End Google Tag Manager -->
+    <!--- END Google Analytics --->
+  </body>
+</html>
