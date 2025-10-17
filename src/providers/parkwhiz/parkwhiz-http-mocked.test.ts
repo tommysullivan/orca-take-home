@@ -57,7 +57,23 @@ window.__INITIAL_STATE__={
       "purchase_options": [{
         "id": "purchase_001",
         "price": { "USD": "24.00" },
-        "space_availability": { "status": "available" }
+        "space_availability": { "status": "available" },
+        "amenities": [
+          {
+            "name": "Shuttle",
+            "key": "shuttle",
+            "description": "Free Shuttle",
+            "enabled": true,
+            "visible": true
+          },
+          {
+            "name": "Covered",
+            "key": "indoor", 
+            "description": "Covered",
+            "enabled": true,
+            "visible": true
+          }
+        ]
       }],
       "_embedded": {
         "pw:location": {
@@ -68,18 +84,10 @@ window.__INITIAL_STATE__={
           "city": "Los Angeles", 
           "state": "CA",
           "postal_code": "90045",
-          "coordinates": [33.9425, -118.4081],
           "location_type": "garage",
-          "amenities": [
+          "entrances": [
             {
-              "id": "shuttle",
-              "name": "shuttle", 
-              "display_name": "Shuttle Service"
-            },
-            {
-              "id": "covered",
-              "name": "covered",
-              "display_name": "Covered Parking"
+              "coordinates": [33.9425, -118.4081]
             }
           ]
         }
@@ -97,7 +105,23 @@ window.__INITIAL_STATE__={
       "purchase_options": [{
         "id": "purchase_002", 
         "price": { "USD": "18.50" },
-        "space_availability": { "status": "available" }
+        "space_availability": { "status": "available" },
+        "amenities": [
+          {
+            "name": "Shuttle",
+            "key": "shuttle",
+            "description": "Free Shuttle",
+            "enabled": true,
+            "visible": true
+          },
+          {
+            "name": "Valet",
+            "key": "valet",
+            "description": "Valet",
+            "enabled": true,
+            "visible": true
+          }
+        ]
       }],
       "_embedded": {
         "pw:location": {
@@ -108,18 +132,10 @@ window.__INITIAL_STATE__={
           "city": "Los Angeles",
           "state": "CA", 
           "postal_code": "90045",
-          "coordinates": [33.9401, -118.4065],
           "location_type": "lot",
-          "amenities": [
+          "entrances": [
             {
-              "id": "shuttle",
-              "name": "shuttle",
-              "display_name": "Shuttle Service"
-            },
-            {
-              "id": "valet",
-              "name": "valet", 
-              "display_name": "Valet Service"
+              "coordinates": [33.9401, -118.4065]
             }
           ]
         }
@@ -152,7 +168,16 @@ window.__INITIAL_STATE__={
       "purchase_options": [{
         "id": "ord_purchase_001",
         "price": { "USD": "19.99" },
-        "space_availability": { "status": "available" }
+        "space_availability": { "status": "available" },
+        "amenities": [
+          {
+            "name": "Shuttle",
+            "key": "shuttle",
+            "description": "Free Shuttle",
+            "enabled": true,
+            "visible": true
+          }
+        ]
       }],
       "_embedded": {
         "pw:location": {
@@ -163,13 +188,10 @@ window.__INITIAL_STATE__={
           "city": "Rosemont",
           "state": "IL",
           "postal_code": "60018", 
-          "coordinates": [41.9786, -87.8824],
           "location_type": "garage",
-          "amenities": [
+          "entrances": [
             {
-              "id": "shuttle",
-              "name": "shuttle",
-              "display_name": "Shuttle Service" 
+              "coordinates": [41.9786, -87.8824]
             }
           ]
         }
@@ -475,7 +497,15 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
           {
             "location_id": "garage_001", 
             "distance": { "straight_line": { "feet": 2640 } },
-            "purchase_options": [{ "price": { "USD": "30.00" }, "space_availability": { "status": "available" } }],
+            "purchase_options": [{ 
+              "price": { "USD": "30.00" }, 
+              "space_availability": { "status": "available" },
+              "amenities": [
+                { "name": "Covered", "key": "indoor", "enabled": true, "visible": true },
+                { "name": "Valet", "key": "valet", "enabled": true, "visible": true },
+                { "name": "Shuttle", "key": "shuttle", "enabled": true, "visible": true }
+              ]
+            }],
             "_embedded": {
               "pw:location": {
                 "name": "Premium Garage",
@@ -483,12 +513,11 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
                 "city": "Los Angeles",
                 "state": "CA",
                 "postal_code": "90210",
-                "coordinates": [34.0, -118.0],
                 "location_type": "garage",
-                "amenities": [
-                  { "name": "covered" },
-                  { "name": "valet" },
-                  { "name": "shuttle" }
+                "entrances": [
+                  {
+                    "coordinates": [34.0, -118.0]
+                  }
                 ]
               }
             }
@@ -496,7 +525,13 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
           {
             "location_id": "lot_001",
             "distance": { "straight_line": { "feet": 1320 } }, 
-            "purchase_options": [{ "price": { "USD": "15.00" }, "space_availability": { "status": "available" } }],
+            "purchase_options": [{ 
+              "price": { "USD": "15.00" }, 
+              "space_availability": { "status": "available" },
+              "amenities": [
+                { "name": "Shuttle", "key": "shuttle", "enabled": true, "visible": true }
+              ]
+            }],
             "_embedded": {
               "pw:location": {
                 "name": "Budget Lot",
@@ -504,10 +539,11 @@ describe("ParkWhiz Real Service with HTTP Mocks", () => {
                 "city": "Los Angeles", 
                 "state": "CA", 
                 "postal_code": "90045",
-                "coordinates": [33.95, -118.41],
                 "location_type": "lot",
-                "amenities": [
-                  { "name": "shuttle" }
+                "entrances": [
+                  {
+                    "coordinates": [33.95, -118.41]
+                  }
                 ]
               }
             }

@@ -663,6 +663,8 @@ export class LocationMatchingService {
 export const locationMatchingService = new LocationMatchingService();
 
 // Export factory function for custom configurations
-export function createLocationMatchingService(criteria?: MatchCriteria): LocationMatchingService {
+export function createLocationMatchingService(
+  criteria?: MatchCriteria
+): LocationMatchingService {
   return new LocationMatchingService(criteria);
 }

@@ -289,16 +289,28 @@ export class ParkingAggregationService {
 
 export async function createParkingAggregationService(): Promise<ParkingAggregationService> {
   // Import default provider services and location matching service
-  const { cheapAirportParkingService } = await import("../providers/cheapAirportParking/cheap-airport-parking-service");
-  const { mockParkWhizService } = await import("../providers/parkwhiz/mock-parkwhiz-service");
-  const { spotHeroService } = await import("../providers/spotHero/spothero-service");
-  const { locationMatchingService } = await import("../services/location-matching-service");
-  
+  const { cheapAirportParkingService } = await import(
+    "../providers/cheapAirportParking/cheap-airport-parking-service"
+  );
+  const { mockParkWhizService } = await import(
+    "../providers/parkwhiz/mock-parkwhiz-service"
+  );
+  const { spotHeroService } = await import(
+    "../providers/spotHero/spothero-service"
+  );
+  const { locationMatchingService } = await import(
+    "../services/location-matching-service"
+  );
+
   const providers = {
     [ParkingProvider.PARKWHIZ]: mockParkWhizService,
     [ParkingProvider.SPOTHERO]: spotHeroService,
     [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingService,
   };
 
-  return new ParkingAggregationService(dbTypesafe, providers, locationMatchingService);
+  return new ParkingAggregationService(
+    dbTypesafe,
+    providers,
+    locationMatchingService
+  );
 }

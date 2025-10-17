@@ -1,6 +1,9 @@
 #!/usr/bin/env tsx
 
-import { createParkingAggregationService } from "./services/parking-aggregation-service";
+import { ParkingAggregationService } from "./services/parking-aggregation-service";
+import { LocationMatchingService } from "./services/location-matching-service";
+import { dbTypesafe } from "./db/dbTypesafe";
+import { ParkingProvider } from "./providers/providers";
 import { ApiSearchParams } from "./providers/providers";
 import * as fs from "fs";
 import * as path from "path";
@@ -16,13 +19,33 @@ import * as path from "path";
  */
 
 async function main() {
-  console.log("🅿️  PARKING LOCATION QUOTE MATCHING SYSTEM");
-  console.log("==========================================");
+  console.log("🅿️  PARKING LOCATION QUOTE MATCHING SYSTEM (REAL PARKWHIZ)");
+  console.log("========================================================");
   console.log("");
 
   try {
-    // Initialize the service
-    const service = await createParkingAggregationService();
+    // Initialize the service with real ParkWhiz + mock others (like real integration tests)
+    console.log("🔧 Initializing services with REAL ParkWhiz...");
+    
+    // Import services - using same pattern as real integration tests
+    const { realParkWhizService } = await import("./providers/parkwhiz/real-parkwhiz-service");
+    const { spotHeroService } = await import("./providers/spotHero/spothero-service");
+    const { cheapAirportParkingService } = await import("./providers/cheapAirportParking/cheap-airport-parking-service");
+    const { locationMatchingService } = await import("./services/location-matching-service");
+
+    const providers = {
+      [ParkingProvider.PARKWHIZ]: realParkWhizService,
+      [ParkingProvider.SPOTHERO]: spotHeroService, // Mock for now
+      [ParkingProvider.CHEAP_AIRPORT_PARKING]: cheapAirportParkingService, // Mock for now
+    };
+
+    const service = new ParkingAggregationService(
+      dbTypesafe,
+      providers,
+      locationMatchingService
+    );
+
+    console.log("✅ Service initialized with real ParkWhiz provider!");
 
     // Test airports and date ranges
     const testCases: ApiSearchParams[] = [

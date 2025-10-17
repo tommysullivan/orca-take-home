@@ -1,9 +1,12 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { LocationMatchingService, createLocationMatchingService } from "./location-matching-service";
-import { 
-  ParkingLocation, 
-  ParkingProvider, 
-  ParkingProviderService 
+import {
+  LocationMatchingService,
+  createLocationMatchingService,
+} from "./location-matching-service";
+import {
+  ParkingLocation,
+  ParkingProvider,
+  ParkingProviderService,
 } from "../providers/providers";
 
 // Import mock services
@@ -45,14 +48,18 @@ describe("LocationMatchingService - Mock Tests", () => {
   describe("findMatches", () => {
     it("should match locations with similar names", async () => {
       // Get mock data from providers
-      const parkwhizResults = await mockProviders[ParkingProvider.PARKWHIZ].searchLocations({
+      const parkwhizResults = await mockProviders[
+        ParkingProvider.PARKWHIZ
+      ].searchLocations({
         airport_code: "LAX",
         start_time: "2024-12-20T10:00:00",
         end_time: "2024-12-20T18:00:00",
       });
 
-      const spotheroResults = await mockProviders[ParkingProvider.SPOTHERO].searchLocations({
-        airport_code: "LAX", 
+      const spotheroResults = await mockProviders[
+        ParkingProvider.SPOTHERO
+      ].searchLocations({
+        airport_code: "LAX",
         start_time: "2024-12-20T10:00:00",
         end_time: "2024-12-20T18:00:00",
       });
@@ -64,14 +71,14 @@ describe("LocationMatchingService - Mock Tests", () => {
       expect(matches.length).toBeGreaterThanOrEqual(0);
 
       // Verify match structure
-      matches.forEach(match => {
-        expect(match).toHaveProperty('id');
-        expect(match).toHaveProperty('canonical_name');
-        expect(match).toHaveProperty('canonical_address');
-        expect(match).toHaveProperty('coordinates');
-        expect(match).toHaveProperty('confidence_score');
-        expect(match).toHaveProperty('locations');
-        expect(match).toHaveProperty('match_reasons');
+      matches.forEach((match) => {
+        expect(match).toHaveProperty("id");
+        expect(match).toHaveProperty("canonical_name");
+        expect(match).toHaveProperty("canonical_address");
+        expect(match).toHaveProperty("coordinates");
+        expect(match).toHaveProperty("confidence_score");
+        expect(match).toHaveProperty("locations");
+        expect(match).toHaveProperty("match_reasons");
 
         expect(match.locations.length).toBeGreaterThan(1); // Should have multiple locations
         expect(match.confidence_score).toBeGreaterThanOrEqual(0);
@@ -104,7 +111,7 @@ describe("LocationMatchingService - Mock Tests", () => {
         },
         {
           provider: ParkingProvider.SPOTHERO,
-          provider_id: "sh_different_1", 
+          provider_id: "sh_different_1",
           name: "Downtown Business Center",
           address: {
             street: "500 S Figueroa St",
@@ -137,9 +144,11 @@ describe("LocationMatchingService - Mock Tests", () => {
     });
 
     it("should handle single location", async () => {
-      const parkwhizResults = await mockProviders[ParkingProvider.PARKWHIZ].searchLocations({
+      const parkwhizResults = await mockProviders[
+        ParkingProvider.PARKWHIZ
+      ].searchLocations({
         airport_code: "LAX",
-        start_time: "2024-12-20T10:00:00", 
+        start_time: "2024-12-20T10:00:00",
         end_time: "2024-12-20T18:00:00",
       });
 
@@ -157,7 +166,7 @@ describe("LocationMatchingService - Mock Tests", () => {
         mockProviders[ParkingProvider.PARKWHIZ].searchLocations({
           airport_code: "LAX",
           start_time: "2024-12-20T10:00:00",
-          end_time: "2024-12-20T18:00:00", 
+          end_time: "2024-12-20T18:00:00",
         }),
         mockProviders[ParkingProvider.SPOTHERO].searchLocations({
           airport_code: "LAX",
@@ -165,7 +174,7 @@ describe("LocationMatchingService - Mock Tests", () => {
           end_time: "2024-12-20T18:00:00",
         }),
         mockProviders[ParkingProvider.CHEAP_AIRPORT_PARKING].searchLocations({
-          airport_code: "LAX", 
+          airport_code: "LAX",
           start_time: "2024-12-20T10:00:00",
           end_time: "2024-12-20T18:00:00",
         }),
@@ -183,7 +192,9 @@ describe("LocationMatchingService - Mock Tests", () => {
       expect(Array.isArray(matches)).toBe(true);
       expect(duration).toBeLessThan(1000); // Should complete within 1 second for mock data
 
-      console.log(`Mock matching completed in ${duration}ms for ${allLocations.length} locations, found ${matches.length} matches`);
+      console.log(
+        `Mock matching completed in ${duration}ms for ${allLocations.length} locations, found ${matches.length} matches`
+      );
     });
   });
 
@@ -195,7 +206,7 @@ describe("LocationMatchingService - Mock Tests", () => {
           provider_id: "pw_no_coords",
           name: "Test Location",
           address: {
-            street: "123 Test St", 
+            street: "123 Test St",
             city: "Test City",
             state: "CA",
             zip: "12345",

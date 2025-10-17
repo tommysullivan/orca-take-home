@@ -37,15 +37,7 @@ export class RealParkWhizService implements ParkingProviderService {
 
     const rawLocations = await this.getLocationsForAirport(params.airport_code);
 
-    const locations = rawLocations.map((locationData: any) => {
-      try {
-        return normalizeLocation(locationData);
-      } catch (error) {
-        console.error('❌ Failed to normalize ParkWhiz location:', error);
-        // Return null for failed normalizations, filter them out later
-        return null;
-      }
-    }).filter(Boolean) as ParkingLocation[];
+    const locations = rawLocations.map(normalizeLocation);
 
     console.log(`✅ parkwhiz: Found ${locations.length} locations`);
     return locations;
@@ -415,8 +407,6 @@ export class RealParkWhizService implements ParkingProviderService {
       throw new Error(`Failed to parse initial state JSON: ${parseError}`);
     }
   }
-
-
 }
 
 export const realParkWhizService = new RealParkWhizService();

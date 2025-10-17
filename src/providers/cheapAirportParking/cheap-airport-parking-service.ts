@@ -45,53 +45,53 @@ export interface CheapAirportParkingLocation {
 export class CheapAirportParkingService {
   private readonly baseUrl = "https://api.cheapairportparking.com/v2";
   private readonly mockData: CheapAirportParkingLocation[] = [
-    // Chicago ORD Airport Data
+    // Chicago ORD Airport Data - Updated to match real ParkWhiz locations for better matching
     {
       lot_id: "cap_ord_001",
-      lot_name: "ORD Budget Park & Fly",
+      lot_name: "Loews O'Hare Hotel Budget Lot",
       address: {
-        street: "8801 W Higgins Rd",
-        city: "Chicago",
-        state: "IL",
-        zip: "60631",
-      },
-      location: {
-        lat: 41.9821,
-        lon: -87.8421,
-      },
-      airport: "ORD",
-      miles_from_airport: 3.2,
-      services: {
-        shuttle_service: true,
-        valet_parking: false,
-        indoor_parking: false,
-        security_patrol: true,
-      },
-      pricing: {
-        daily_rate: 11.99,
-        weekly_rate: 71.94,
-        currency: "USD",
-      },
-      availability: {
-        spaces_available: 156,
-        total_spaces: 300,
-      },
-    },
-    {
-      lot_id: "cap_ord_002",
-      lot_name: "O'Hare Express Parking",
-      address: {
-        street: "5801 N River Rd",
+        street: "5274 N River Rd", // Very close to real ParkWhiz "5272 N. River Rd."
         city: "Rosemont",
         state: "IL",
         zip: "60018",
       },
       location: {
-        lat: 41.9834,
-        lon: -87.8592,
+        lat: 41.9738,
+        lon: -87.8626,
       },
       airport: "ORD",
-      miles_from_airport: 2.1,
+      miles_from_airport: 0.4,
+      services: {
+        shuttle_service: true,
+        valet_parking: false,
+        indoor_parking: true,
+        security_patrol: true,
+      },
+      pricing: {
+        daily_rate: 18.99,
+        weekly_rate: 113.94,
+        currency: "USD",
+      },
+      availability: {
+        spaces_available: 89,
+        total_spaces: 200,
+      },
+    },
+    {
+      lot_id: "cap_ord_002",
+      lot_name: "Easy Parking ORD Economy",
+      address: {
+        street: "3998 N Mannheim Rd", // Very close to real ParkWhiz "4000 N. Mannheim Rd."
+        city: "Franklin Park",
+        state: "IL",
+        zip: "60131",
+      },
+      location: {
+        lat: 41.9518,
+        lon: -87.8857,
+      },
+      airport: "ORD",
+      miles_from_airport: 1.9,
       services: {
         shuttle_service: true,
         valet_parking: false,
@@ -104,57 +104,25 @@ export class CheapAirportParkingService {
         currency: "USD",
       },
       availability: {
-        spaces_available: 89,
-        total_spaces: 200,
+        spaces_available: 156,
+        total_spaces: 300,
       },
     },
     {
       lot_id: "cap_ord_003",
-      lot_name: "River Road Economy Lot",
+      lot_name: "River Road Budget Parking",
       address: {
-        street: "5270 N River Rd",
-        city: "Chicago",
+        street: "5268 N River Rd", // Close to real locations on River Rd
+        city: "Rosemont",
         state: "IL",
         zip: "60018",
       },
       location: {
-        lat: 41.9753,
-        lon: -87.8739,
+        lat: 41.9751,
+        lon: -87.8741,
       },
       airport: "ORD",
-      miles_from_airport: 0.9,
-      services: {
-        shuttle_service: true,
-        valet_parking: false,
-        indoor_parking: true,
-        security_patrol: true,
-      },
-      pricing: {
-        daily_rate: 16.5,
-        weekly_rate: 99.0,
-        currency: "USD",
-      },
-      availability: {
-        spaces_available: 45,
-        total_spaces: 150,
-      },
-    },
-    // Los Angeles LAX Airport Data
-    {
-      lot_id: "cap_lax_001",
-      lot_name: "LAX Economy Super Saver",
-      address: {
-        street: "8888 Airport Blvd",
-        city: "Los Angeles",
-        state: "CA",
-        zip: "90045",
-      },
-      location: {
-        lat: 33.9456,
-        lon: -118.3967,
-      },
-      airport: "LAX",
-      miles_from_airport: 1.5,
+      miles_from_airport: 0.8,
       services: {
         shuttle_service: true,
         valet_parking: false,
@@ -162,8 +130,71 @@ export class CheapAirportParkingService {
         security_patrol: true,
       },
       pricing: {
-        daily_rate: 12.95,
-        weekly_rate: 77.7,
+        daily_rate: 15.50,
+        weekly_rate: 93.0,
+        currency: "USD",
+      },
+      availability: {
+        spaces_available: 67,
+        total_spaces: 150,
+      },
+    },
+    {
+      lot_id: "cap_ord_004",
+      lot_name: "Loews O'Hare Budget Garage",
+      address: {
+        street: "5272 N River Rd", // Exact match to real ParkWhiz "5272 N. River Rd."
+        city: "Rosemont",
+        state: "IL",
+        zip: "60018",
+      },
+      location: {
+        lat: 41.9739,
+        lon: -87.8625,
+      },
+      airport: "ORD",
+      miles_from_airport: 0.4,
+      services: {
+        shuttle_service: true,
+        valet_parking: false,
+        indoor_parking: true,
+        security_patrol: true,
+      },
+      pricing: {
+        daily_rate: 19.99,
+        weekly_rate: 119.94,
+        currency: "USD",
+      },
+      availability: {
+        spaces_available: 112,
+        total_spaces: 200,
+      },
+    },
+    // Los Angeles LAX Airport Data - Updated to match real ParkWhiz locations
+    {
+      lot_id: "cap_lax_001",
+      lot_name: "QuikPark LAX Budget",
+      address: {
+        street: "9819 Vicksburg Ave", // Very close to real ParkWhiz "9821 Vicksburg Ave."
+        city: "Los Angeles",
+        state: "CA",
+        zip: "90045",
+      },
+      location: {
+        lat: 33.9463,
+        lon: -118.3944,
+      },
+      airport: "LAX",
+      miles_from_airport: 0.8,
+      services: {
+        shuttle_service: true,
+        valet_parking: false,
+        indoor_parking: false,
+        security_patrol: true,
+      },
+      pricing: {
+        daily_rate: 22.95,
+        weekly_rate: 137.70,
         currency: "USD",
       },
       availability: {
@@ -173,33 +204,157 @@ export class CheapAirportParkingService {
     },
     {
       lot_id: "cap_lax_002",
-      lot_name: "QuikPark Budget LAX",
+      lot_name: "Embassy Suites Economy LAX",
       address: {
-        street: "9000 Airport Blvd",
+        street: "1438 E Imperial Ave", // Very close to real ParkWhiz "1440 E. Imperial Ave."
+        city: "El Segundo",
+        state: "CA",
+        zip: "90245",
+      },
+      location: {
+        lat: 33.9307,
+        lon: -118.4009,
+      },
+      airport: "LAX",
+      miles_from_airport: 0.9,
+      services: {
+        shuttle_service: true,
+        valet_parking: false,
+        indoor_parking: false,
+        security_patrol: true,
+      },
+      pricing: {
+        daily_rate: 11.50,
+        weekly_rate: 69.0,
+        currency: "USD",
+      },
+      availability: {
+        spaces_available: 123,
+        total_spaces: 250,
+      },
+    },
+    {
+      lot_id: "cap_lax_003",
+      lot_name: "Joe's Budget Airport Parking",
+      address: {
+        street: "6149 W Century Blvd", // Very close to real ParkWhiz "6151 W. Century Blvd."
         city: "Los Angeles",
         state: "CA",
         zip: "90045",
       },
       location: {
-        lat: 33.9467,
-        lon: -118.3953,
+        lat: 33.9456,
+        lon: -118.3926,
       },
       airport: "LAX",
-      miles_from_airport: 1.3,
+      miles_from_airport: 0.9,
       services: {
         shuttle_service: true,
-        valet_parking: true,
+        valet_parking: false,
+        indoor_parking: false,
+        security_patrol: true,
+      },
+      pricing: {
+        daily_rate: 16.99,
+        weekly_rate: 101.94,
+        currency: "USD",
+      },
+      availability: {
+        spaces_available: 89,
+        total_spaces: 180,
+      },
+    },
+    {
+      lot_id: "cap_lax_004",
+      lot_name: "Sheraton Gateway Budget LAX",
+      address: {
+        street: "6103 W Century Blvd", // Very close to real ParkWhiz "6101 W. Century Blvd."
+        city: "Los Angeles",
+        state: "CA",
+        zip: "90045",
+      },
+      location: {
+        lat: 33.9460,
+        lon: -118.3901,
+      },
+      airport: "LAX",
+      miles_from_airport: 1.0,
+      services: {
+        shuttle_service: true,
+        valet_parking: false,
+        indoor_parking: false,
+        security_patrol: true,
+      },
+      pricing: {
+        daily_rate: 18.50,
+        weekly_rate: 111.0,
+        currency: "USD",
+      },
+      availability: {
+        spaces_available: 145,
+        total_spaces: 250,
+      },
+    },
+    {
+      lot_id: "cap_lax_005",
+      lot_name: "Pacific Coast Budget Garage",
+      address: {
+        street: "911 N Pacific Coast Hwy", // Very close to real ParkWhiz "909 N. Pacific Coast Hwy."
+        city: "Los Angeles",
+        state: "CA",
+        zip: "90045",
+      },
+      location: {
+        lat: 33.9301,
+        lon: -118.3965,
+      },
+      airport: "LAX",
+      miles_from_airport: 1.1,
+      services: {
+        shuttle_service: true,
+        valet_parking: false,
         indoor_parking: true,
         security_patrol: true,
       },
       pricing: {
-        daily_rate: 17.99,
-        weekly_rate: 107.94,
+        daily_rate: 8.95,
+        weekly_rate: 53.70,
         currency: "USD",
       },
       availability: {
-        spaces_available: 67,
-        total_spaces: 180,
+        spaces_available: 203,
+        total_spaces: 320,
+      },
+    },
+    {
+      lot_id: "cap_lax_006",
+      lot_name: "WallyPark LAX Budget",
+      address: {
+        street: "9702 Bellanca Ave", // Very close to real ParkWhiz "9700 Bellanca Ave."
+        city: "Los Angeles",
+        state: "CA",
+        zip: "90045",
+      },
+      location: {
+        lat: 33.9384,
+        lon: -118.4088,
+      },
+      airport: "LAX",
+      miles_from_airport: 0.7,
+      services: {
+        shuttle_service: true,
+        valet_parking: false,
+        indoor_parking: false,
+        security_patrol: true,
+      },
+      pricing: {
+        daily_rate: 26.99,
+        weekly_rate: 161.94,
+        currency: "USD",
+      },
+      availability: {
+        spaces_available: 78,
+        total_spaces: 150,
       },
     },
   ];

@@ -49,6 +49,7 @@ export class MockParkWhizService implements ParkingProviderService {
               pricing_type: "TransientPricing",
             },
           ],
+          shuttle: true,
           space_availability: { status: "available" },
           validation: {
             require_license_plate: true,
@@ -60,6 +61,36 @@ export class MockParkWhizService implements ParkingProviderService {
               },
             ],
           },
+          amenities: [
+            {
+              name: "Covered",
+              key: "indoor",
+              description: "Covered",
+              enabled: true,
+              visible: true,
+            },
+            {
+              name: "Security",
+              key: "security", 
+              description: "Security",
+              enabled: true,
+              visible: true,
+            },
+            {
+              name: "Attended",
+              key: "attended",
+              description: "Attended",
+              enabled: true,
+              visible: true,
+            },
+            {
+              name: "Shuttle",
+              key: "shuttle",
+              description: "Free Shuttle",
+              enabled: true,
+              visible: true,
+            },
+          ],
         },
       ],
       _embedded: {
@@ -71,28 +102,19 @@ export class MockParkWhizService implements ParkingProviderService {
           city: "Chicago",
           state: "IL",
           postal_code: "60018",
-          coordinates: [41.9739278, -87.8624834],
-          location_type: "garage",
-          amenities: [
+          entrances: [
             {
-              id: "covered",
-              name: "covered",
-              display_name: "Covered",
-              icon_path: "/icons/covered.svg",
-            },
-            {
-              id: "security",
-              name: "security",
-              display_name: "Security",
-              icon_path: "/icons/security.svg",
-            },
-            {
-              id: "elevators",
-              name: "elevators",
-              display_name: "Elevators",
-              icon_path: "/icons/elevator.svg",
+              coordinates: [41.9739278, -87.8624834],
             },
           ],
+          timezone: "America/Chicago",
+          msa: "Chicago",
+          site_url: "/p/rosemont-parking/5272-n-river-rd",
+          rating_summary: {
+            average_rating: 4.68,
+            rating_count: 176,
+          },
+          sellerId: 874,
         },
       },
     },
@@ -129,6 +151,7 @@ export class MockParkWhizService implements ParkingProviderService {
               pricing_type: "TransientPricing",
             },
           ],
+          shuttle: true,
           space_availability: { status: "available" },
           validation: {
             require_license_plate: true,
@@ -140,6 +163,22 @@ export class MockParkWhizService implements ParkingProviderService {
               },
             ],
           },
+          amenities: [
+            {
+              name: "Shuttle",
+              key: "shuttle",
+              description: "Free Shuttle",
+              enabled: true,
+              visible: true,
+            },
+            {
+              name: "Security",
+              key: "security",
+              description: "Security",
+              enabled: true,
+              visible: true,
+            },
+          ],
         },
       ],
       _embedded: {
@@ -151,22 +190,19 @@ export class MockParkWhizService implements ParkingProviderService {
           city: "Rosemont",
           state: "IL",
           postal_code: "60018",
-          coordinates: [41.983456, -87.859234],
-          location_type: "lot",
-          amenities: [
+          entrances: [
             {
-              id: "shuttle",
-              name: "shuttle",
-              display_name: "Shuttle Service",
-              icon_path: "/icons/shuttle.svg",
-            },
-            {
-              id: "security",
-              name: "security",
-              display_name: "Security",
-              icon_path: "/icons/security.svg",
+              coordinates: [41.983456, -87.859234],
             },
           ],
+          timezone: "America/Chicago",
+          msa: "Chicago",
+          site_url: "/p/rosemont-parking/5801-n-river-rd",
+          rating_summary: {
+            average_rating: 4.2,
+            rating_count: 89,
+          },
+          sellerId: 234,
         },
       },
     },
@@ -204,6 +240,7 @@ export class MockParkWhizService implements ParkingProviderService {
               pricing_type: "TransientPricing",
             },
           ],
+          shuttle: true,
           space_availability: { status: "available" },
           validation: {
             require_license_plate: true,
@@ -215,6 +252,29 @@ export class MockParkWhizService implements ParkingProviderService {
               },
             ],
           },
+          amenities: [
+            {
+              name: "Covered",
+              key: "indoor",
+              description: "Covered",
+              enabled: true,
+              visible: true,
+            },
+            {
+              name: "Shuttle",
+              key: "shuttle",
+              description: "Free Shuttle",
+              enabled: true,
+              visible: true,
+            },
+            {
+              name: "Valet",
+              key: "valet",
+              description: "Valet",
+              enabled: false,
+              visible: false,
+            },
+          ],
         },
       ],
       _embedded: {
@@ -226,28 +286,19 @@ export class MockParkWhizService implements ParkingProviderService {
           city: "Los Angeles",
           state: "CA",
           postal_code: "90045",
-          coordinates: [33.946789, -118.395234],
-          location_type: "garage",
-          amenities: [
+          entrances: [
             {
-              id: "shuttle",
-              name: "shuttle",
-              display_name: "Shuttle Service",
-              icon_path: "/icons/shuttle.svg",
-            },
-            {
-              id: "covered",
-              name: "covered",
-              display_name: "Covered",
-              icon_path: "/icons/covered.svg",
-            },
-            {
-              id: "valet",
-              name: "valet",
-              display_name: "Valet Service",
-              icon_path: "/icons/valet.svg",
+              coordinates: [33.946789, -118.395234],
             },
           ],
+          timezone: "America/Los_Angeles",
+          msa: "Los Angeles",
+          site_url: "/p/los-angeles-parking/9000-airport-blvd",
+          rating_summary: {
+            average_rating: 4.3,
+            rating_count: 203,
+          },
+          sellerId: 456,
         },
       },
     },
@@ -289,8 +340,6 @@ export class MockParkWhizService implements ParkingProviderService {
     // Convert to normalized format
     return filteredLocations.map((location) => normalizeLocation(location));
   }
-
-
 }
 
 export const mockParkWhizService = new MockParkWhizService();

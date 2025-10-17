@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { dbTypesafe } from "../db/dbTypesafe";
 import { ParkingAggregationService } from "./parking-aggregation-service";
 import { LocationMatchingService } from "./location-matching-service";
-import { 
-  ParkingProvider, 
-  ParkingProviderService
+import {
+  ParkingProvider,
+  ParkingProviderService,
 } from "../providers/providers";
 
 // Import the mock services
@@ -26,7 +26,11 @@ describe("ParkingAggregationService - Mock Tests", () => {
     };
 
     locationMatchingService = new LocationMatchingService();
-    service = new ParkingAggregationService(dbTypesafe, mockProviders, locationMatchingService);
+    service = new ParkingAggregationService(
+      dbTypesafe,
+      mockProviders,
+      locationMatchingService
+    );
   });
 
   afterEach(() => {
@@ -56,10 +60,16 @@ describe("ParkingAggregationService - Mock Tests", () => {
       expect(results.summary.search_duration_ms).toBeGreaterThan(0);
 
       // Should have locations from all three mock providers
-      const parkwhizLocations = results.locations.filter(loc => loc.provider === ParkingProvider.PARKWHIZ);
-      const spotheroLocations = results.locations.filter(loc => loc.provider === ParkingProvider.SPOTHERO);
-      const capLocations = results.locations.filter(loc => loc.provider === ParkingProvider.CHEAP_AIRPORT_PARKING);
-      
+      const parkwhizLocations = results.locations.filter(
+        (loc) => loc.provider === ParkingProvider.PARKWHIZ
+      );
+      const spotheroLocations = results.locations.filter(
+        (loc) => loc.provider === ParkingProvider.SPOTHERO
+      );
+      const capLocations = results.locations.filter(
+        (loc) => loc.provider === ParkingProvider.CHEAP_AIRPORT_PARKING
+      );
+
       expect(parkwhizLocations.length).toBeGreaterThan(0);
       expect(spotheroLocations.length).toBeGreaterThan(0);
       expect(capLocations.length).toBeGreaterThan(0);
@@ -104,7 +114,7 @@ describe("ParkingAggregationService - Mock Tests", () => {
         start_time: "2024-12-20T10:00:00",
         end_time: "2024-12-20T18:00:00",
       };
-      
+
       await service.searchParkingWithMatching(searchParams);
 
       // Now retrieve historical data

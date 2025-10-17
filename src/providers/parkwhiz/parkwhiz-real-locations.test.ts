@@ -40,24 +40,36 @@ describe("ParkWhiz Real API End-to-End", () => {
 
     // Log detailed information for first few locations
     console.log("\n📍 Detailed ORD location data:");
-    locations.slice(0, 5).forEach((location: ParkWhizRealLocation, index: number) => {
-      const locationData = location._embedded["pw:location"] as any;
-      console.log(`\n${index + 1}. ${locationData.name}`);
-      console.log(`   ID: ${location.location_id}`);
-      console.log(`   Address: ${locationData.address1}`);
-      
-      if (locationData.entrances && locationData.entrances[0] && locationData.entrances[0].coordinates) {
-        console.log(`   Coordinates: [${locationData.entrances[0].coordinates.join(", ")}]`);
-      }
-      
-      if (location.purchase_options && location.purchase_options.length > 0) {
-        console.log(`   Price: $${location.purchase_options[0].price.USD}`);
-      }
-      
-      if (location.distance && location.distance.straight_line) {
-        console.log(`   Distance: ${location.distance.straight_line.feet} feet from airport`);
-      }
-    });
+    locations
+      .slice(0, 5)
+      .forEach((location: ParkWhizRealLocation, index: number) => {
+        const locationData = location._embedded["pw:location"] as any;
+        console.log(`\n${index + 1}. ${locationData.name}`);
+        console.log(`   ID: ${location.location_id}`);
+        console.log(`   Address: ${locationData.address1}`);
+
+        if (
+          locationData.entrances &&
+          locationData.entrances[0] &&
+          locationData.entrances[0].coordinates
+        ) {
+          console.log(
+            `   Coordinates: [${locationData.entrances[0].coordinates.join(
+              ", "
+            )}]`
+          );
+        }
+
+        if (location.purchase_options && location.purchase_options.length > 0) {
+          console.log(`   Price: $${location.purchase_options[0].price.USD}`);
+        }
+
+        if (location.distance && location.distance.straight_line) {
+          console.log(
+            `   Distance: ${location.distance.straight_line.feet} feet from airport`
+          );
+        }
+      });
 
     // Output to JSON file for inspection
     const outputPath = join(
@@ -90,24 +102,36 @@ describe("ParkWhiz Real API End-to-End", () => {
 
     // Log detailed information for first few locations
     console.log("\n📍 Detailed LAX location data:");
-    locations.slice(0, 5).forEach((location: ParkWhizRealLocation, index: number) => {
-      const locationData = location._embedded["pw:location"] as any;
-      console.log(`\n${index + 1}. ${locationData.name}`);
-      console.log(`   ID: ${location.location_id}`);
-      console.log(`   Address: ${locationData.address1}`);
-      
-      if (locationData.entrances && locationData.entrances[0] && locationData.entrances[0].coordinates) {
-        console.log(`   Coordinates: [${locationData.entrances[0].coordinates.join(", ")}]`);
-      }
-      
-      if (location.purchase_options && location.purchase_options.length > 0) {
-        console.log(`   Price: $${location.purchase_options[0].price.USD}`);
-      }
-      
-      if (location.distance && location.distance.straight_line) {
-        console.log(`   Distance: ${location.distance.straight_line.feet} feet from airport`);
-      }
-    });
+    locations
+      .slice(0, 5)
+      .forEach((location: ParkWhizRealLocation, index: number) => {
+        const locationData = location._embedded["pw:location"] as any;
+        console.log(`\n${index + 1}. ${locationData.name}`);
+        console.log(`   ID: ${location.location_id}`);
+        console.log(`   Address: ${locationData.address1}`);
+
+        if (
+          locationData.entrances &&
+          locationData.entrances[0] &&
+          locationData.entrances[0].coordinates
+        ) {
+          console.log(
+            `   Coordinates: [${locationData.entrances[0].coordinates.join(
+              ", "
+            )}]`
+          );
+        }
+
+        if (location.purchase_options && location.purchase_options.length > 0) {
+          console.log(`   Price: $${location.purchase_options[0].price.USD}`);
+        }
+
+        if (location.distance && location.distance.straight_line) {
+          console.log(
+            `   Distance: ${location.distance.straight_line.feet} feet from airport`
+          );
+        }
+      });
 
     // Output to JSON file for inspection
     const outputPath = join(
@@ -118,5 +142,4 @@ describe("ParkWhiz Real API End-to-End", () => {
     writeFileSync(outputPath, JSON.stringify(locations, null, 2));
     console.log(`\n📄 Saved LAX locations to: ${outputPath}`);
   }, 60000);
-
 });

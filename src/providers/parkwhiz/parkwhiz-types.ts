@@ -47,6 +47,13 @@ export interface ParkWhizRealLocation {
     base_price: { USD: string };
     price: { USD: string };
     display: { price: string };
+    fees?: Array<{
+      price: { USD: string };
+      type: string;
+      label: string;
+      parent_category: string;
+      description: string;
+    }>;
     pricing_segments: Array<{
       id: number;
       start_time: string;
@@ -55,8 +62,9 @@ export interface ParkWhizRealLocation {
       space_availability: { status: string };
       pricing_type: string;
     }>;
+    shuttle?: boolean;
     space_availability: { status: string };
-    validation: {
+    validation?: {
       require_license_plate: boolean;
       display: { scan_code: string };
       validation_steps: Array<{
@@ -64,6 +72,21 @@ export interface ParkWhizRealLocation {
         icon: { path: string };
       }>;
     };
+    cancellable_status?: {
+      cancellable_now: boolean;
+      code: string;
+      message: string;
+    };
+    disclaimers?: string[];
+    amenities?: Array<{
+      name: string;
+      key: string;
+      description: string;
+      enabled: boolean;
+      visible: boolean;
+    }>;
+    price_advisory?: string;
+    _links?: any;
   }>;
   _embedded: {
     "pw:location": {
@@ -74,15 +97,30 @@ export interface ParkWhizRealLocation {
       city: string;
       state: string;
       postal_code: string;
-      coordinates: [number, number];
-      location_type: string;
-      amenities: Array<{
-        id: string;
-        name: string;
-        display_name: string;
-        icon_path: string;
+      coordinates?: [number, number];
+      entrances?: Array<{
+        coordinates: [number, number];
       }>;
-      images?: Array<any>;
+      location_type?: string;
+      timezone?: string;
+      msa?: string;
+      site_url?: string;
+      rating_summary?: {
+        average_rating: number;
+        rating_count: number;
+      };
+      amenities?: Array<{
+        id?: string;
+        name?: string;
+        display_name?: string;
+        icon_path?: string;
+        key?: string;
+        description?: string;
+        enabled?: boolean;
+        visible?: boolean;
+      }>;
+      photos?: Array<any>;
+      sellerId?: number;
       _embedded?: {
         "pw:seller"?: {
           id: string;
