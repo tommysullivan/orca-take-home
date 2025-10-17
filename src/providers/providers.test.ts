@@ -35,29 +35,62 @@ describe("Parking Provider Services", () => {
 
     it("should normalize locations correctly", () => {
       const rawLocation = {
-        id: "test_001",
-        name: "Test Parking Lot",
-        address: {
-          street: "123 Test Street",
-          city: "Test City",
-          state: "TS",
-          zip: "12345",
+        location_id: "test_001",
+        type: "offstreet",
+        start_time: "2025-10-16T22:00:00.000-05:00",
+        end_time: "2025-10-17T22:00:00.000-05:00",
+        min_start: "2025-10-16T22:00:00.000-05:00",
+        max_end: "2025-10-17T22:00:00.000-05:00",
+        distance: {
+          straight_line: {
+            meters: 2414,
+            feet: 7920
+          }
         },
-        coordinates: { lat: 40.7128, lng: -74.006 },
-        airport_code: "TST",
-        distance_to_airport: 1.5,
-        amenities: ["shuttle", "covered"],
-        rates: {
-          daily_rate: 25.0,
-          hourly_rate: 4.0,
-          currency: "USD",
-        },
-        availability: true,
-        provider_specific: {
-          shuttle_service: true,
-          valet: false,
-          covered: true,
-        },
+        purchase_options: [{
+          id: "test-purchase-001",
+          start_time: "2025-10-16T22:00:00.000-05:00",
+          end_time: "2025-10-17T22:00:00.000-05:00",
+          min_start: "2025-10-16T22:00:00.000-05:00",
+          max_end: "2025-10-17T22:00:00.000-05:00",
+          base_price: { USD: "25.00" },
+          price: { USD: "25.00" },
+          display: { price: "price" },
+          pricing_segments: [{
+            id: 9999999,
+            start_time: "2025-10-16T22:00:00.000-05:00",
+            end_time: "2025-10-17T22:00:00.000-05:00",
+            event: {},
+            space_availability: { status: "available" },
+            pricing_type: "TransientPricing"
+          }],
+          space_availability: { status: "available" },
+          validation: {
+            require_license_plate: true,
+            display: { scan_code: "required" },
+            validation_steps: [{
+              instructions: "Test instruction",
+              icon: { path: "/icons/test.svg" }
+            }]
+          }
+        }],
+        _embedded: {
+          "pw:location": {
+            id: "test_001",
+            name: "Test Parking Lot",
+            description: "Test parking location",
+            address1: "123 Test Street",
+            city: "Test City",
+            state: "TS",
+            postal_code: "12345",
+            coordinates: [40.7128, -74.006],
+            location_type: "lot",
+            amenities: [
+              { id: "shuttle", name: "shuttle", display_name: "Shuttle Service", icon_path: "/icons/shuttle.svg" },
+              { id: "covered", name: "covered", display_name: "Covered", icon_path: "/icons/covered.svg" }
+            ]
+          }
+        }
       };
 
       const normalized = (parkWhizService as any).normalizeLocation(

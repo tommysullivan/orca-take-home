@@ -1,4 +1,6 @@
 import { describe, test, expect } from 'vitest';
+import { writeFileSync } from 'fs';
+import { join } from 'path';
 import { parkWhizRealLocationService, ParkWhizRealLocation } from './parkwhiz-real-locations';
 
 describe('ParkWhiz Real API End-to-End', () => {
@@ -44,6 +46,11 @@ describe('ParkWhiz Real API End-to-End', () => {
     }
     
     console.log(`   Distance: ${firstLocation.distance.straight_line.feet} feet from airport`);
+    
+    // Output to JSON file for inspection
+    const outputPath = join(process.cwd(), 'outputs', `ORD_parkwhiz_locations_${new Date().toISOString().split('T')[0]}.json`);
+    writeFileSync(outputPath, JSON.stringify(locations, null, 2));
+    console.log(`📄 Saved ORD locations to: ${outputPath}`);
   }, 60000); // 60 second timeout for full workflow
 
   test('should execute full workflow for LAX airport', async () => {
@@ -63,6 +70,11 @@ describe('ParkWhiz Real API End-to-End', () => {
         console.log(`📍 Location ${index + 1}: ${location._embedded['pw:location'].name}`);
       }
     });
+    
+    // Output to JSON file for inspection
+    const outputPath = join(process.cwd(), 'outputs', `LAX_parkwhiz_locations_${new Date().toISOString().split('T')[0]}.json`);
+    writeFileSync(outputPath, JSON.stringify(locations, null, 2));
+    console.log(`📄 Saved LAX locations to: ${outputPath}`);
   }, 60000);
 
   test('should handle invalid airport codes gracefully', async () => {

@@ -3,36 +3,7 @@ import {
   ParkingProvider,
   ApiSearchParams,
 } from "../providers";
-
-export interface ParkWhizLocation {
-  id: string;
-  name: string;
-  address: {
-    street: string;
-    city: string;
-    state: string;
-    zip?: string;
-  };
-  coordinates?: {
-    lat: number;
-    lng: number;
-  };
-  airport_code?: string;
-  distance_to_airport?: number;
-  amenities: string[];
-  rates: {
-    daily_rate: number;
-    hourly_rate?: number;
-    currency: string;
-  };
-  availability: boolean;
-  provider_specific: {
-    shuttle_service: boolean;
-    valet: boolean;
-    covered: boolean;
-    security_level: string;
-  };
-}
+import { ParkWhizRealLocation } from "./parkwhiz-real-locations";
 
 /**
  * ParkWhiz Service Implementation
@@ -43,183 +14,185 @@ export interface ParkWhizLocation {
  */
 export class ParkWhizService {
   private readonly baseUrl = "https://api.parkwhiz.com/v4";
-  private readonly mockData: ParkWhizLocation[] = [
-    // Chicago ORD Airport Data (based on observed website data)
+  private readonly mockData: ParkWhizRealLocation[] = [
+    // Chicago ORD Airport Data (based on real API structure)
     {
-      id: "pw_ord_001",
-      name: "Loews Chicago O'Hare Hotel Garage",
-      address: {
-        street: "5272 N. River Rd.",
-        city: "Chicago",
-        state: "IL",
-        zip: "60018",
+      location_id: "15012",
+      type: "offstreet",
+      start_time: "2025-10-16T22:00:00.000-05:00",
+      end_time: "2025-10-17T22:00:00.000-05:00",
+      min_start: "2025-10-16T22:00:00.000-05:00",
+      max_end: "2025-10-17T22:00:00.000-05:00",
+      distance: {
+        straight_line: {
+          meters: 2060,
+          feet: 6761
+        }
       },
-      coordinates: {
-        lat: 41.975528,
-        lng: -87.873726,
-      },
-      airport_code: "ORD",
-      distance_to_airport: 0.8,
-      amenities: ["covered", "security", "elevators"],
-      rates: {
-        daily_rate: 23.1,
-        hourly_rate: 3.5,
-        currency: "USD",
-      },
-      availability: true,
-      provider_specific: {
-        shuttle_service: false,
-        valet: false,
-        covered: true,
-        security_level: "high",
-      },
+      purchase_options: [{
+        id: "f4b17c79-02d6-4242-9780-c154df6d260f",
+        start_time: "2025-10-16T22:00:00.000-05:00",
+        end_time: "2025-10-17T22:00:00.000-05:00",
+        min_start: "2025-10-16T22:00:00.000-05:00",
+        max_end: "2025-10-17T22:00:00.000-05:00",
+        base_price: { USD: "21.00" },
+        price: { USD: "21.00" },
+        display: { price: "price" },
+        pricing_segments: [{
+          id: 4444934,
+          start_time: "2025-10-16T22:00:00.000-05:00",
+          end_time: "2025-10-17T22:00:00.000-05:00",
+          event: {},
+          space_availability: { status: "available" },
+          pricing_type: "TransientPricing"
+        }],
+        space_availability: { status: "available" },
+        validation: {
+          require_license_plate: true,
+          display: { scan_code: "required" },
+          validation_steps: [{
+            instructions: "Scan QR code on arrival",
+            icon: { path: "/icons/qr-code.svg" }
+          }]
+        }
+      }],
+      _embedded: {
+        "pw:location": {
+          id: "15012",
+          name: "Loews Chicago O'Hare Hotel Garage",
+          description: "Secure hotel garage near O'Hare Airport",
+          address1: "5272 N. River Rd.",
+          city: "Chicago",
+          state: "IL",
+          postal_code: "60018",
+          coordinates: [41.9739278, -87.8624834],
+          location_type: "garage",
+          amenities: [
+            { id: "covered", name: "covered", display_name: "Covered", icon_path: "/icons/covered.svg" },
+            { id: "security", name: "security", display_name: "Security", icon_path: "/icons/security.svg" },
+            { id: "elevators", name: "elevators", display_name: "Elevators", icon_path: "/icons/elevator.svg" }
+          ]
+        }
+      }
     },
     {
-      id: "pw_ord_002",
-      name: "CTA Blue Line: Rosemont Lot",
-      address: {
-        street: "5801 N. River Rd.",
-        city: "Rosemont",
-        state: "IL",
-        zip: "60018",
+      location_id: "15013",
+      type: "offstreet", 
+      start_time: "2025-10-16T22:00:00.000-05:00",
+      end_time: "2025-10-17T22:00:00.000-05:00",
+      min_start: "2025-10-16T22:00:00.000-05:00",
+      max_end: "2025-10-17T22:00:00.000-05:00",
+      distance: {
+        straight_line: {
+          meters: 3200,
+          feet: 10500
+        }
       },
-      coordinates: {
-        lat: 41.983456,
-        lng: -87.859234,
-      },
-      airport_code: "ORD",
-      distance_to_airport: 2.1,
-      amenities: ["shuttle", "security", "uncovered"],
-      rates: {
-        daily_rate: 14.3,
-        hourly_rate: 2.25,
-        currency: "USD",
-      },
-      availability: true,
-      provider_specific: {
-        shuttle_service: true,
-        valet: false,
-        covered: false,
-        security_level: "medium",
-      },
-    },
-    {
-      id: "pw_ord_003",
-      name: "Hyatt Regency O'Hare Airport Lot",
-      address: {
-        street: "9300 Bryn Mawr Ave.",
-        city: "Rosemont",
-        state: "IL",
-        zip: "60018",
-      },
-      coordinates: {
-        lat: 41.975123,
-        lng: -87.856789,
-      },
-      airport_code: "ORD",
-      distance_to_airport: 1.2,
-      amenities: ["shuttle", "security", "uncovered"],
-      rates: {
-        daily_rate: 23.59,
-        hourly_rate: 3.75,
-        currency: "USD",
-      },
-      availability: true,
-      provider_specific: {
-        shuttle_service: true,
-        valet: false,
-        covered: false,
-        security_level: "high",
-      },
-    },
-    {
-      id: "pw_ord_004",
-      name: "CTA Blue Line Cumberland Garage",
-      address: {
-        street: "5800 N. Cumberland Ave.",
-        city: "Chicago",
-        state: "IL",
-        zip: "60631",
-      },
-      coordinates: {
-        lat: 41.983012,
-        lng: -87.838567,
-      },
-      airport_code: "ORD",
-      distance_to_airport: 3.5,
-      amenities: ["covered", "security", "elevators"],
-      rates: {
-        daily_rate: 13.2,
-        hourly_rate: 2.0,
-        currency: "USD",
-      },
-      availability: true,
-      provider_specific: {
-        shuttle_service: true,
-        valet: false,
-        covered: true,
-        security_level: "medium",
-      },
+      purchase_options: [{
+        id: "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+        start_time: "2025-10-16T22:00:00.000-05:00",
+        end_time: "2025-10-17T22:00:00.000-05:00",
+        min_start: "2025-10-16T22:00:00.000-05:00",
+        max_end: "2025-10-17T22:00:00.000-05:00",
+        base_price: { USD: "14.30" },
+        price: { USD: "14.30" },
+        display: { price: "price" },
+        pricing_segments: [{
+          id: 4444935,
+          start_time: "2025-10-16T22:00:00.000-05:00",
+          end_time: "2025-10-17T22:00:00.000-05:00",
+          event: {},
+          space_availability: { status: "available" },
+          pricing_type: "TransientPricing"
+        }],
+        space_availability: { status: "available" },
+        validation: {
+          require_license_plate: true,
+          display: { scan_code: "required" },
+          validation_steps: [{
+            instructions: "Present ticket at shuttle stop",
+            icon: { path: "/icons/shuttle.svg" }
+          }]
+        }
+      }],
+      _embedded: {
+        "pw:location": {
+          id: "15013",
+          name: "CTA Blue Line: Rosemont Lot",
+          description: "Public transit parking with airport shuttle",
+          address1: "5801 N. River Rd.",
+          city: "Rosemont",
+          state: "IL",
+          postal_code: "60018",
+          coordinates: [41.983456, -87.859234],
+          location_type: "lot",
+          amenities: [
+            { id: "shuttle", name: "shuttle", display_name: "Shuttle Service", icon_path: "/icons/shuttle.svg" },
+            { id: "security", name: "security", display_name: "Security", icon_path: "/icons/security.svg" }
+          ]
+        }
+      }
     },
     // Los Angeles LAX Airport Data
     {
-      id: "pw_lax_001",
-      name: "LAX Official Economy Parking",
-      address: {
-        street: "1 World Way",
-        city: "Los Angeles",
-        state: "CA",
-        zip: "90045",
+      location_id: "59931",
+      type: "offstreet",
+      start_time: "2025-10-16T20:00:00.000-07:00",
+      end_time: "2025-10-17T20:00:00.000-07:00",
+      min_start: "2025-10-16T20:00:00.000-07:00",
+      max_end: "2025-10-17T20:00:00.000-07:00",
+      distance: {
+        straight_line: {
+          meters: 1311,
+          feet: 4301
+        }
       },
-      coordinates: {
-        lat: 33.942536,
-        lng: -118.408075,
-      },
-      airport_code: "LAX",
-      distance_to_airport: 0.5,
-      amenities: ["shuttle", "security", "uncovered"],
-      rates: {
-        daily_rate: 24.0,
-        hourly_rate: 4.0,
-        currency: "USD",
-      },
-      availability: true,
-      provider_specific: {
-        shuttle_service: true,
-        valet: false,
-        covered: false,
-        security_level: "high",
-      },
-    },
-    {
-      id: "pw_lax_002",
-      name: "QuikPark LAX",
-      address: {
-        street: "9000 Airport Blvd.",
-        city: "Los Angeles",
-        state: "CA",
-        zip: "90045",
-      },
-      coordinates: {
-        lat: 33.946789,
-        lng: -118.395234,
-      },
-      airport_code: "LAX",
-      distance_to_airport: 1.2,
-      amenities: ["shuttle", "valet", "covered"],
-      rates: {
-        daily_rate: 18.95,
-        hourly_rate: 3.25,
-        currency: "USD",
-      },
-      availability: true,
-      provider_specific: {
-        shuttle_service: true,
-        valet: true,
-        covered: true,
-        security_level: "high",
-      },
-    },
+      purchase_options: [{
+        id: "b6916202-d040-4bc2-8a70-bc2ecdcfa345",
+        start_time: "2025-10-16T20:00:00.000-07:00",
+        end_time: "2025-10-17T20:00:00.000-07:00",
+        min_start: "2025-10-16T20:00:00.000-07:00",
+        max_end: "2025-10-17T20:00:00.000-07:00",
+        base_price: { USD: "24.00" },
+        price: { USD: "24.00" },
+        display: { price: "price" },
+        pricing_segments: [{
+          id: 5555001,
+          start_time: "2025-10-16T20:00:00.000-07:00",
+          end_time: "2025-10-17T20:00:00.000-07:00",
+          event: {},
+          space_availability: { status: "available" },
+          pricing_type: "TransientPricing"
+        }],
+        space_availability: { status: "available" },
+        validation: {
+          require_license_plate: true,
+          display: { scan_code: "required" },
+          validation_steps: [{
+            instructions: "Show confirmation at gate",
+            icon: { path: "/icons/gate.svg" }
+          }]
+        }
+      }],
+      _embedded: {
+        "pw:location": {
+          id: "59931",
+          name: "QuikPark LAX Garage",
+          description: "Convenient garage near LAX terminals",
+          address1: "9000 Airport Blvd.",
+          city: "Los Angeles", 
+          state: "CA",
+          postal_code: "90045",
+          coordinates: [33.946789, -118.395234],
+          location_type: "garage",
+          amenities: [
+            { id: "shuttle", name: "shuttle", display_name: "Shuttle Service", icon_path: "/icons/shuttle.svg" },
+            { id: "covered", name: "covered", display_name: "Covered", icon_path: "/icons/covered.svg" },
+            { id: "valet", name: "valet", display_name: "Valet Service", icon_path: "/icons/valet.svg" }
+          ]
+        }
+      }
+    }
   ];
 
   /**
@@ -248,10 +221,23 @@ export class ParkWhizService {
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 800));
 
-    // Filter mock data by airport code
-    const filteredLocations = this.mockData.filter(
-      (location) => location.airport_code === params.airport_code
-    );
+    // For mock data, we'll filter by checking if the location name/address contains airport references
+    // In real implementation, this would be handled by the API search endpoint
+    const airportCode = params.airport_code.toLowerCase();
+    const filteredLocations = this.mockData.filter((location) => {
+      const locationData = location._embedded["pw:location"];
+      const name = locationData.name.toLowerCase();
+      const address = locationData.address1.toLowerCase();
+      const city = locationData.city.toLowerCase();
+      
+      // Simple filtering logic for mock data - check for airport references
+      if (airportCode === 'ord') {
+        return name.includes("o'hare") || city.includes("chicago") || city.includes("rosemont");
+      } else if (airportCode === 'lax') {
+        return name.includes("lax") || city.includes("los angeles");
+      }
+      return false;
+    });
 
     // Convert to normalized format
     return filteredLocations.map((location) =>
@@ -259,43 +245,73 @@ export class ParkWhizService {
     );
   }
 
-  private normalizeLocation(location: ParkWhizLocation): ParkingLocation {
+  private normalizeLocation(location: ParkWhizRealLocation): ParkingLocation {
+    const locationData = location._embedded["pw:location"];
+    const firstPurchaseOption = location.purchase_options[0];
+    
+    // Extract amenity names for simple array
+    const amenityNames = locationData.amenities.map(amenity => amenity.name);
+    
+    // Determine service features based on amenities
+    const shuttleService = amenityNames.includes('shuttle');
+    const valetService = amenityNames.includes('valet');
+    const coveredParking = amenityNames.includes('covered') || locationData.location_type === 'garage';
+    
+    // Convert distance from feet to miles
+    const distanceMiles = location.distance.straight_line.feet / 5280;
+    
+    // Extract pricing from first purchase option
+    const dailyRate = parseFloat(firstPurchaseOption.price.USD);
+    
     return {
-      provider_id: location.id,
+      provider_id: location.location_id,
       provider: ParkingProvider.PARKWHIZ,
-      name: location.name,
+      name: locationData.name,
       address: {
-        street: location.address.street,
-        city: location.address.city,
-        state: location.address.state,
-        zip: location.address.zip,
-        full_address: `${location.address.street}, ${location.address.city}, ${
-          location.address.state
-        } ${location.address.zip || ""}`.trim(),
+        street: locationData.address1,
+        city: locationData.city,
+        state: locationData.state,
+        zip: locationData.postal_code,
+        full_address: `${locationData.address1}, ${locationData.city}, ${locationData.state} ${locationData.postal_code}`.trim(),
       },
-      coordinates: location.coordinates
-        ? {
-            latitude: location.coordinates.lat,
-            longitude: location.coordinates.lng,
-          }
-        : undefined,
-      airport_code: location.airport_code,
-      distance_to_airport_miles: location.distance_to_airport,
+      coordinates: {
+        latitude: locationData.coordinates[0],
+        longitude: locationData.coordinates[1],
+      },
+      airport_code: this.inferAirportCode(locationData.city, locationData.name),
+      distance_to_airport_miles: Math.round(distanceMiles * 10) / 10, // Round to 1 decimal
       pricing: {
-        daily_rate: location.rates.daily_rate,
-        hourly_rate: location.rates.hourly_rate,
-        currency: location.rates.currency,
+        daily_rate: dailyRate,
+        currency: "USD",
       },
-      amenities: location.amenities,
-      availability: location.availability,
-      shuttle_service: location.provider_specific.shuttle_service,
-      valet_service: location.provider_specific.valet,
-      covered_parking: location.provider_specific.covered,
+      amenities: amenityNames,
+      availability: firstPurchaseOption.space_availability.status === "available",
+      shuttle_service: shuttleService,
+      valet_service: valetService,
+      covered_parking: coveredParking,
       provider_data: {
-        security_level: location.provider_specific.security_level,
+        location_type: locationData.location_type,
+        description: locationData.description,
+        purchase_options: location.purchase_options,
         original_data: location,
       },
     };
+  }
+
+  /**
+   * Infer airport code from location data for mock purposes
+   */
+  private inferAirportCode(city: string, name: string): string | undefined {
+    const cityLower = city.toLowerCase();
+    const nameLower = name.toLowerCase();
+    
+    if (cityLower.includes('chicago') || cityLower.includes('rosemont') || nameLower.includes("o'hare")) {
+      return 'ORD';
+    }
+    if (cityLower.includes('los angeles') || nameLower.includes('lax')) {
+      return 'LAX';
+    }
+    return undefined;
   }
 
   /**
@@ -304,7 +320,7 @@ export class ParkWhizService {
   async getLocationDetails(
     providerId: string
   ): Promise<ParkingLocation | null> {
-    const location = this.mockData.find((loc) => loc.id === providerId);
+    const location = this.mockData.find((loc) => loc.location_id === providerId);
     return location ? this.normalizeLocation(location) : null;
   }
 

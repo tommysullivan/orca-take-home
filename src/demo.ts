@@ -87,20 +87,6 @@ async function main() {
       console.log(`📋 Full data saved: ${jsonPath}`);
     }
 
-    // Demonstrate historical data retrieval
-    console.log("\n📚 HISTORICAL DATA DEMO");
-    console.log("=".repeat(30));
-
-    const historicalORD = await service.getHistoricalData("ORD");
-    console.log(
-      `ORD Historical: ${historicalORD.locations.length} locations, ${historicalORD.matches.length} matches`
-    );
-
-    const historicalLAX = await service.getHistoricalData("LAX");
-    console.log(
-      `LAX Historical: ${historicalLAX.locations.length} locations, ${historicalLAX.matches.length} matches`
-    );
-
     console.log("\n✅ DEMO COMPLETED SUCCESSFULLY!");
     console.log("\nOutput files generated:");
     console.log("- Matching reports (Markdown)");
