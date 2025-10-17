@@ -36,12 +36,14 @@ describe("ParkingAggregationService - Real Tests", () => {
   });
 
   describe("searchParkingWithMatching - Real Integration", () => {
-    it("should search with real ParkWhiz and SpotHero services", async () => {
-      // Use current date + 1 day to work with ParkWhiz (which returns data for "now")
-      // SpotHero and CAP should also support these dates
-      const now = new Date();
-      const tomorrow = new Date(now);
-      tomorrow.setDate(tomorrow.getDate() + 1);
+    it(
+      "should search with real ParkWhiz and SpotHero services",
+      async () => {
+        // Use current date + 1 day to work with ParkWhiz (which returns data for "now")
+        // SpotHero and CAP should also support these dates
+        const now = new Date();
+        const tomorrow = new Date(now);
+        tomorrow.setDate(tomorrow.getDate() + 1);
 
       const searchParams = {
         airport_code: "LAX",
@@ -97,7 +99,9 @@ describe("ParkingAggregationService - Real Tests", () => {
       console.log(`  - SpotHero (REAL): ${spotheroLocations.length} locations`);
       console.log(`  - ParkWhiz (REAL): ${parkwhizLocations.length} locations`);
       console.log(`  - CAP (REAL): ${capLocations.length} locations`);
-    });
+      },
+      60000
+    ); // 60 second timeout for real API calls with CAP address fetching and retries
 
     it("should handle real API failures gracefully", async () => {
       // Use current date + 1 day

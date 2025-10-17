@@ -43,12 +43,12 @@ export function normalizeLocation(
     provider_id: raw.park_id,
     provider: ParkingProviderType.CHEAP_AIRPORT_PARKING,
     name: raw.name,
-    address: {
+    address: raw.address || {
       street: "",
       city: "",
       state: "",
       zip: "",
-      full_address: "", // Cheap Airport Parking doesn't provide address in the listing
+      full_address: "",
     },
     coordinates:
       raw.latitude && raw.longitude

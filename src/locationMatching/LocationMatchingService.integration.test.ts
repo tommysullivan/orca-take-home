@@ -38,13 +38,15 @@ describe("LocationMatchingService - Integration Tests", () => {
   });
 
   describe("findMatches - Real Integration", () => {
-    it("should match locations with real ParkWhiz and SpotHero providers", async () => {
-      const allProviderResults = await Promise.all([
-        providers[ParkingProviderType.PARKWHIZ].searchLocations({
-          airport_code: "LAX",
-          start_time: new Date("2025-10-20T10:00:00"),
-          end_time: new Date("2025-10-22T18:00:00"),
-        }),
+    it(
+      "should match locations with real ParkWhiz and SpotHero providers",
+      async () => {
+        const allProviderResults = await Promise.all([
+          providers[ParkingProviderType.PARKWHIZ].searchLocations({
+            airport_code: "LAX",
+            start_time: new Date("2025-10-20T10:00:00"),
+            end_time: new Date("2025-10-22T18:00:00"),
+          }),
         providers[ParkingProviderType.SPOTHERO].searchLocations({
           airport_code: "LAX",
           start_time: new Date("2025-10-20T10:00:00"),
@@ -107,7 +109,9 @@ describe("LocationMatchingService - Integration Tests", () => {
           `   Providers: ${match.locations.map((l) => l.provider).join(", ")}`
         );
       });
-    });
+      },
+      60000
+    ); // 60 second timeout for real API calls with CAP address fetching and retries
 
     it("should handle mixed real data gracefully", async () => {
       const parkwhizResults = await providers[

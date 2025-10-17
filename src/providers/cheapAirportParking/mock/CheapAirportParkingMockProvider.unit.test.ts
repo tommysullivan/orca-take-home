@@ -76,18 +76,33 @@ describe("Cheap Airport Parking Service", () => {
         testSearchParams
       );
 
-      locations.forEach((location: ParkingLocation) => {
+      console.log(`\n🔍 Testing ${locations.length} CAP mock locations:`);
+      
+      locations.forEach((location: ParkingLocation, index: number) => {
+        console.log(`\nLocation ${index + 1}: ${location.name}`);
+        console.log(`  Address: ${location.address.full_address}`);
+        console.log(`  Coordinates: ${location.coordinates?.latitude}, ${location.coordinates?.longitude}`);
+        console.log(`  Price: $${location.pricing.daily_rate}/day`);
+        
         // Required fields
         expect(location.provider_id).toBeDefined();
+        expect(location.provider_id).not.toBe("");
         expect(location.provider).toBe(
           ParkingProviderType.CHEAP_AIRPORT_PARKING
         );
         expect(location.name).toBeDefined();
+        expect(location.name).not.toBe("");
         expect(location.address).toBeDefined();
         expect(location.address.full_address).toBeDefined();
+        expect(location.address.full_address).not.toBe(""); // Actually check it has content!
         expect(location.pricing).toBeDefined();
         expect(location.pricing.daily_rate).toBeGreaterThan(0);
         expect(location.pricing.currency).toBe("USD");
+
+        // Coordinates should be present for matching
+        expect(location.coordinates).toBeDefined();
+        expect(location.coordinates?.latitude).toBeDefined();
+        expect(location.coordinates?.longitude).toBeDefined();
 
         expect(Array.isArray(location.amenities)).toBe(true);
         expect(typeof location.availability).toBe("boolean");

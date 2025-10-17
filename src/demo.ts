@@ -33,7 +33,7 @@ async function main() {
     const providers = {
       [ParkingProviderType.PARKWHIZ]: parkWhizProvider,
       [ParkingProviderType.SPOTHERO]: spotHeroProvider,
-      [ParkingProviderType.CHEAP_AIRPORT_PARKING]: cheapAirportParkingProvider, // Now using real CheapAirportParking!
+      [ParkingProviderType.CHEAP_AIRPORT_PARKING]: cheapAirportParkingProvider,
     };
 
     const service = new ParkingAggregationService(
@@ -43,7 +43,7 @@ async function main() {
     );
 
     console.log(
-      "✅ Service initialized with ParkWhiz + SpotHero + CheapAirportParking (ALL REAL)!"
+      "✅ Service initialized with ParkWhiz (REAL) + SpotHero (REAL) + CheapAirportParking (REAL with address fetching)!"
     );
 
     // Test airports and date ranges - using dates that match real ParkWhiz purchase_options availability

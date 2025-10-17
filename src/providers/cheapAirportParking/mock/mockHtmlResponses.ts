@@ -269,3 +269,188 @@ export const mockHtmlResponses: Record<string, string> = {
 </html>
   `,
 };
+
+/**
+ * Mock detail page HTML responses with address information
+ * These simulate the detail pages that contain schema.org address markup
+ */
+export const mockDetailPageResponses: Record<string, string> = {
+  // ORD locations
+  "park_001_cap_ord_001": `
+<!DOCTYPE html>
+<html>
+<body>
+  <div itemscope itemtype="http://schema.org/LocalBusiness">
+    <h1>Loews O'Hare Hotel Budget Lot</h1>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">5300 N. River Drive</span>,
+      <span itemprop="addressLocality">Rosemont</span>,
+      <span itemprop="addressRegion">IL</span>
+      <span itemprop="postalCode">60018</span>
+    </div>
+  </div>
+</body>
+</html>
+  `,
+  "park_002_cap_ord_002": `
+<!DOCTYPE html>
+<html>
+<body>
+  <div itemscope itemtype="http://schema.org/LocalBusiness">
+    <h1>Easy Parking ORD Economy</h1>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">1800 E Touhy Ave</span>,
+      <span itemprop="addressLocality">Des Plaines</span>,
+      <span itemprop="addressRegion">IL</span>
+      <span itemprop="postalCode">60018</span>
+    </div>
+  </div>
+</body>
+</html>
+  `,
+  "park_003_cap_ord_003": `
+<!DOCTYPE html>
+<html>
+<body>
+  <div itemscope itemtype="http://schema.org/LocalBusiness">
+    <h1>River Road Budget Parking</h1>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">9700 W Bryn Mawr Ave</span>,
+      <span itemprop="addressLocality">Rosemont</span>,
+      <span itemprop="addressRegion">IL</span>
+      <span itemprop="postalCode">60018</span>
+    </div>
+  </div>
+</body>
+</html>
+  `,
+  "park_004_cap_ord_004": `
+<!DOCTYPE html>
+<html>
+<body>
+  <div itemscope itemtype="http://schema.org/LocalBusiness">
+    <h1>Loews O'Hare Budget Garage</h1>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">5300 N. River Drive</span>,
+      <span itemprop="addressLocality">Rosemont</span>,
+      <span itemprop="addressRegion">IL</span>
+      <span itemprop="postalCode">60018</span>
+    </div>
+  </div>
+</body>
+</html>
+  `,
+  "park_005_cap_ord_005": `
+<!DOCTYPE html>
+<html>
+<body>
+  <div itemscope itemtype="http://schema.org/LocalBusiness">
+    <h1>Premium Parking ORD</h1>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">10255 W Zemke Blvd</span>,
+      <span itemprop="addressLocality">Chicago</span>,
+      <span itemprop="addressRegion">IL</span>
+      <span itemprop="postalCode">60666</span>
+    </div>
+  </div>
+</body>
+</html>
+  `,
+  // LAX locations
+  "park_201_cap_lax_001": `
+<!DOCTYPE html>
+<html>
+<body>
+  <div itemscope itemtype="http://schema.org/LocalBusiness">
+    <h1>QuikPark LAX Budget</h1>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">5959 W Century Blvd</span>,
+      <span itemprop="addressLocality">Los Angeles</span>,
+      <span itemprop="addressRegion">CA</span>
+      <span itemprop="postalCode">90045</span>
+    </div>
+  </div>
+</body>
+</html>
+  `,
+  "park_202_cap_lax_002": `
+<!DOCTYPE html>
+<html>
+<body>
+  <div itemscope itemtype="http://schema.org/LocalBusiness">
+    <h1>Embassy Suites Economy LAX</h1>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">9801 Airport Blvd</span>,
+      <span itemprop="addressLocality">Los Angeles</span>,
+      <span itemprop="addressRegion">CA</span>
+      <span itemprop="postalCode">90045</span>
+    </div>
+  </div>
+</body>
+</html>
+  `,
+  "park_203_cap_lax_003": `
+<!DOCTYPE html>
+<html>
+<body>
+  <div itemscope itemtype="http://schema.org/LocalBusiness">
+    <h1>Joe's Budget Airport Parking</h1>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">6151 W Century Blvd</span>,
+      <span itemprop="addressLocality">Los Angeles</span>,
+      <span itemprop="addressRegion">CA</span>
+      <span itemprop="postalCode">90045</span>
+    </div>
+  </div>
+</body>
+</html>
+  `,
+  "park_204_cap_lax_004": `
+<!DOCTYPE html>
+<html>
+<body>
+  <div itemscope itemtype="http://schema.org/LocalBusiness">
+    <h1>Sheraton Gateway Budget LAX</h1>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">6101 W Century Blvd</span>,
+      <span itemprop="addressLocality">Los Angeles</span>,
+      <span itemprop="addressRegion">CA</span>
+      <span itemprop="postalCode">90045</span>
+    </div>
+  </div>
+</body>
+</html>
+  `,
+  "park_205_cap_lax_005": `
+<!DOCTYPE html>
+<html>
+<body>
+  <div itemscope itemtype="http://schema.org/LocalBusiness">
+    <h1>Pacific Coast Budget Garage</h1>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">9750 Airport Blvd</span>,
+      <span itemprop="addressLocality">Los Angeles</span>,
+      <span itemprop="addressRegion">CA</span>
+      <span itemprop="postalCode">90045</span>
+    </div>
+  </div>
+</body>
+</html>
+  `,
+  "park_206_cap_lax_006": `
+<!DOCTYPE html>
+<html>
+<body>
+  <div itemscope itemtype="http://schema.org/LocalBusiness">
+    <h1>WallyPark LAX Budget</h1>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">9700 Bellanca Ave</span>,
+      <span itemprop="addressLocality">Los Angeles</span>,
+      <span itemprop="addressRegion">CA</span>
+      <span itemprop="postalCode">90045</span>
+    </div>
+  </div>
+</body>
+</html>
+  `,
+};

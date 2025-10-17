@@ -79,7 +79,7 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
 
       console.log("\n✅ Sample Cheap Airport Parking Location (ORD):");
       console.log(JSON.stringify(firstLocation, null, 2));
-    }, 30000); // 30 second timeout for API call
+    }, 60000); // 60 second timeout for API call with retries
 
     it("should fetch and normalize real Cheap Airport Parking locations for LAX airport", async () => {
       const params: ApiSearchParams = {
@@ -129,7 +129,7 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
       console.log(`  Shuttle: ${firstLocation.shuttle_service ? "Yes" : "No"}`);
       console.log(`  Valet: ${firstLocation.valet_service ? "Yes" : "No"}`);
       console.log(`  Covered: ${firstLocation.covered_parking ? "Yes" : "No"}`);
-    }, 30000);
+    }, 60000);
 
     it("should handle different date ranges correctly", async () => {
       // Test with a short stay (1 day)
@@ -173,7 +173,7 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
           console.log(`  7-day stay: $${longPrice.toFixed(2)}/day`);
         }
       }
-    }, 30000);
+    }, 60000);
 
     it("should handle amenities correctly", async () => {
       const params: ApiSearchParams = {
@@ -207,7 +207,7 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
           expect(location.amenities).toContain("covered");
         }
       });
-    }, 30000);
+    }, 60000);
 
     it("should provide valid availability information", async () => {
       const params: ApiSearchParams = {
@@ -239,7 +239,7 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
           );
         }
       });
-    }, 30000);
+    }, 60000);
 
     it("should extract review and rating information", async () => {
       const params: ApiSearchParams = {
@@ -278,7 +278,7 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
           firstRated.provider_data?.recommend_percentage
         ).toBeLessThanOrEqual(100);
       }
-    }, 30000);
+    }, 60000);
 
     it("should parse parking types correctly", async () => {
       const params: ApiSearchParams = {
@@ -307,6 +307,6 @@ describe("CheapAirportParkingProvider Integration Tests", () => {
         expect(location.provider_data?.parking_type).toBeDefined();
         expect(typeof location.provider_data?.parking_type).toBe("string");
       });
-    }, 30000);
+    }, 60000);
   });
 });

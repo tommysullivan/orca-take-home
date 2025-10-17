@@ -13,6 +13,14 @@ export interface CheapAirportParkingRawLocation {
   // Geographic coordinates
   latitude: number;
   longitude: number;
+  // Address information (fetched from detail page)
+  address?: {
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+    full_address: string;
+  };
   // Pricing information
   total_price?: number; // Total price for the entire stay
   daily_rate?: number; // Daily rate (if available)
