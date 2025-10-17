@@ -2,8 +2,8 @@ import {
   ParkingLocation,
   ParkingProvider,
   ApiSearchParams,
+  ParkingProviderService,
 } from "../providers";
-import { ParkWhizServiceInterface } from "./parkwhiz-service-interface";
 import {
   ParkWhizAutocompleteResponse,
   ParkWhizRealLocation,
@@ -20,7 +20,7 @@ import {
  * 3. Fetch HTML page using the slug
  * 4. Extract location data from window.__INITIAL_STATE__ in the HTML
  */
-export class RealParkWhizService implements ParkWhizServiceInterface {
+export class RealParkWhizService implements ParkingProviderService {
   private readonly autocompleteBaseUrl =
     "https://api.parkwhiz.com/internal/v1/autocomplete/";
   private readonly websiteBaseUrl = "https://www.parkwhiz.com";

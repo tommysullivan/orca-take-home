@@ -2,8 +2,8 @@ import {
   ParkingLocation,
   ParkingProvider,
   ApiSearchParams,
+  ParkingProviderService,
 } from "../providers";
-import { ParkWhizServiceInterface } from "./parkwhiz-service-interface";
 import { ParkWhizRealLocation } from "./parkwhiz-types";
 
 /**
@@ -12,7 +12,7 @@ import { ParkWhizRealLocation } from "./parkwhiz-types";
  * This implementation provides realistic mock data for testing and development.
  * Uses the same data structure as the real API but with static mock data.
  */
-export class MockParkWhizService implements ParkWhizServiceInterface {
+export class MockParkWhizService implements ParkingProviderService {
   private readonly mockData: ParkWhizRealLocation[] = [
     // Chicago ORD Airport Data (based on real API structure)
     {
