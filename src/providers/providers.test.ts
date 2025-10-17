@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { parkWhizService } from "../src/providers/parkwhiz/parkwhiz-service";
-import { spotHeroService } from "../src/providers/spotHero/spothero-service";
-import { cheapAirportParkingService } from "../src/providers/cheapAirportParking/cheap-airport-parking-service";
-import { ParkingProvider } from "../src/providers/providers";
+import { parkWhizService } from "./parkwhiz/parkwhiz-service";
+import { spotHeroService } from "./spotHero/spothero-service";
+import { cheapAirportParkingService } from "./cheapAirportParking/cheap-airport-parking-service";
+import { ParkingProvider } from "./providers";
 
 describe("Parking Provider Services", () => {
   const testSearchParams = {

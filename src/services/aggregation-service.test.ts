@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { DBTypesafe } from "../src/db/dbTypesafe";
-import { ParkingAggregationService } from "../src/services/parking-aggregation-service";
+import { DBTypesafe } from "../db/dbTypesafe";
+import { ParkingAggregationService } from "./parking-aggregation-service";
 
 describe("ParkingAggregationService", () => {
   let service: ParkingAggregationService;
