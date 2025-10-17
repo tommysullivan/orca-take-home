@@ -7,12 +7,12 @@ import {
   ParkingLocation,
   ParkingProvider,
   ParkingProviderService,
-} from "../providers/providers";
+} from "../../providers/providers";
 
 // Import real and mock services
-import { realParkWhizService } from "../providers/parkwhiz/real-parkwhiz-service";
-import { spotHeroService } from "../providers/spotHero/spothero-service";
-import { cheapAirportParkingService } from "../providers/cheapAirportParking/cheap-airport-parking-service";
+import { realParkWhizService } from "../../providers/parkwhiz/real-parkwhiz-service";
+import { spotHeroService } from "../../providers/spotHero/spothero-service";
+import { cheapAirportParkingService } from "../../providers/cheapAirportParking/cheap-airport-parking-service";
 
 describe("LocationMatchingService - Real Tests", () => {
   let service: LocationMatchingService;

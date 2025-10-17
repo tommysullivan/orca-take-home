@@ -1,16 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { dbTypesafe } from "../db/dbTypesafe";
+import { dbTypesafe } from "../../db/dbTypesafe";
 import { ParkingAggregationService } from "./parking-aggregation-service";
-import { LocationMatchingService } from "./location-matching-service";
+import { LocationMatchingService } from "../locationMatching/location-matching-service";
 import {
   ParkingProvider,
   ParkingProviderService,
-} from "../providers/providers";
+} from "../../providers/providers";
 
 // Import the mock services
-import { mockParkWhizService } from "../providers/parkwhiz/mock-parkwhiz-service";
-import { spotHeroService } from "../providers/spotHero/spothero-service";
-import { cheapAirportParkingService } from "../providers/cheapAirportParking/cheap-airport-parking-service";
+import { mockParkWhizService } from "../../providers/parkwhiz/mock-parkwhiz-service";
+import { spotHeroService } from "../../providers/spotHero/spothero-service";
+import { cheapAirportParkingService } from "../../providers/cheapAirportParking/cheap-airport-parking-service";
 
 describe("ParkingAggregationService - Mock Tests", () => {
   let service: ParkingAggregationService;
@@ -103,27 +103,6 @@ describe("ParkingAggregationService - Mock Tests", () => {
       // Verify results include the locations that should have been stored
       expect(results.locations.length).toBeGreaterThan(0);
       expect(results.summary.total_locations).toBeGreaterThan(0);
-    });
-  });
-
-  describe("getHistoricalData", () => {
-    it("should retrieve historical locations", async () => {
-      // First add some data by running a search
-      const searchParams = {
-        airport_code: "LAX",
-        start_time: "2024-12-20T10:00:00",
-        end_time: "2024-12-20T18:00:00",
-      };
-
-      await service.searchParkingWithMatching(searchParams);
-
-      // Now retrieve historical data
-      const result = await service.getHistoricalData("LAX");
-
-      expect(result.locations).toBeDefined();
-      expect(result.matches).toBeDefined();
-      expect(Array.isArray(result.locations)).toBe(true);
-      expect(Array.isArray(result.matches)).toBe(true);
     });
   });
 

@@ -1,14 +1,14 @@
 import { Kysely } from "kysely";
-import { DBTypesafe, dbTypesafe } from "../db/dbTypesafe";
-import { DB } from "../db/types/database-generated";
+import { DBTypesafe, dbTypesafe } from "../../db/dbTypesafe";
+import { DB } from "../../db/types/database-generated";
 import {
   ApiSearchParams,
   MatchedLocation,
   ParkingLocation,
   ParkingProvider,
   ParkingProviderService,
-} from "../providers/providers";
-import { LocationMatchingService } from "../services/location-matching-service";
+} from "../../providers/providers";
+import { LocationMatchingService } from "../locationMatching/location-matching-service";
 
 interface SearchResults {
   locations: ParkingLocation[];
@@ -104,30 +104,6 @@ export class ParkingAggregationService {
     this.printSummary(results);
 
     return results;
-  }
-
-  /**
-   * Get historical data for an airport
-   */
-  async getHistoricalData(airportCode: string): Promise<{
-    locations: any[];
-    matches: any[];
-  }> {
-    const locations = await this.db
-      .selectFrom("parking_locations")
-      .selectAll()
-      .where("airport_code", "=", airportCode)
-      .orderBy("created_at", "desc")
-      .execute();
-
-    const matches = await this.db
-      .selectFrom("location_matches")
-      .selectAll()
-      .where("airport_code", "=", airportCode)
-      .orderBy("created_at", "desc")
-      .execute();
-
-    return { locations, matches };
   }
 
   private async storeLocations(
@@ -290,16 +266,16 @@ export class ParkingAggregationService {
 export async function createParkingAggregationService(): Promise<ParkingAggregationService> {
   // Import default provider services and location matching service
   const { cheapAirportParkingService } = await import(
-    "../providers/cheapAirportParking/cheap-airport-parking-service"
+    "../../providers/cheapAirportParking/cheap-airport-parking-service"
   );
   const { mockParkWhizService } = await import(
-    "../providers/parkwhiz/mock-parkwhiz-service"
+    "../../providers/parkwhiz/mock-parkwhiz-service"
   );
   const { spotHeroService } = await import(
-    "../providers/spotHero/spothero-service"
+    "../../providers/spotHero/spothero-service"
   );
   const { locationMatchingService } = await import(
-    "../services/location-matching-service"
+    "../locationMatching/location-matching-service"
   );
 
   const providers = {

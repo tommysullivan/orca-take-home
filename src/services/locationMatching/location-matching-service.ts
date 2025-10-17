@@ -2,7 +2,7 @@ import {
   ParkingLocation,
   MatchedLocation,
   Coordinates,
-} from "../providers/providers";
+} from "../../providers/providers";
 
 interface MatchCriteria {
   // Name similarity thresholds

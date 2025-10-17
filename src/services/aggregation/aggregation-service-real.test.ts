@@ -1,16 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { dbTypesafe } from "../db/dbTypesafe";
+import { dbTypesafe } from "../../db/dbTypesafe";
 import { ParkingAggregationService } from "./parking-aggregation-service";
-import { LocationMatchingService } from "./location-matching-service";
+import { LocationMatchingService } from "../locationMatching/location-matching-service";
 import {
   ParkingProvider,
   ParkingProviderService,
-} from "../providers/providers";
+} from "../../providers/providers";
 
 // Import the real and mock services
-import { realParkWhizService } from "../providers/parkwhiz/real-parkwhiz-service";
-import { spotHeroService } from "../providers/spotHero/spothero-service";
-import { cheapAirportParkingService } from "../providers/cheapAirportParking/cheap-airport-parking-service";
+import { realParkWhizService } from "../../providers/parkwhiz/real-parkwhiz-service";
+import { spotHeroService } from "../../providers/spotHero/spothero-service";
+import { cheapAirportParkingService } from "../../providers/cheapAirportParking/cheap-airport-parking-service";
 
 describe("ParkingAggregationService - Real Tests", () => {
   let service: ParkingAggregationService;
