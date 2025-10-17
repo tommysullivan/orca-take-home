@@ -206,7 +206,7 @@ These are not committed, and are generated automatically based on current schema
 The dev container includes:
 
 - Node.js 18 with TypeScript support
-- PostgreSQL with PostGIS extension
+- PostgreSQL with PostGIS extension (for fast geolocation queries on SQL server side as an enhancement)
 - PostgreSQL client tools
 - Git and Bash
 - VS Code extensions for TypeScript development
