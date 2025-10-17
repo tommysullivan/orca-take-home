@@ -159,19 +159,6 @@
         "panel": "shared"
       },
       "detail": "Run integration tests only (excludes unit tests)"
-    },
-    {
-      "label": "Run Demo",
-      "type": "shell",
-      "command": "npm run demo",
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "detail": "Run the parking location matching demo with real APIs"
     }
   ]
 }

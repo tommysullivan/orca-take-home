@@ -41,6 +41,9 @@ coverage/
 # Generated files
 src/db/types/database-generated.ts
 
-outputs
+# Outputs - ignore all except checkedIn
+outputs/*
+!outputs/checkedIn/
+!outputs/checkedIn/**
 
 src/db/types/**/*.ts

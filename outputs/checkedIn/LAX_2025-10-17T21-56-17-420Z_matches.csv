@@ -1,0 +1,9 @@
+Match ID,Canonical Name,Address,Airport Code,Confidence Score,Provider Count,ParkWhiz Price,SpotHero Price,Cheap Airport Parking Price,Min Price,Max Price,Price Spread
+match_1760738177406_enw4r7v6f,"Joe's Airport Parking LAX","6151 W. Century Blvd., Los Angeles, CA 90045",95.0,5,18.58,19.95,25.94,18.58,25.94,7.36
+match_1760738177409_g6hr3jyua,"Airport Center Parking LAX","5960 W. 98th St., Los Angeles, CA 90045",95.0,4,18.58,23.3,23.74,18.58,23.74,5.16
+match_1760738177410_4ee2d0091,"WallyPark LAX Premier Garage","9700 Bellanca Ave., Los Angeles, CA 90045",95.0,4,24.58,26.46,29.24,24.58,29.24,4.66
+match_1760738177409_9fboip0rv,"LAX Operating- 9750 Airport Blvd (Formerly Four Points by Sheraton)","9750 Airport Blvd., Los Angeles, CA 90045",85.0,3,10.54,10.49,,10.49,10.54,0.05
+match_1760738177407_uz4atydyo,"Sheraton Gateway Parking LAX - Valet","6101 W. Century Blvd., Los Angeles, CA 90045",65.0,2,21.2,17.99,,17.99,21.20,3.21
+match_1760738177407_ln35900p3,"909 N. Pacific Coast Hwy. Garage LAX","909 N. Pacific Coast Hwy., El Segundo, CA 90245",65.0,2,8.67,7.48,,7.48,8.67,1.19
+match_1760738177408_nojss5u8t,"Sam’s Parking LAX - Valet","8923 S. Sepulveda Blvd., Los Angeles, CA 90045",65.0,2,35.95,43.95,,35.95,43.95,8.00
+match_1760738177413_wo5d5fwco,"405 Airport Parking - Covered Self Park","9800 South La Cienega Boulevard, Inglewood, CA 90301",65.0,2,,13.49,18.43,13.49,18.43,4.94

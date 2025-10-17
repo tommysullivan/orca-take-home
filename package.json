@@ -17,7 +17,6 @@
     "devcontainer:nuke": "npm run docker-compose -- down -v --remove-orphans && docker system prune -f && docker volume rm ocra_devcontainer_postgres_data || docker volume rm --force ocra_devcontainer_postgres_data",
     "type-check": "tsc --noEmit",
     "docker-compose": "docker-compose -f ./.devcontainer/docker-compose.yml",
-    "demo": "tsx src/demo.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:unit": "vitest run --exclude '**/*.integration.test.ts'",

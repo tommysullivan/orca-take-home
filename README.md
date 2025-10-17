@@ -51,13 +51,16 @@ npm run db:setup
 npm test
 ```
 
-5. **Run Demo - Generate Parking Location Matches**
+5. **Run the Application - Generate Parking Location Matches**
 
 ```bash
-npm run demo
+npm run dev    # Development mode with auto-reload
+# or
+npm start      # Production mode (requires npm run build first)
 ```
 
 This will:
+
 - Query all three providers (ParkWhiz, SpotHero, Cheap Airport Parking) for LAX and ORD
 - Store locations in the database
 - Match locations across providers
@@ -173,28 +176,31 @@ These are not committed, and are generated automatically based on current schema
 ## Available Scripts
 
 ### Development
-- `npm run dev` - Start development server with auto-reload (tsx watch)
+
+- `npm run dev` - Run the parking location matching system with auto-reload (development mode)
 - `npm run build` - Compile TypeScript to JavaScript
-- `npm start` - Run compiled JavaScript from dist/
+- `npm start` - Run compiled application from dist/ (production mode)
 - `npm run type-check` - Run TypeScript type checking without compilation
 
 ### Database Management
-- `npm run db:setup` - Complete database setup (migrate + generate types + seed)
+
+- `npm run db:setup` - Complete database setup (migrate + generate types + seed) NOTE: this happens automatically once when the dev env is first opened.
 - `npm run db:migrate` - Run pending database migrations
 - `npm run db:migrate:down` - Rollback the most recent migration
 - `npm run db:seed` - Populate database with sample data
 - `npm run db:create-migration` - Create a new migration file with timestamp
 - `npm run db:generate-types` - Generate TypeScript types from database schema
 
-### Testing & Demo
+### Testing
+
 - `npm test` - Run all tests once
 - `npm run test:watch` - Run tests in watch mode (auto-rerun on changes)
 - `npm run test:unit` - Run unit tests only (excludes integration tests)
 - `npm run test:integration` - Run integration tests only (excludes unit tests)
-- `npm run demo` - Run parking location matching demo with real APIs
 
 ### Advanced (Dev Container)
-- `npm run devcontainer:nuke` - Nuclear option: destroy database volume and rebuild
+
+- `npm run devcontainer:nuke` - Nuclear option: destroy database volume and rebuild (must exit the devcontainer and run in normal vs code then reopen after)
 
 ## Development
 
