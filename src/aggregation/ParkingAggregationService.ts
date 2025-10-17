@@ -122,7 +122,6 @@ export class ParkingAggregationService {
           address_full: location.address.full_address,
           latitude: location.coordinates?.latitude,
           longitude: location.coordinates?.longitude,
-          airport_code: searchParams.airport_code,
           distance_to_airport_miles: location.distance_to_airport_miles,
           daily_rate: location.pricing.daily_rate,
           hourly_rate: location.pricing.hourly_rate,

@@ -56,7 +56,7 @@ npm test
 ```bash
 npm run dev    # Development mode with auto-reload
 # or
-npm start      # Production mode (requires npm run build first)
+npm start      # Run directly with tsx (no build required)
 ```
 
 This will:
@@ -178,8 +178,7 @@ These are not committed, and are generated automatically based on current schema
 ### Development
 
 - `npm run dev` - Run the parking location matching system with auto-reload (development mode)
-- `npm run build` - Compile TypeScript to JavaScript
-- `npm start` - Run compiled application from dist/ (production mode)
+- `npm start` - Run the application directly with tsx (no build step required)
 - `npm run type-check` - Run TypeScript type checking without compilation
 
 ### Database Management
@@ -211,6 +210,12 @@ The dev container includes:
 - PostgreSQL client tools
 - Git and Bash
 - VS Code extensions for TypeScript development
+
+### IDEs that don't support devcontainer
+
+VS Code and Jetbrains both support (to varying degrees, vs code being best) the devcontainer standard, which discovers the .devcontainer folder and config to auto build the environment, run some containers, and then drop the developer into one of the containers, where the compiler, terminal, etc all have the required dev tools installed and ready to go with no manual setup.
+
+One can still manage tho, if one is familiar with docker-compose, one would run `docker compose up` and then once things are up and running, one can run `npm run devcontainer:enter` to get a terminal in the dev container and run the commands. Note that in such a case, one will need to manually run the commands in `postCreateCommand` of the [devcontainer.json](./.devcontainer/devcontainer.json) which at the time of this writing are `npm install && npm run db:setup`
 
 ## Environment Variables
 

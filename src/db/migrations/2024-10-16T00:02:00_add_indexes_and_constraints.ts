@@ -9,11 +9,6 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   // Create indexes for performance
   await sql`
-    CREATE INDEX idx_parking_locations_airport 
-    ON parking_locations (airport_code)
-  `.execute(db);
-
-  await sql`
     CREATE INDEX idx_parking_locations_provider 
     ON parking_locations (provider)
   `.execute(db);
@@ -25,7 +20,6 @@ export async function down(db: Kysely<any>): Promise<void> {
   await sql`DROP INDEX IF EXISTS parking_locations_provider_id_unique`.execute(
     db
   );
-  await sql`DROP INDEX IF EXISTS idx_parking_locations_airport`.execute(db);
   await sql`DROP INDEX IF EXISTS idx_parking_locations_provider`.execute(db);
   console.log("✅ Dropped indexes and constraints");
 }
